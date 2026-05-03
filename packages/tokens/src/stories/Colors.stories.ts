@@ -57,14 +57,29 @@ const wrap = (children: string): string => `
   </div>
 `;
 
-const palette = (name: "primary" | "secondary" | "green" | "orange" | "red"): Story => ({
-  render: () => {
-    const entries = Object.entries(colors[name]) as [string, string][];
-    const baseEntry = entries.find(([k]) => k === "base");
-    const baseShade = baseEntry ? baseEntry[1] : entries[0][1];
-    return wrap(strip(name, baseShade, entries));
-  },
+type PaletteName = "primary" | "secondary" | "green" | "orange" | "red";
+const PALETTE_ORDER: PaletteName[] = ["primary", "secondary", "green", "orange", "red"];
+
+const paletteStrip = (name: PaletteName): string => {
+  const entries = Object.entries(colors[name]) as [string, string][];
+  const baseEntry = entries.find(([k]) => k === "base");
+  const baseShade = baseEntry ? baseEntry[1] : entries[0][1];
+  return strip(name, baseShade, entries);
+};
+
+const palette = (name: PaletteName): Story => ({
+  render: () => wrap(paletteStrip(name)),
 });
+
+export const All: Story = {
+  render: () =>
+    wrap(
+      [
+        strip("Base", "single-value tokens", Object.entries(colorBase)),
+        ...PALETTE_ORDER.map(paletteStrip),
+      ].join(""),
+    ),
+};
 
 export const Base: Story = {
   render: () =>

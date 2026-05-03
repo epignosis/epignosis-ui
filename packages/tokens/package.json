@@ -20,5 +20,16 @@
     "./tokens.css": "./src/theme/tokens.css"
   },
   "files": ["src"],
-  "sideEffects": ["**/*.css"]
+  "sideEffects": ["**/*.css"],
+  "scripts": {
+    "storybook": "storybook dev -p 6007",
+    "build-storybook": "storybook build"
+  },
+  "devDependencies": {
+    "@storybook/html-vite": "^10.2.0",
+    "@types/node": "^20.0.0",
+    "storybook": "^10.2.0",
+    "typescript": "^6.0.0",
+    "vite": "^8.0.0"
+  }
 }

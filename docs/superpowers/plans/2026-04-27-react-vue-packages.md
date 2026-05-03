@@ -2,11 +2,13 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Restructure the `epignosis-ui` repo into a pnpm workspaces monorepo with three packages — `@epignosis/tokens` (existing tokens, relocated), `@epignosis/react` and `@epignosis/vue` (each with a sample Button consuming the tokens, and its own Storybook).
+**Goal:** Restructure the `epignosis-ui` repo into a pnpm workspaces monorepo with three packages — `@epignosis-ui/tokens` (existing tokens, relocated), `@epignosis-ui/react` and `@epignosis-ui/vue` (each with a sample Button consuming the tokens, and its own Storybook).
 
 **Architecture:** pnpm workspaces. Tokens ship raw `.ts` source (no build). Component packages prebuild with Vite library mode (Rollup ESM + CJS + `.d.ts`). Each component package owns its own Storybook v10 instance — React on port 6006, Vue on port 6007.
 
-**Tech Stack:** pnpm ≥ 9, Node ≥ 20, TypeScript 5.x, Vite 6, Storybook 10, React 18, Vue 3.4 (`<script setup>` + Composition API + TS).
+**Tech Stack:** pnpm ≥ 9, Node ≥ 20, **TypeScript 6**, **Vite 8**, Storybook 10, **React 19**, **Vue 3.5** (`<script setup>` + Composition API + TS).
+
+> **Note:** This plan was first drafted against React 18 / TS 5 / Vite 6 / Vue 3.4. During execution the user asked for latest-of-everything; the version bumps cascaded into a few build-config changes — the most consequential being that the React package no longer uses `vite-plugin-dts` (its bundled API Extractor doesn't support TS 6 yet — produces empty `.d.ts` silently). React now mirrors Vue: `vite build && tsc -p tsconfig.build.json`. This plan reflects the final shipped state.
 
 **Spec:** [`docs/superpowers/specs/2026-04-27-react-vue-packages-design.md`](../specs/2026-04-27-react-vue-packages-design.md)
 
@@ -53,9 +55,11 @@ Files this plan creates or modifies:
 **`packages/react/` (create):**
 - `package.json`
 - `tsconfig.json`
+- `tsconfig.build.json` (used by `tsc` for `.d.ts` emission with explicit `rootDir`)
 - `vite.config.ts`
 - `.storybook/main.ts`
 - `.storybook/preview.ts`
+- `.storybook/preview-head.html` (loads Mulish from Google Fonts)
 - `src/index.ts`
 - `src/Button/Button.tsx`
 - `src/Button/Button.css`
@@ -69,6 +73,7 @@ Files this plan creates or modifies:
 - `env.d.ts` (Vue SFC type shim for editors / vue-tsc)
 - `.storybook/main.ts`
 - `.storybook/preview.ts`
+- `.storybook/preview-head.html` (loads Mulish from Google Fonts)
 - `src/index.ts`
 - `src/Button/Button.vue`
 - `src/Button/Button.css`
@@ -108,14 +113,14 @@ Overwrite the existing `package.json` with:
     "pnpm": ">=9"
   },
   "scripts": {
-    "build": "pnpm -r --filter @epignosis/react --filter @epignosis/vue run build",
-    "storybook:react": "pnpm --filter @epignosis/react storybook",
-    "storybook:vue": "pnpm --filter @epignosis/vue storybook",
-    "storybook:all": "pnpm -r --parallel --filter \"@epignosis/{react,vue}\" run storybook",
-    "build-storybook": "pnpm -r --filter \"@epignosis/{react,vue}\" run build-storybook"
+    "build": "pnpm -r --filter @epignosis-ui/react --filter @epignosis-ui/vue run build",
+    "storybook:react": "pnpm --filter @epignosis-ui/react storybook",
+    "storybook:vue": "pnpm --filter @epignosis-ui/vue storybook",
+    "storybook:all": "pnpm -r --parallel --filter @epignosis-ui/react --filter @epignosis-ui/vue run storybook",
+    "build-storybook": "pnpm -r --filter @epignosis-ui/react --filter @epignosis-ui/vue run build-storybook"
   },
   "devDependencies": {
-    "typescript": "^5.4.0"
+    "typescript": "^6.0.0"
   }
 }
 ```
@@ -202,7 +207,7 @@ Verify with `ls packages/tokens/src/theme/` — should show `tokens.ts`.
 
 ```json
 {
-  "name": "@epignosis/tokens",
+  "name": "@epignosis-ui/tokens",
   "version": "0.1.0",
   "type": "module",
   "description": "Epignosis design tokens — framework-agnostic. Ships raw TS + CSS variables.",
@@ -382,7 +387,7 @@ Verify with `ls packages/tokens/src/theme/` — should show `tokens.ts`.
 - [ ] **Step 5: Create `packages/tokens/README.md`**
 
 ```markdown
-# @epignosis/tokens
+# @epignosis-ui/tokens
 
 Framework-agnostic design tokens for the Epignosis design system. Ships raw TypeScript and a CSS variables stylesheet — your bundler compiles them.
 
@@ -391,23 +396,23 @@ See the root [`DESIGN_TOKENS.md`](../../DESIGN_TOKENS.md) for the full token ref
 ## Usage
 
 ```ts
-import { colors, spacing } from "@epignosis/tokens";
-import "@epignosis/tokens/tokens.css";
+import { colors, spacing } from "@epignosis-ui/tokens";
+import "@epignosis-ui/tokens/tokens.css";
 ```
 ```
 
 - [ ] **Step 6: Run install and verify the package resolves**
 
 Run: `pnpm install`
-Expected: completes successfully. The workspace now recognises `@epignosis/tokens`.
+Expected: completes successfully. The workspace now recognises `@epignosis-ui/tokens`.
 
 Verify with:
 
 ```bash
-pnpm list --filter @epignosis/tokens --depth 0
+pnpm list --filter @epignosis-ui/tokens --depth 0
 ```
 
-Expected output includes a line like `@epignosis/tokens@0.1.0 /Users/alexboi/projects/Epignosis/epignosis-ui/packages/tokens`.
+Expected output includes a line like `@epignosis-ui/tokens@0.1.0 /Users/alexboi/projects/Epignosis/epignosis-ui/packages/tokens`.
 
 - [ ] **Step 7: Commit**
 
@@ -421,12 +426,12 @@ git status
 `git status` should show: renamed `src/index.ts` → `packages/tokens/src/index.ts`, renamed `src/theme/tokens.ts` → `packages/tokens/src/theme/tokens.ts`, plus new files for `package.json`, `tsconfig.json`, `README.md`, `tokens.css`.
 
 ```bash
-git commit -m "Move design tokens into @epignosis/tokens package, add tokens.css"
+git commit -m "Move design tokens into @epignosis-ui/tokens package, add tokens.css"
 ```
 
 ---
 
-## Task 3: Scaffold `@epignosis/react` (no component yet)
+## Task 3: Scaffold `@epignosis-ui/react` (no component yet)
 
 **Files:**
 - Create: `packages/react/package.json`
@@ -438,7 +443,7 @@ git commit -m "Move design tokens into @epignosis/tokens package, add tokens.css
 
 ```json
 {
-  "name": "@epignosis/react",
+  "name": "@epignosis-ui/react",
   "version": "0.1.0",
   "type": "module",
   "description": "Epignosis React component library.",
@@ -456,34 +461,33 @@ git commit -m "Move design tokens into @epignosis/tokens package, add tokens.css
   "files": ["dist"],
   "sideEffects": ["**/*.css"],
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && tsc -p tsconfig.build.json",
     "dev": "vite build --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
   },
   "dependencies": {
-    "@epignosis/tokens": "workspace:*"
+    "@epignosis-ui/tokens": "workspace:*"
   },
   "devDependencies": {
     "@storybook/react-vite": "^10.2.0",
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.0",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^6.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "storybook": "^10.2.0",
-    "typescript": "^5.4.0",
-    "vite": "^6.0.0",
-    "vite-plugin-dts": "^4.0.0"
+    "typescript": "^6.0.0",
+    "vite": "^8.0.0"
   }
 }
 ```
 
-- [ ] **Step 2: Create `packages/react/tsconfig.json`**
+- [ ] **Step 2: Create `packages/react/tsconfig.json`** (used by editors and Storybook; no emit)
 
 ```json
 {
@@ -491,31 +495,45 @@ git commit -m "Move design tokens into @epignosis/tokens package, add tokens.css
   "compilerOptions": {
     "jsx": "react-jsx",
     "outDir": "dist",
-    "noEmit": true
+    "noEmit": true,
+    "types": ["vite/client"]
   },
   "include": ["src", "vite.config.ts", ".storybook"]
 }
 ```
 
-(`noEmit: true` because `vite-plugin-dts` emits declarations during the Vite build.)
+(`types: ["vite/client"]` is required under TS 6 — it provides the ambient `*.css` declaration so `import "./Button.css"` doesn't error.)
 
-- [ ] **Step 3: Create `packages/react/vite.config.ts`**
+- [ ] **Step 3: Create `packages/react/tsconfig.build.json`** (used by `tsc` to emit `.d.ts` for the shipped public API)
+
+```json
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "./src",
+    "outDir": "dist",
+    "types": ["vite/client"]
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.stories.ts", "src/**/*.stories.tsx", "node_modules", "dist"]
+}
+```
+
+(`rootDir: "./src"` — TS 6 requires it explicitly when emit paths must collapse to flat `dist/index.d.ts` instead of `dist/src/index.d.ts`.)
+
+- [ ] **Step 4: Create `packages/react/vite.config.ts`**
 
 ```ts
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import dts from "vite-plugin-dts";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    dts({
-      include: ["src"],
-      tsconfigPath: "./tsconfig.json",
-      rollupTypes: true,
-    }),
-  ],
+  plugins: [react()],
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
@@ -538,30 +556,32 @@ export default defineConfig({
 });
 ```
 
-- [ ] **Step 4: Create empty `packages/react/src/index.ts`**
+(No `vite-plugin-dts`. Its bundled API Extractor doesn't yet support TS 6 — it produces an empty rolled-up `.d.ts` silently. The `tsc -p tsconfig.build.json` step in the build script handles declarations instead.)
+
+- [ ] **Step 5: Create empty `packages/react/src/index.ts`**
 
 ```ts
 // Public exports — populated by Task 4.
 export {};
 ```
 
-- [ ] **Step 5: Install dependencies**
+- [ ] **Step 6: Install dependencies**
 
 Run: `pnpm install`
 Expected: completes successfully, installs Vite, React, Storybook, etc. into the workspace.
 
-- [ ] **Step 6: Verify the (empty) build succeeds**
+- [ ] **Step 7: Verify the (empty) build succeeds**
 
-Run: `pnpm --filter @epignosis/react build`
-Expected: succeeds. `dist/index.js`, `dist/index.cjs`, and `dist/index.d.ts` exist (even though empty).
+Run: `pnpm --filter @epignosis-ui/react build`
+Expected: succeeds. `dist/index.js`, `dist/index.cjs`, and `dist/index.d.ts` exist (even though essentially empty).
 
 Verify: `ls packages/react/dist/` should show those three files.
 
-- [ ] **Step 7: Commit**
+- [ ] **Step 8: Commit**
 
 ```bash
 git add packages/react/ pnpm-lock.yaml
-git commit -m "Scaffold @epignosis/react with Vite library build"
+git commit -m "Scaffold @epignosis-ui/react with Vite library build"
 ```
 
 ---
@@ -668,7 +688,7 @@ export type { ButtonProps, ButtonVariant, ButtonSize } from "./Button/Button";
 
 - [ ] **Step 4: Build and verify outputs**
 
-Run: `pnpm --filter @epignosis/react build`
+Run: `pnpm --filter @epignosis-ui/react build`
 
 Expected: succeeds with no errors. Verify:
 
@@ -721,7 +741,7 @@ export default config;
 
 ```ts
 import type { Preview } from "@storybook/react-vite";
-import "@epignosis/tokens/tokens.css";
+import "@epignosis-ui/tokens/tokens.css";
 
 const preview: Preview = {
   parameters: {
@@ -734,7 +754,20 @@ const preview: Preview = {
 export default preview;
 ```
 
-- [ ] **Step 3: Create `packages/react/src/Button/Button.stories.tsx`**
+- [ ] **Step 3: Create `packages/react/.storybook/preview-head.html`**
+
+The tokens declare `font-family: "Mulish", Arial, sans-serif` but don't ship the font file. Without this `<link>`, Storybook silently falls back to Arial. (Gnosis has the same gap — its consuming apps load Mulish themselves.)
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800&display=swap"
+/>
+```
+
+- [ ] **Step 4: Create `packages/react/src/Button/Button.stories.tsx`**
 
 ```tsx
 import type { Meta, StoryObj } from "@storybook/react-vite";
@@ -762,9 +795,9 @@ export const Disabled: Story = { args: { disabled: true } };
 export const SecondaryDisabled: Story = { args: { variant: "secondary", disabled: true } };
 ```
 
-- [ ] **Step 4: Verify Storybook dev server boots**
+- [ ] **Step 5: Verify Storybook dev server boots**
 
-Run: `pnpm --filter @epignosis/react storybook` (in a terminal you can leave open or run in background).
+Run: `pnpm --filter @epignosis-ui/react storybook` (in a terminal you can leave open or run in background).
 Expected: Storybook starts on http://localhost:6006. Console prints something like `Storybook 10.x.x for react-vite started`.
 
 In a browser, open http://localhost:6006. Navigate to `Components/Button`. Verify:
@@ -774,15 +807,16 @@ In a browser, open http://localhost:6006. Navigate to `Components/Button`. Verif
 - "Small" is visibly smaller than "Primary".
 - "Disabled" stories are at 50% opacity.
 - Toggling controls in the right panel updates the preview.
+- Button text renders in Mulish (the rounded-edge sans-serif), not Arial.
 
 Stop the server (Ctrl+C) before continuing.
 
-- [ ] **Step 5: Verify static build**
+- [ ] **Step 6: Verify static build**
 
-Run: `pnpm --filter @epignosis/react build-storybook`
+Run: `pnpm --filter @epignosis-ui/react build-storybook`
 Expected: succeeds, produces `packages/react/storybook-static/`. `index.html` exists in that directory.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 7: Commit**
 
 ```bash
 git add packages/react/.storybook packages/react/src/Button/Button.stories.tsx
@@ -791,7 +825,7 @@ git commit -m "Add React Storybook with Button stories"
 
 ---
 
-## Task 6: Scaffold `@epignosis/vue` (no component yet)
+## Task 6: Scaffold `@epignosis-ui/vue` (no component yet)
 
 **Files:**
 - Create: `packages/vue/package.json`
@@ -805,7 +839,7 @@ git commit -m "Add React Storybook with Button stories"
 
 ```json
 {
-  "name": "@epignosis/vue",
+  "name": "@epignosis-ui/vue",
   "version": "0.1.0",
   "type": "module",
   "description": "Epignosis Vue 3 component library.",
@@ -823,26 +857,26 @@ git commit -m "Add React Storybook with Button stories"
   "files": ["dist"],
   "sideEffects": ["**/*.css"],
   "scripts": {
-    "build": "vue-tsc -p tsconfig.build.json && vite build",
+    "build": "vite build && vue-tsc -p tsconfig.build.json",
     "dev": "vite build --watch",
     "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build"
   },
   "peerDependencies": {
-    "vue": "^3.4.0"
+    "vue": "^3.5.0"
   },
   "dependencies": {
-    "@epignosis/tokens": "workspace:*"
+    "@epignosis-ui/tokens": "workspace:*"
   },
   "devDependencies": {
     "@storybook/vue3-vite": "^10.2.0",
-    "@vitejs/plugin-vue": "^5.1.0",
+    "@vitejs/plugin-vue": "^6.0.0",
     "storybook": "^10.2.0",
-    "typescript": "^5.4.0",
-    "vite": "^6.0.0",
-    "vue": "^3.4.0",
-    "vue-component-meta": "^2.1.0",
-    "vue-tsc": "^2.1.0"
+    "typescript": "^6.0.0",
+    "vite": "^8.0.0",
+    "vue": "^3.5.0",
+    "vue-component-meta": "^3.0.0",
+    "vue-tsc": "^3.0.0"
   }
 }
 ```
@@ -872,12 +906,16 @@ git commit -m "Add React Storybook with Button stories"
     "noEmit": false,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "outDir": "dist"
+    "rootDir": "./src",
+    "outDir": "dist",
+    "types": ["vite/client"]
   },
-  "include": ["src/index.ts", "src/**/*.vue", "src/**/*.ts", "env.d.ts"],
+  "include": ["src/index.ts", "src/**/*.vue", "src/**/*.ts"],
   "exclude": ["src/**/*.stories.ts", "src/**/*.stories.tsx", "node_modules", "dist"]
 }
 ```
+
+(`rootDir: "./src"` is required under TS 6 — without it, declarations would emit under `dist/src/...` instead of flat `dist/...`. `types: ["vite/client"]` provides the ambient `*.css` declaration so the `import "./Button.css"` inside `Button.vue` resolves. `env.d.ts` is intentionally not included in the build — keeping it out of `rootDir`'s scope avoids forcing the output structure into a parent directory.)
 
 - [ ] **Step 4: Create `packages/vue/vite.config.ts`**
 
@@ -937,16 +975,18 @@ Expected: completes successfully. Vue, Vite plugin, Storybook, vue-tsc all insta
 
 - [ ] **Step 8: Verify scaffold builds (empty)**
 
-Run: `pnpm --filter @epignosis/vue build`
-Expected: succeeds. `vue-tsc` produces `dist/index.d.ts` (essentially empty), then `vite build` produces `dist/index.js` and `dist/index.cjs`.
+Run: `pnpm --filter @epignosis-ui/vue build`
+Expected: succeeds. `vite build` produces `dist/index.js` and `dist/index.cjs` first, then `vue-tsc` emits `dist/index.d.ts` (essentially empty for an `export {}` entry — `vue-tsc 3` may skip emit entirely; that's fine, the Button task will produce real declarations).
 
-Verify: `ls packages/vue/dist/` shows those files.
+Verify: `ls packages/vue/dist/` shows the built JS files.
+
+(Build order matters: vite first, then vue-tsc. Vite's `emptyOutDir: true` would otherwise wipe vue-tsc's output if vue-tsc ran first.)
 
 - [ ] **Step 9: Commit**
 
 ```bash
 git add packages/vue/ pnpm-lock.yaml
-git commit -m "Scaffold @epignosis/vue with Vite library build"
+git commit -m "Scaffold @epignosis-ui/vue with Vite library build"
 ```
 
 ---
@@ -1060,7 +1100,7 @@ export type { ButtonProps, ButtonVariant, ButtonSize } from "./Button/Button.vue
 
 - [ ] **Step 4: Build and verify outputs**
 
-Run: `pnpm --filter @epignosis/vue build`
+Run: `pnpm --filter @epignosis-ui/vue build`
 Expected: `vue-tsc` succeeds (no type errors), then `vite build` succeeds. Verify:
 
 ```bash
@@ -1111,7 +1151,7 @@ export default config;
 
 ```ts
 import type { Preview } from "@storybook/vue3-vite";
-import "@epignosis/tokens/tokens.css";
+import "@epignosis-ui/tokens/tokens.css";
 
 const preview: Preview = {
   parameters: {
@@ -1124,7 +1164,20 @@ const preview: Preview = {
 export default preview;
 ```
 
-- [ ] **Step 3: Create `packages/vue/src/Button/Button.stories.ts`**
+- [ ] **Step 3: Create `packages/vue/.storybook/preview-head.html`**
+
+Same rationale as the React package — without this Storybook falls back to Arial because the tokens declare Mulish but don't ship the font file.
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800&display=swap"
+/>
+```
+
+- [ ] **Step 4: Create `packages/vue/src/Button/Button.stories.ts`**
 
 ```ts
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
@@ -1157,9 +1210,9 @@ export const Disabled: Story = { args: { disabled: true } };
 export const SecondaryDisabled: Story = { args: { variant: "secondary", disabled: true } };
 ```
 
-- [ ] **Step 4: Verify Storybook dev server boots**
+- [ ] **Step 5: Verify Storybook dev server boots**
 
-Run: `pnpm --filter @epignosis/vue storybook`
+Run: `pnpm --filter @epignosis-ui/vue storybook`
 Expected: starts on http://localhost:6007.
 
 In a browser, open http://localhost:6007. Navigate to `Components/Button`. Verify:
@@ -1167,15 +1220,16 @@ In a browser, open http://localhost:6007. Navigate to `Components/Button`. Verif
 - "Primary" shows the same blue button (`#0046AB`) as the React Storybook.
 - All variants/sizes/disabled states render identically to the React side.
 - Controls in the right panel update the preview.
+- Button text renders in Mulish, matching the React Storybook.
 
 Stop the server (Ctrl+C) before continuing.
 
-- [ ] **Step 5: Verify static build**
+- [ ] **Step 6: Verify static build**
 
-Run: `pnpm --filter @epignosis/vue build-storybook`
+Run: `pnpm --filter @epignosis-ui/vue build-storybook`
 Expected: succeeds, produces `packages/vue/storybook-static/index.html`.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 7: Commit**
 
 ```bash
 git add packages/vue/.storybook packages/vue/src/Button/Button.stories.ts
@@ -1200,9 +1254,9 @@ Monorepo hosting the shared Epignosis UI:
 
 | Package | What it is |
 | --- | --- |
-| [`@epignosis/tokens`](./packages/tokens) | Framework-agnostic design tokens (TS + CSS variables). |
-| [`@epignosis/react`](./packages/react) | React 18 component library + Storybook. |
-| [`@epignosis/vue`](./packages/vue) | Vue 3 component library + Storybook. |
+| [`@epignosis-ui/tokens`](./packages/tokens) | Framework-agnostic design tokens (TS + CSS variables). |
+| [`@epignosis-ui/react`](./packages/react) | React 18 component library + Storybook. |
+| [`@epignosis-ui/vue`](./packages/vue) | Vue 3 component library + Storybook. |
 
 See [`DESIGN_TOKENS.md`](./DESIGN_TOKENS.md) for the full token reference.
 
@@ -1223,7 +1277,7 @@ pnpm install
 pnpm build
 ```
 
-Builds `@epignosis/react` and `@epignosis/vue`. Tokens has no build step (ships raw source).
+Builds `@epignosis-ui/react` and `@epignosis-ui/vue`. Tokens has no build step (ships raw source).
 
 ## Run Storybook
 
@@ -1239,9 +1293,9 @@ pnpm build-storybook       # Static builds for both, output to packages/*/storyb
 ```
 epignosis-ui/
 ├── packages/
-│   ├── tokens/             @epignosis/tokens (raw TS source, no build)
-│   ├── react/              @epignosis/react (Vite library build, Storybook on :6006)
-│   └── vue/                @epignosis/vue (Vite library build, Storybook on :6007)
+│   ├── tokens/             @epignosis-ui/tokens (raw TS source, no build)
+│   ├── react/              @epignosis-ui/react (Vite library build, Storybook on :6006)
+│   └── vue/                @epignosis-ui/vue (Vite library build, Storybook on :6007)
 ├── DESIGN_TOKENS.md        token reference
 ├── docs/superpowers/       design specs and implementation plans
 ├── pnpm-workspace.yaml
@@ -1253,17 +1307,17 @@ epignosis-ui/
 ### React
 
 ```ts
-import { Button } from "@epignosis/react";
-import "@epignosis/tokens/tokens.css";
-import "@epignosis/react/styles.css";
+import { Button } from "@epignosis-ui/react";
+import "@epignosis-ui/tokens/tokens.css";
+import "@epignosis-ui/react/styles.css";
 ```
 
 ### Vue
 
 ```ts
-import { Button } from "@epignosis/vue";
-import "@epignosis/tokens/tokens.css";
-import "@epignosis/vue/styles.css";
+import { Button } from "@epignosis-ui/vue";
+import "@epignosis-ui/tokens/tokens.css";
+import "@epignosis-ui/vue/styles.css";
 ```
 ````
 
@@ -1274,7 +1328,7 @@ pnpm install
 pnpm build
 ```
 
-Expected: install completes, then both `@epignosis/react` and `@epignosis/vue` build cleanly. `dist/` exists in both with `index.js`, `index.cjs`, `index.d.ts`, `styles.css`.
+Expected: install completes, then both `@epignosis-ui/react` and `@epignosis-ui/vue` build cleanly. `dist/` exists in both with `index.js`, `index.cjs`, `index.d.ts`, `styles.css`.
 
 - [ ] **Step 3: Run both Storybooks together**
 
@@ -1320,9 +1374,9 @@ Expected: see commits for each task on top of the spec commit and `initial commi
 ## Done
 
 The monorepo is now in place with:
-- `@epignosis/tokens` — relocated, with new `tokens.css`
-- `@epignosis/react` — sample Button + Storybook on :6006
-- `@epignosis/vue` — sample Button + Storybook on :6007
+- `@epignosis-ui/tokens` — relocated, with new `tokens.css`
+- `@epignosis-ui/react` — sample Button + Storybook on :6006
+- `@epignosis-ui/vue` — sample Button + Storybook on :6007
 - Root scripts that fan out to per-package builds and Storybooks
 
 Out-of-scope follow-ups (from the spec): tests, CI/lint/Prettier, publishing flow, Storybook composition, codegen for `tokens.css`.

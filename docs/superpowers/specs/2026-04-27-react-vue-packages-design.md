@@ -7,9 +7,9 @@
 
 Restructure the `epignosis-ui` repo from a single tokens-only package into a pnpm workspaces monorepo that hosts:
 
-1. `@epignosis/tokens` — the existing design tokens (TS + CSS variables), framework-agnostic.
-2. `@epignosis/react` — a React 18 component library that consumes the tokens, with its own Storybook.
-3. `@epignosis/vue` — a Vue 3 component library that consumes the tokens, with its own Storybook.
+1. `@epignosis-ui/tokens` — the existing design tokens (TS + CSS variables), framework-agnostic.
+2. `@epignosis-ui/react` — a React 18 component library that consumes the tokens, with its own Storybook.
+3. `@epignosis-ui/vue` — a Vue 3 component library that consumes the tokens, with its own Storybook.
 
 A sample `Button` component lives in each component package and demonstrates real consumption of the tokens (colors, spacing, typography, border-radius, transitions). Each Button has variants `primary | secondary`, sizes `sm | md`, and a `disabled` state.
 
@@ -33,9 +33,9 @@ epignosis-ui/
 ├── DESIGN_TOKENS.md              kept at repo root, content unchanged
 ├── docs/superpowers/specs/       this design lives here
 └── packages/
-    ├── tokens/                   @epignosis/tokens
-    ├── react/                    @epignosis/react
-    └── vue/                      @epignosis/vue
+    ├── tokens/                   @epignosis-ui/tokens
+    ├── react/                    @epignosis-ui/react
+    └── vue/                      @epignosis-ui/vue
 ```
 
 `pnpm-workspace.yaml`:
@@ -49,11 +49,14 @@ packages:
 
 - Node ≥ 20.
 - pnpm ≥ 9 already installed locally.
-- All packages use TypeScript 5.x.
-- Component packages use Vite 6 in library mode for builds; tokens package ships raw `.ts` source (no build step).
+- All packages use **TypeScript 6.x** (current latest).
+- Component packages use **Vite 8** in library mode for builds; tokens package ships raw `.ts` source (no build step).
 - Storybook 10.x using `@storybook/react-vite` and `@storybook/vue3-vite` framework adapters with CSF 3 stories.
+- React 19 in the React package, Vue 3.5 in the Vue package.
 
-## Package: `@epignosis/tokens`
+> **Note:** This spec was originally drafted with React 18 / TypeScript 5 / Vite 6 / Vue 3.4 to match what felt like "stable defaults." The user requested latest-of-everything during implementation; the values above reflect what actually shipped. The plan document captures the build-tooling consequences of the bump (notably: `vite-plugin-dts` could not produce a typed rollup under TS 6, so the React package emits declarations via a plain `tsc -p tsconfig.build.json` step like Vue does).
+
+## Package: `@epignosis-ui/tokens`
 
 The current code (`src/theme/tokens.ts`, `src/index.ts`) moves into `packages/tokens/src/` essentially unchanged.
 
@@ -74,7 +77,7 @@ packages/tokens/
 
 ```json
 {
-  "name": "@epignosis/tokens",
+  "name": "@epignosis-ui/tokens",
   "version": "0.1.0",
   "type": "module",
   "main": "src/index.ts",
@@ -92,7 +95,7 @@ packages/tokens/
 
 ### Differences from today
 
-- Renamed from `epignosis-ui` to `@epignosis/tokens`.
+- Renamed from `epignosis-ui` to `@epignosis-ui/tokens`.
 - React peer deps removed (tokens are framework-agnostic).
 - `src/theme/tokens.css` is added. The existing root `package.json` already references it in its exports map but the file did not exist.
 
@@ -102,7 +105,7 @@ packages/tokens/
 
 If drift becomes a real problem later, replace the hand-written file with a small codegen script. Out of scope today.
 
-## Package: `@epignosis/react`
+## Package: `@epignosis-ui/react`
 
 ### Layout
 
@@ -114,7 +117,7 @@ packages/react/
 ├── vite.config.ts                 library mode build
 ├── .storybook/
 │   ├── main.ts
-│   └── preview.ts                 imports @epignosis/tokens/tokens.css globally
+│   └── preview.ts                 imports @epignosis-ui/tokens/tokens.css globally
 └── src/
     ├── index.ts                   public exports
     └── Button/
@@ -127,7 +130,7 @@ packages/react/
 
 ```json
 {
-  "name": "@epignosis/react",
+  "name": "@epignosis-ui/react",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -150,21 +153,22 @@ packages/react/
     "build-storybook": "storybook build"
   },
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
   },
   "dependencies": {
-    "@epignosis/tokens": "workspace:*"
+    "@epignosis-ui/tokens": "workspace:*"
   },
   "devDependencies": {
     "@storybook/react-vite": "^10.2.0",
-    "@vitejs/plugin-react": "^4.3.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^6.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "storybook": "^10.2.0",
-    "vite": "^6.0.0",
-    "vite-plugin-dts": "^4.0.0",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
-    "typescript": "^5.4.0"
+    "typescript": "^6.0.0",
+    "vite": "^8.0.0"
   }
 }
 ```
@@ -176,8 +180,8 @@ packages/react/
 - `entry: src/index.ts`
 - `formats: ['es', 'cjs']` → `dist/index.js`, `dist/index.cjs`
 - `rollupOptions.external: ['react', 'react-dom', 'react/jsx-runtime']`
-- `vite-plugin-dts` emits `dist/index.d.ts` (no separate `tsc` step needed for the React package — the plugin handles `.ts`/`.tsx` declaration emission during `vite build`)
 - All component CSS aggregates into `dist/styles.css` (one stylesheet consumers import once)
+- Declarations emitted by a separate `tsc -p tsconfig.build.json` step after `vite build`. (Originally we tried `vite-plugin-dts`, but its bundled API Extractor doesn't yet support TS 6 — it silently produced an empty rolled-up `.d.ts`. Plain `tsc` with `rootDir: "./src"` works cleanly and gives us symmetry with Vue.)
 
 ### Sample `Button` API
 
@@ -213,7 +217,7 @@ export function Button({
 
 ### Sample `Button` CSS
 
-`Button.css` consumes CSS variables from `@epignosis/tokens/tokens.css`. The `eg-` prefix prevents collisions in consumer apps.
+`Button.css` consumes CSS variables from `@epignosis-ui/tokens/tokens.css`. The `eg-` prefix prevents collisions in consumer apps.
 
 ```css
 .eg-button {
@@ -276,12 +280,12 @@ export type { ButtonProps } from "./Button/Button";
 ### Consumer usage
 
 ```ts
-import { Button } from "@epignosis/react";
-import "@epignosis/tokens/tokens.css";
-import "@epignosis/react/styles.css";
+import { Button } from "@epignosis-ui/react";
+import "@epignosis-ui/tokens/tokens.css";
+import "@epignosis-ui/react/styles.css";
 ```
 
-## Package: `@epignosis/vue`
+## Package: `@epignosis-ui/vue`
 
 ### Layout
 
@@ -293,7 +297,7 @@ packages/vue/
 ├── vite.config.ts                 library mode + @vitejs/plugin-vue
 ├── .storybook/
 │   ├── main.ts                    framework: '@storybook/vue3-vite', docgen: 'vue-component-meta'
-│   └── preview.ts                 imports @epignosis/tokens/tokens.css globally
+│   └── preview.ts                 imports @epignosis-ui/tokens/tokens.css globally
 └── src/
     ├── index.ts                   public exports
     └── Button/
@@ -306,7 +310,7 @@ packages/vue/
 
 ```json
 {
-  "name": "@epignosis/vue",
+  "name": "@epignosis-ui/vue",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -329,27 +333,29 @@ packages/vue/
     "build-storybook": "storybook build"
   },
   "peerDependencies": {
-    "vue": "^3.4.0"
+    "vue": "^3.5.0"
   },
   "dependencies": {
-    "@epignosis/tokens": "workspace:*"
+    "@epignosis-ui/tokens": "workspace:*"
   },
   "devDependencies": {
     "@storybook/vue3-vite": "^10.2.0",
-    "@vitejs/plugin-vue": "^5.1.0",
+    "@vitejs/plugin-vue": "^6.0.0",
     "storybook": "^10.2.0",
-    "vite": "^6.0.0",
-    "vite-plugin-dts": "^4.0.0",
-    "vue": "^3.4.0",
-    "vue-tsc": "^2.0.0",
-    "typescript": "^5.4.0"
+    "typescript": "^6.0.0",
+    "vite": "^8.0.0",
+    "vue": "^3.5.0",
+    "vue-component-meta": "^3.0.0",
+    "vue-tsc": "^3.0.0"
   }
 }
 ```
 
 ### Build output
 
-Vite library mode with `@vitejs/plugin-vue` to compile SFCs. **Note the asymmetry vs. the React package:** the Vue build runs `vue-tsc` as a separate step before `vite build` because `vite-plugin-dts` does not natively understand `.vue` files, while `vue-tsc` does. External: `vue`. Component CSS aggregates into `dist/styles.css`.
+Vite library mode with `@vitejs/plugin-vue` to compile SFCs. The Vue build runs `vue-tsc -p tsconfig.build.json` **after** `vite build` (not before — Vite's `emptyOutDir: true` would otherwise wipe vue-tsc's output). External: `vue`. Component CSS aggregates into `dist/styles.css`.
+
+`tsconfig.build.json` sets `rootDir: "./src"` (TS 6 requires it explicitly) and `types: ["vite/client"]` (TS 6 needs CSS side-effect imports declared, which `vite/client` provides).
 
 ### Sample `Button` (`<script setup>` + Composition API + TS)
 
@@ -389,7 +395,7 @@ defineEmits<{ (e: "click", event: MouseEvent): void }>();
 
 ### Sample `Button` CSS
 
-Identical to the React package's `Button.css`. Same class names, same CSS-variable references. The file is duplicated rather than extracted into a shared internal package — at ~40 lines for one component, duplication is simpler. If/when more components arrive and CSS overlap grows, extract a `@epignosis/styles` internal package then.
+Identical to the React package's `Button.css`. Same class names, same CSS-variable references. The file is duplicated rather than extracted into a shared internal package — at ~40 lines for one component, duplication is simpler. If/when more components arrive and CSS overlap grows, extract a `@epignosis-ui/styles` internal package then.
 
 ### Storybook stories
 
@@ -435,9 +441,9 @@ export type { ButtonProps } from "./Button/Button.vue";
 ### Consumer usage
 
 ```ts
-import { Button } from "@epignosis/vue";
-import "@epignosis/tokens/tokens.css";
-import "@epignosis/vue/styles.css";
+import { Button } from "@epignosis-ui/vue";
+import "@epignosis-ui/tokens/tokens.css";
+import "@epignosis-ui/vue/styles.css";
 ```
 
 ## Storybook architecture
@@ -451,7 +457,8 @@ Each package owns its own Storybook. No shared shell, no cross-framework navigat
 | Vue adapter | `@storybook/vue3-vite` with `docgen: 'vue-component-meta'` | Best TS prop inference for autodocs. |
 | Stories format | CSF 3 (not CSF Next) | Stable, well-documented. |
 | Story location | Colocated next to component source | Standard practice. |
-| Tokens in preview | Each `.storybook/preview.ts` imports `@epignosis/tokens/tokens.css` | Stories render with real CSS variables. |
+| Tokens in preview | Each `.storybook/preview.ts` imports `@epignosis-ui/tokens/tokens.css` | Stories render with real CSS variables. |
+| Web fonts in preview | Each package has a `.storybook/preview-head.html` that loads Mulish from Google Fonts | The tokens declare `font-family: "Mulish", Arial, sans-serif` but don't ship the font file. Without this, Storybook silently falls back to Arial. (Gnosis has the same gap — its consuming apps load Mulish themselves.) |
 | Default ports | React 6006, Vue 6007 | Both can run simultaneously. |
 | Build output | Each package's own `storybook-static/` | Independent deploys. |
 | Addons | None beyond what ships in SB 10 core | Avoid addon drift. |
@@ -460,11 +467,11 @@ Each package owns its own Storybook. No shared shell, no cross-framework navigat
 
 ```json
 "scripts": {
-  "build":            "pnpm -r --filter @epignosis/react --filter @epignosis/vue run build",
-  "storybook:react":  "pnpm --filter @epignosis/react storybook",
-  "storybook:vue":    "pnpm --filter @epignosis/vue storybook",
-  "storybook:all":    "pnpm -r --parallel --filter \"@epignosis/{react,vue}\" run storybook",
-  "build-storybook":  "pnpm -r --filter \"@epignosis/{react,vue}\" run build-storybook"
+  "build":            "pnpm -r --filter @epignosis-ui/react --filter @epignosis-ui/vue run build",
+  "storybook:react":  "pnpm --filter @epignosis-ui/react storybook",
+  "storybook:vue":    "pnpm --filter @epignosis-ui/vue storybook",
+  "storybook:all":    "pnpm -r --parallel --filter @epignosis-ui/react --filter @epignosis-ui/vue run storybook",
+  "build-storybook":  "pnpm -r --filter @epignosis-ui/react --filter @epignosis-ui/vue run build-storybook"
 }
 ```
 
@@ -475,17 +482,17 @@ Each package owns its own Storybook. No shared shell, no cross-framework navigat
 
 ## Inter-package dependencies
 
-`@epignosis/react` and `@epignosis/vue` each declare `@epignosis/tokens` with `workspace:*`. pnpm symlinks the local source. Component packages import like:
+`@epignosis-ui/react` and `@epignosis-ui/vue` each declare `@epignosis-ui/tokens` with `workspace:*`. pnpm symlinks the local source. Component packages import like:
 
 ```ts
-import { colors } from "@epignosis/tokens";
-import "@epignosis/tokens/tokens.css";
+import { colors } from "@epignosis-ui/tokens";
+import "@epignosis-ui/tokens/tokens.css";
 ```
 
 ## Verification once built
 
 1. `pnpm install` from the root succeeds with no errors.
-2. `pnpm -r build` builds `@epignosis/react` and `@epignosis/vue` cleanly. (`@epignosis/tokens` has no build.)
+2. `pnpm -r build` builds `@epignosis-ui/react` and `@epignosis-ui/vue` cleanly. (`@epignosis-ui/tokens` has no build.)
 3. `pnpm storybook:react` opens on :6006 and renders all 5 Button stories with tokens visibly applied (primary blue = `#0046AB`).
 4. `pnpm storybook:vue` opens on :6007 and renders the same 5 stories.
 5. `pnpm storybook:all` runs both in parallel without port conflicts.

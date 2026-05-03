@@ -1,60 +1,71 @@
 # epignosis-ui
 
-Shared Epignosis UI package — design tokens (and React components to follow). Intended to be consumed **directly from the repo** by other React apps rather than via npm.
+Monorepo hosting the shared Epignosis UI:
+
+| Package | What it is |
+| --- | --- |
+| [`@epignosis-ui/tokens`](./packages/tokens) | Framework-agnostic design tokens (TS + CSS variables). |
+| [`@epignosis-ui/react`](./packages/react) | React 18 component library + Storybook. |
+| [`@epignosis-ui/vue`](./packages/vue) | Vue 3 component library + Storybook. |
+
+See [`DESIGN_TOKENS.md`](./DESIGN_TOKENS.md) for the full token reference.
+
+## Requirements
+
+- Node ≥ 20
+- pnpm ≥ 9 (`corepack enable && corepack prepare pnpm@latest --activate` if missing)
 
 ## Install
 
-Add it to a consuming app's `package.json` using a git URL, e.g.:
-
-```json
-{
-  "dependencies": {
-    "epignosis-ui": "github:epignosis/epignosis-ui"
-  }
-}
+```bash
+pnpm install
 ```
 
-Or via npm CLI:
+## Build the component packages
 
 ```bash
-npm install epignosis/epignosis-ui
+pnpm build
 ```
 
-Because the package exports source files directly (TypeScript + CSS), the consuming app's bundler (Vite, Webpack, Rollup, esbuild, etc.) compiles them. No build step is required in this repo.
+Builds `@epignosis-ui/react` and `@epignosis-ui/vue`. Tokens has no build step (ships raw source).
 
-## Usage
+## Run Storybook
 
-### Design tokens (JS/TS)
+```bash
+pnpm storybook:react       # React Storybook on http://localhost:6006
+pnpm storybook:vue         # Vue Storybook on http://localhost:6007
+pnpm storybook:all         # Both, in parallel
+pnpm build-storybook       # Static builds for both, output to packages/*/storybook-static/
+```
+
+## Layout
+
+```
+epignosis-ui/
+├── packages/
+│   ├── tokens/             @epignosis-ui/tokens (raw TS source, no build)
+│   ├── react/              @epignosis-ui/react (Vite library build, Storybook on :6006)
+│   └── vue/                @epignosis-ui/vue (Vite library build, Storybook on :6007)
+├── DESIGN_TOKENS.md        token reference
+├── docs/superpowers/       design specs and implementation plans
+├── pnpm-workspace.yaml
+└── tsconfig.base.json      shared TS settings
+```
+
+## Consumer usage
+
+### React
 
 ```ts
-import {
-  colors,
-  colorBase,
-  typography,
-  spacing,
-  borderRadius,
-  shadows,
-  breakpoints,
-  mediaQueries,
-  zIndex,
-  transitions,
-} from "epignosis-ui/tokens";
+import { Button } from "@epignosis-ui/react";
+import "@epignosis-ui/tokens/tokens.css";
+import "@epignosis-ui/react/styles.css";
 ```
 
-### Design tokens (CSS variables)
+### Vue
 
 ```ts
-import "epignosis-ui/tokens.css";
+import { Button } from "@epignosis-ui/vue";
+import "@epignosis-ui/tokens/tokens.css";
+import "@epignosis-ui/vue/styles.css";
 ```
-
-Then reference the variables anywhere in CSS:
-
-```css
-.my-button {
-  background-color: var(--color-primary-base);
-  border-radius: var(--border-radius-sm);
-  padding: var(--spacing-xs) var(--spacing-md);
-}
-```
-
-See [DESIGN_TOKENS.md](./DESIGN_TOKENS.md) for the full token reference.

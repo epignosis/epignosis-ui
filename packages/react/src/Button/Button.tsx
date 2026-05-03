@@ -106,7 +106,13 @@ export default function Button<C extends ElementType = "button">({
       {...(isNativeButton && { type: "button", disabled: isDisabled })}
       {...rest}
     >
-      {isLoading && <span className={`${BLOCK}__spinner`} aria-hidden="true" />}
+      {isLoading && (
+        <span className={`${BLOCK}__spinner`} aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
+      )}
       {PrefixIcon && (
         <PrefixIcon
           height={iconSizes[size]}

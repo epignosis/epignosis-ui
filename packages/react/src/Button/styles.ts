@@ -172,20 +172,38 @@ const underlinedButton = (): SerializedStyles => css`
   }
 `;
 
-const spin = keyframes`
-  to { transform: rotate(360deg); }
+const pulse = keyframes`
+  0%   { transform: scale(1);   opacity: 1; }
+  45%  { transform: scale(0.1); opacity: 0.7; }
+  80%  { transform: scale(1);   opacity: 1; }
 `;
 
 const loadingButton = (): SerializedStyles => css`
   .eg-button__spinner {
-    width: 1em;
-    height: 1em;
-    border: 2px solid currentColor;
-    border-top-color: transparent;
-    border-radius: 50%;
-    animation: ${spin} 0.8s linear infinite;
+    display: inline-flex;
+    align-items: center;
     margin-inline-end: 0.5rem;
     flex-shrink: 0;
+
+    > span {
+      width: 0.375em;
+      height: 0.375em;
+      margin: 0 0.0625em;
+      border-radius: 50%;
+      background-color: currentColor;
+      display: inline-block;
+      animation: ${pulse} 0.75s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      animation-fill-mode: both;
+    }
+    > span:nth-of-type(1) {
+      animation-delay: 0.12s;
+    }
+    > span:nth-of-type(2) {
+      animation-delay: 0.24s;
+    }
+    > span:nth-of-type(3) {
+      animation-delay: 0.36s;
+    }
   }
 `;
 

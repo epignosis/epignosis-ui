@@ -13,7 +13,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "vite build && tsc -p tsconfig.build.json",
@@ -27,7 +29,8 @@
     "react-dom": ">=19.0.0"
   },
   "dependencies": {
-    "@epignosis-ui/tokens": "workspace:*"
+    "@epignosis-ui/tokens": "workspace:*",
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@emotion/react": "^11.11.0",

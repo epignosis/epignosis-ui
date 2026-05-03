@@ -1,5 +1,6 @@
 import type { ElementType, ReactNode } from "react";
 import type { Theme } from "@emotion/react";
+import clsx from "clsx";
 import type { PolymorphicComponentProps } from "../types/polymorphic";
 import { btnContainer } from "./styles";
 import { iconSizes, type IconType } from "./constants";
@@ -69,22 +70,22 @@ export default function Button<C extends ElementType = "button">({
   const isNativeButton = as === undefined || as === "button";
   const isDisabled = Boolean(disabled) || isLoading;
 
-  const composedClassName = [
+  const composedClassName = clsx(
     BLOCK,
     `${BLOCK}--${variant}`,
     `${BLOCK}--${color}`,
     `${BLOCK}--${size}`,
-    isDisabled && `${BLOCK}--disabled`,
-    isLoading && `${BLOCK}--loading`,
-    block && `${BLOCK}--block`,
-    noGutters && `${BLOCK}--no-gutters`,
-    rounded && `${BLOCK}--rounded`,
-    underlined && `${BLOCK}--underlined`,
-    active && `${BLOCK}--active`,
+    {
+      [`${BLOCK}--disabled`]: isDisabled,
+      [`${BLOCK}--loading`]: isLoading,
+      [`${BLOCK}--block`]: block,
+      [`${BLOCK}--no-gutters`]: noGutters,
+      [`${BLOCK}--rounded`]: rounded,
+      [`${BLOCK}--underlined`]: underlined,
+      [`${BLOCK}--active`]: active,
+    },
     className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  );
 
   return (
     <Component

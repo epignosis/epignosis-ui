@@ -186,9 +186,9 @@ const loadingButton = (): SerializedStyles => css`
     flex-shrink: 0;
 
     > span {
-      width: 0.375em;
-      height: 0.375em;
-      margin: 0 0.0625em;
+      width: 0.375rem;
+      height: 0.375rem;
+      margin: 0 0.0625rem;
       border-radius: 50%;
       background-color: currentColor;
       display: inline-block;

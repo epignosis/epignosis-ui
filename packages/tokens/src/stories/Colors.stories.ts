@@ -9,36 +9,66 @@ export default meta;
 
 type Story = StoryObj;
 
-const swatch = (label: string, value: string): string => `
-  <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-start;">
-    <div style="width:96px;height:96px;border-radius:6px;background:${value};border:1px solid #e5e5e5;"></div>
-    <div style="font-family:Mulish,Arial,sans-serif;font-size:14px;font-weight:600;">${label}</div>
-    <code style="font-family:ui-monospace,monospace;font-size:12px;color:#555;">${value}</code>
+const contrastingText = (value: string): string => {
+  if (value.startsWith("rgba")) return "#111";
+  const hex = value.replace("#", "");
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+  const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+  return yiq >= 140 ? "#111" : "#fff";
+};
+
+const chip = (label: string, value: string): string => {
+  const text = contrastingText(value);
+  return `
+    <div style="
+      flex:1;min-width:0;height:140px;
+      background:${value};color:${text};
+      display:flex;flex-direction:column;justify-content:space-between;
+      padding:12px;
+      font-family:Mulish,Arial,sans-serif;
+    ">
+      <div style="font-weight:700;font-size:12px;text-transform:capitalize;letter-spacing:0.02em;">${label}</div>
+      <code style="font-family:ui-monospace,monospace;font-size:11px;opacity:0.9;">${value}</code>
+    </div>
+  `;
+};
+
+const strip = (heading: string, sub: string, entries: [string, string][]): string => `
+  <div style="margin-bottom:32px;font-family:Mulish,Arial,sans-serif;color:#222;">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;">
+      <h3 style="margin:0;font-size:18px;font-weight:700;text-transform:capitalize;">${heading}</h3>
+      <code style="font-family:ui-monospace,monospace;font-size:12px;color:#666;">${sub}</code>
+    </div>
+    <div style="
+      display:flex;width:100%;
+      border-radius:10px;overflow:hidden;
+      box-shadow:0 1px 2px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.06);
+    ">
+      ${entries.map(([k, v]) => chip(k, v)).join("")}
+    </div>
   </div>
 `;
 
-const grid = (children: string): string => `
-  <div style="display:flex;flex-wrap:wrap;gap:24px;padding:24px;font-family:Mulish,Arial,sans-serif;">
+const wrap = (children: string): string => `
+  <div style="padding:32px;background:#eef0f2;min-height:100vh;box-sizing:border-box;">
     ${children}
   </div>
 `;
 
 const palette = (name: "primary" | "secondary" | "green" | "orange" | "red"): Story => ({
-  render: () =>
-    grid(
-      Object.entries(colors[name])
-        .map(([k, v]) => swatch(k, v))
-        .join(""),
-    ),
+  render: () => {
+    const entries = Object.entries(colors[name]) as [string, string][];
+    const baseEntry = entries.find(([k]) => k === "base");
+    const baseShade = baseEntry ? baseEntry[1] : entries[0][1];
+    return wrap(strip(name, baseShade, entries));
+  },
 });
 
 export const Base: Story = {
   render: () =>
-    grid(
-      Object.entries(colorBase)
-        .map(([k, v]) => swatch(k, v))
-        .join(""),
-    ),
+    wrap(strip("Base", "single-value tokens", Object.entries(colorBase))),
 };
 
 export const Primary: Story = palette("primary");

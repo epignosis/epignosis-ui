@@ -32,68 +32,82 @@ const CHECKERBOARD = `
   background-color: #ffffff;
 `;
 
-const chip = (label: string, value: string, height: number): string => {
+const COLUMN_WIDTH = 260;
+
+const cell = (label: string, value: string, height: number): string => {
   const text = contrastingText(value);
-  const transparent = isTransparent(value);
-  const innerStyle = `
-    flex:1;min-width:0;height:${height}px;box-sizing:border-box;
+  const inner = `
+    width:100%;height:${height}px;box-sizing:border-box;
     color:${text};
-    display:flex;flex-direction:column;justify-content:space-between;
-    padding:12px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 16px;
     font-family:Mulish,Arial,sans-serif;
   `;
-  if (transparent) {
+  const labelHtml = `<span style="font-weight:700;font-size:12px;text-transform:capitalize;letter-spacing:0.02em;">${label}</span>`;
+  const valueHtml = `<code style="font-family:ui-monospace,monospace;font-size:11px;opacity:0.9;">${value}</code>`;
+  if (isTransparent(value)) {
     return `
-      <div style="flex:1;min-width:0;height:${height}px;${CHECKERBOARD}">
-        <div style="${innerStyle}background:${value};">
-          <div style="font-weight:700;font-size:12px;text-transform:capitalize;letter-spacing:0.02em;">${label}</div>
-          <code style="font-family:ui-monospace,monospace;font-size:11px;opacity:0.9;">${value}</code>
-        </div>
+      <div style="width:100%;height:${height}px;${CHECKERBOARD}">
+        <div style="${inner}background:${value};">${labelHtml}${valueHtml}</div>
       </div>
     `;
   }
-  return `
-    <div style="${innerStyle}background:${value};">
-      <div style="font-weight:700;font-size:12px;text-transform:capitalize;letter-spacing:0.02em;">${label}</div>
-      <code style="font-family:ui-monospace,monospace;font-size:11px;opacity:0.9;">${value}</code>
-    </div>
-  `;
+  return `<div style="${inner}background:${value};">${labelHtml}${valueHtml}</div>`;
 };
 
-const stripRow = (entries: [string, string][], height: number): string => `
+const stack = (entries: [string, string][], cellHeight: number): string => `
   <div style="
-    display:flex;width:100%;
+    display:flex;flex-direction:column;width:100%;
     border-radius:10px;overflow:hidden;
     box-shadow:0 1px 2px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.06);
   ">
-    ${entries.map(([k, v]) => chip(k, v, height)).join("")}
+    ${entries.map(([k, v]) => cell(k, v, cellHeight)).join("")}
   </div>
 `;
 
-const strip = (heading: string, sub: string, entries: [string, string][]): string => {
-  const solid = entries.filter(([, v]) => !isTransparent(v));
-  const transparent = entries.filter(([, v]) => isTransparent(v));
-  const appendix = transparent.length
-    ? `
+const columnHeader = (heading: string, sub: string): string => `
+  <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px;">
+    <h3 style="margin:0;font-size:16px;font-weight:700;text-transform:capitalize;">${heading}</h3>
+    <code style="font-family:ui-monospace,monospace;font-size:11px;color:#666;">${sub}</code>
+  </div>
+`;
+
+const transparencyAppendix = (entries: [string, string][]): string =>
+  entries.length === 0
+    ? ""
+    : `
       <div style="margin-top:14px;">
-        <div style="font-family:Mulish,Arial,sans-serif;font-size:12px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">
+        <div style="font-family:Mulish,Arial,sans-serif;font-size:10px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">
           Transparency variants
         </div>
-        ${stripRow(transparent, 80)}
+        ${stack(entries, 50)}
       </div>
-    `
-    : "";
+    `;
+
+type PaletteName = "primary" | "secondary" | "green" | "orange" | "red";
+const PALETTE_ORDER: PaletteName[] = ["primary", "secondary", "green", "orange", "red"];
+
+const paletteColumn = (name: PaletteName): string => {
+  const entries = Object.entries(colors[name]) as [string, string][];
+  const solid = entries.filter(([, v]) => !isTransparent(v));
+  const transparent = entries.filter(([, v]) => isTransparent(v));
+  const baseEntry = solid.find(([k]) => k === "base") ?? solid[0];
+  const baseShade = baseEntry[1];
   return `
-    <div style="margin-bottom:32px;font-family:Mulish,Arial,sans-serif;color:#222;">
-      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;">
-        <h3 style="margin:0;font-size:18px;font-weight:700;text-transform:capitalize;">${heading}</h3>
-        <code style="font-family:ui-monospace,monospace;font-size:12px;color:#666;">${sub}</code>
-      </div>
-      ${stripRow(solid, 140)}
-      ${appendix}
+    <div style="font-family:Mulish,Arial,sans-serif;color:#222;width:${COLUMN_WIDTH}px;flex-shrink:0;">
+      ${columnHeader(name, baseShade)}
+      ${stack(solid, 60)}
+      ${transparencyAppendix(transparent)}
     </div>
   `;
 };
+
+const baseColumn = (): string => `
+  <div style="font-family:Mulish,Arial,sans-serif;color:#222;width:${COLUMN_WIDTH}px;flex-shrink:0;">
+    ${columnHeader("Base", "single-value tokens")}
+    ${stack(Object.entries(colorBase), 60)}
+  </div>
+`;
 
 const wrap = (children: string): string => `
   <div style="padding:32px;background:#eef0f2;min-height:100vh;box-sizing:border-box;">
@@ -101,37 +115,35 @@ const wrap = (children: string): string => `
   </div>
 `;
 
-type PaletteName = "primary" | "secondary" | "green" | "orange" | "red";
-const PALETTE_ORDER: PaletteName[] = ["primary", "secondary", "green", "orange", "red"];
-
-const paletteStrip = (name: PaletteName): string => {
-  const entries = Object.entries(colors[name]) as [string, string][];
-  const baseEntry = entries.find(([k]) => k === "base");
-  const baseShade = baseEntry ? baseEntry[1] : entries[0][1];
-  return strip(name, baseShade, entries);
-};
-
-const palette = (name: PaletteName): Story => ({
-  render: () => wrap(paletteStrip(name)),
-});
-
 export const All: Story = {
   render: () =>
-    wrap(
-      [
-        strip("Base", "single-value tokens", Object.entries(colorBase)),
-        ...PALETTE_ORDER.map(paletteStrip),
-      ].join(""),
-    ),
+    wrap(`
+      <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;">
+        ${[baseColumn(), ...PALETTE_ORDER.map(paletteColumn)].join("")}
+      </div>
+    `),
 };
 
 export const Base: Story = {
-  render: () =>
-    wrap(strip("Base", "single-value tokens", Object.entries(colorBase))),
+  render: () => wrap(baseColumn()),
 };
 
-export const Primary: Story = palette("primary");
-export const Secondary: Story = palette("secondary");
-export const Green: Story = palette("green");
-export const Orange: Story = palette("orange");
-export const Red: Story = palette("red");
+export const Primary: Story = {
+  render: () => wrap(paletteColumn("primary")),
+};
+
+export const Secondary: Story = {
+  render: () => wrap(paletteColumn("secondary")),
+};
+
+export const Green: Story = {
+  render: () => wrap(paletteColumn("green")),
+};
+
+export const Orange: Story = {
+  render: () => wrap(paletteColumn("orange")),
+};
+
+export const Red: Story = {
+  render: () => wrap(paletteColumn("red")),
+};

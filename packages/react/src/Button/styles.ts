@@ -1,11 +1,12 @@
 import { css, keyframes, type SerializedStyles, type Theme } from "@emotion/react";
+import { borderRadius, transitions, typography } from "@epignosis_llc/ui-tokens";
 import type { ButtonColor, ButtonSize, ButtonVariant } from "./Button";
 import { roundDimensions } from "./constants";
 
 const fontSizes = {
-  sm: "var(--font-size-sm)",
-  md: "var(--font-size-sm)",
-  lg: "var(--font-size-lg)",
+  sm: typography.fontSize.sm,
+  md: typography.fontSize.sm,
+  lg: typography.fontSize.lg,
 };
 const heights = { sm: "2rem", md: "2.5rem", lg: "3rem" };
 const minWidths = { sm: "2rem", md: "2.5rem", lg: "3rem" };
@@ -16,9 +17,9 @@ const baseButton = (size: ButtonSize): SerializedStyles => css`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-family-body);
-  font-weight: var(--font-weight-semibold);
-  border-radius: var(--border-radius-sm);
+  font-family: ${typography.fontFamily.body};
+  font-weight: ${typography.fontWeight.semibold};
+  border-radius: ${borderRadius.sm};
   line-height: 1.125rem;
   cursor: pointer;
   font-size: ${fontSizes[size]};
@@ -26,9 +27,10 @@ const baseButton = (size: ButtonSize): SerializedStyles => css`
   min-width: ${minWidths[size]};
   padding: ${paddings[size]};
   transition:
-    background-color var(--transition-fast) ease-in,
-    color var(--transition-fast) ease-in,
-    border-color var(--transition-fast) ease-in;
+    background-color ${transitions.fast} ease-in,
+    color ${transitions.fast} ease-in,
+    border-color ${transitions.fast} ease-in,
+    box-shadow ${transitions.fast} ease;
 
   .eg-button__text {
     display: inline-flex;

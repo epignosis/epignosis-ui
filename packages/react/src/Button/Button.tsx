@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from "react";
+import type { ElementType, ReactNode, SVGProps } from "react";
 import type { Theme } from "@emotion/react";
 import clsx from "clsx";
 import type { PolymorphicComponentProps } from "../types/polymorphic";
@@ -39,7 +39,11 @@ type Props = {
   /** Forces the active visual state (mirrors `:active`). */
   active?: boolean;
   iconBefore?: IconType;
+  /** Extra SVG props to forward to the leading icon. `height` and `className` merge with defaults; `data-testid` is fixed. */
+  iconBeforeProps?: SVGProps<SVGSVGElement>;
   iconAfter?: IconType;
+  /** Extra SVG props to forward to the trailing icon. Same merge rules as `iconBeforeProps`. */
+  iconAfterProps?: SVGProps<SVGSVGElement>;
   className?: string;
   children: ReactNode;
 };
@@ -61,7 +65,9 @@ export default function Button<C extends ElementType = "button">({
   underlined = false,
   active = false,
   iconBefore: PrefixIcon,
+  iconBeforeProps,
   iconAfter: SuffixIcon,
+  iconAfterProps,
   className,
   children,
   ...rest
@@ -116,16 +122,18 @@ export default function Button<C extends ElementType = "button">({
       )}
       {PrefixIcon && (
         <PrefixIcon
-          height={iconSizes[size]}
-          className={`${BLOCK}__icon`}
+          {...iconBeforeProps}
+          height={iconBeforeProps?.height ?? iconSizes[size]}
+          className={clsx(`${BLOCK}__icon`, iconBeforeProps?.className)}
           data-testid="prefix-icon"
         />
       )}
       <span className={`${BLOCK}__text`}>{children}</span>
       {SuffixIcon && (
         <SuffixIcon
-          height={iconSizes[size]}
-          className={`${BLOCK}__icon`}
+          {...iconAfterProps}
+          height={iconAfterProps?.height ?? iconSizes[size]}
+          className={clsx(`${BLOCK}__icon`, iconAfterProps?.className)}
           data-testid="suffix-icon"
         />
       )}

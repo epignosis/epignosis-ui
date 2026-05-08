@@ -20,7 +20,7 @@ export const roundDimensions = {
  */
 export type IconType = ComponentType<
   {
-    height?: number;
+    height?: number | string;
     className?: string;
     "data-testid"?: string;
   } & Omit<SVGProps<SVGSVGElement>, "height" | "className" | "ref">

@@ -50,8 +50,7 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "storybook": "storybook dev -p 6007",
-    "build-storybook": "storybook build",
-    "prepublishOnly": "pnpm build"
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
     "@storybook/html-vite": "^10.2.0",

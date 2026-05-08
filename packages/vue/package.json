@@ -45,8 +45,7 @@
     "build": "vite build && vue-tsc -p tsconfig.build.json",
     "dev": "vite build --watch",
     "storybook": "storybook dev -p 6007",
-    "build-storybook": "storybook build",
-    "prepublishOnly": "pnpm build"
+    "build-storybook": "storybook build"
   },
   "peerDependencies": {
     "vue": "^3.5.0"

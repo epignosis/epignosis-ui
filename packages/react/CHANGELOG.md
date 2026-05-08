@@ -1,5 +1,14 @@
 # @epignosis_llc/ui-react
 
+## 1.5.1
+
+### Patch Changes
+
+- Merge pull request [#12](https://github.com/epignosis/epignosis-ui/issues/12) from epignosis/changeset-release/main
+
+- Updated dependencies []:
+  - @epignosis_llc/ui-icons@0.1.7
+
 ## 1.5.0
 
 ### Minor Changes

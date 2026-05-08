@@ -1,5 +1,23 @@
 # @epignosis_llc/ui-react
 
+## 1.6.0
+
+### Minor Changes
+
+- [`b67a0db`](https://github.com/epignosis/epignosis-ui/commit/b67a0db1e17a3d5631f3c3a21e4ab8cdec6ddd14) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - Add three components ported from gnosis: Badge, Breadcrumbs, and Loader.
+
+  - **Badge** — dot or labeled indicator overlaid on a child element. Sizes `md`/`lg`, optional `withPulse` halo, configurable `offset`, `badgeContent` for counts/labels.
+  - **Breadcrumbs** — accessible nav with chevron separators (RTL-aware via `document.dir` on the client). `highlightActivePage` styles the last item as the current page.
+  - **Loader** — pulse and clip variants in two sizes, with `fullScreen` option for whole-page loading states. Defaults to `theme.loader.color`; accepts a `color` override.
+
+  Also replaces the inline 3-dot pulse animation in Button's loading state with `<Loader type="pulse" size="md" color="currentColor" />`. Visual behavior is unchanged (currentColor still tracks button text color); the animation timing is now sourced from `react-spinners` rather than a hand-rolled emotion keyframe.
+
+  Adds `react-spinners` as a runtime dependency.
+
+### Patch Changes
+
+- [`cbe458e`](https://github.com/epignosis/epignosis-ui/commit/cbe458e04550063f129c22b156024636a3fb2b46) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - breadcrumbs
+
 ## 1.5.4
 
 ### Patch Changes

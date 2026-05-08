@@ -1,6 +1,6 @@
 {
   "name": "@epignosis_llc/ui-vue",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "description": "Epignosis Vue 3 component library.",
   "main": "./dist/index.cjs",
@@ -14,8 +14,12 @@
     },
     "./styles.css": "./dist/styles.css"
   },
-  "files": ["dist"],
-  "sideEffects": ["**/*.css"],
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "license": "MIT",
   "author": "Epignosis LLC",
   "repository": {
@@ -24,9 +28,19 @@
     "directory": "packages/vue"
   },
   "homepage": "https://github.com/epignosis/epignosis-ui#readme",
-  "bugs": { "url": "https://github.com/epignosis/epignosis-ui/issues" },
-  "publishConfig": { "access": "public" },
-  "keywords": ["epignosis", "design-system", "vue", "ui", "components"],
+  "bugs": {
+    "url": "https://github.com/epignosis/epignosis-ui/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "epignosis",
+    "design-system",
+    "vue",
+    "ui",
+    "components"
+  ],
   "scripts": {
     "build": "vite build && vue-tsc -p tsconfig.build.json",
     "dev": "vite build --watch",

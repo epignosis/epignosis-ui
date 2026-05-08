@@ -1,6 +1,6 @@
 {
   "name": "@epignosis_llc/ui-tokens",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "description": "Epignosis design tokens — framework-agnostic. Ships raw TS + CSS variables.",
   "main": "./dist/index.cjs",
@@ -33,9 +33,19 @@
     "directory": "packages/tokens"
   },
   "homepage": "https://github.com/epignosis/epignosis-ui#readme",
-  "bugs": { "url": "https://github.com/epignosis/epignosis-ui/issues" },
-  "publishConfig": { "access": "public" },
-  "keywords": ["epignosis", "design-system", "tokens", "css-variables", "design-tokens"],
+  "bugs": {
+    "url": "https://github.com/epignosis/epignosis-ui/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "epignosis",
+    "design-system",
+    "tokens",
+    "css-variables",
+    "design-tokens"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

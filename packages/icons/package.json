@@ -1,6 +1,6 @@
 {
   "name": "@epignosis_llc/ui-icons",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Epignosis icon set as React components.",
   "main": "./dist/index.cjs",
@@ -13,7 +13,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "license": "MIT",
   "author": "Epignosis LLC",

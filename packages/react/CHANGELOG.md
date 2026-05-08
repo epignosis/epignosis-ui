@@ -1,5 +1,11 @@
 # @epignosis_llc/ui-react
 
+## 1.3.1
+
+### Patch Changes
+
+- Merge pull request [#4](https://github.com/epignosis/epignosis-ui/issues/4) from epignosis/changeset-release/main
+
 ## 1.3.0
 
 ### Minor Changes

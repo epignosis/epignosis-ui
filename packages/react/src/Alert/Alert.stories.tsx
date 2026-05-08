@@ -4,6 +4,15 @@ import Alert, { type AlertProps } from "./Alert";
 const meta = {
   title: "Components/Alert",
   component: Alert,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Inline status banner with four severity levels (`info`, `danger`, `success`, `warning`). Each `type` ships with a default leading icon from `@epignosis_llc/ui-icons` — override via the `icon` prop. When `onClose` is provided, a trailing close button is rendered; without it the alert is permanent. The leading icon hides below the `md` breakpoint to keep mobile layouts compact.",
+      },
+    },
+  },
   argTypes: {
     type: {
       control: "select",

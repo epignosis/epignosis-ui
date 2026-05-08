@@ -6,7 +6,7 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
-  addons: [],
+  addons: ["@storybook/addon-docs"],
   typescript: {
     // react-docgen-typescript parses every component's TS types at startup
     // and is the most common cause of Storybook slowness on real projects.

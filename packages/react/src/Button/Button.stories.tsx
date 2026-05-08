@@ -8,6 +8,15 @@ type StoryArgs = ButtonProps<"button"> & { style?: CSSProperties };
 const meta = {
   title: "Components/Button",
   component: Button,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A polymorphic action element with eight color tokens, four variants (`solid`, `outline`, `ghost`, `link`), three sizes, optional leading/trailing icons, loading and rounded modes. Default-exports as a `<button>`; use the `as` prop to render any other element while keeping all styling and a11y semantics.",
+      },
+    },
+  },
   argTypes: {
     color: {
       control: "select",

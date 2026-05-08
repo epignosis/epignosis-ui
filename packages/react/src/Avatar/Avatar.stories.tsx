@@ -15,6 +15,15 @@ const CertificateIcon = () => (
 const meta = {
   title: "Components/Avatar",
   component: Avatar,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Circular avatar that renders one of three modes: an image (`src` + `alt`), a custom child node such as initials or an icon (`children` + optional `bgColor`), or a fallback container. Five sizes from `xs` (30px) to `xl` (120px). The `src` and `children` props form a discriminated union — pass one or the other.",
+      },
+    },
+  },
   argTypes: {
     size: {
       control: "select",

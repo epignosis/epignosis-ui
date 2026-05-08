@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@emotion/react": "^11.11.0",
+    "@storybook/addon-docs": "^10.3.6",
     "@storybook/react-vite": "^10.2.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

@@ -4,6 +4,15 @@ import Badge, { type BadgeProps } from "./Badge";
 const meta = {
   title: "Components/Badge",
   component: Badge,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Indicator overlaid on a child element — typically a navigation link, avatar, or icon button. Renders as a small dot by default, expanding into a pill when `badgeContent` is set (counts, labels). Toggle `withPulse` for a halo animation that draws attention. Position the indicator with the `offset` prop (defaults to `{ top: '-8px', right: '-15px' }`).",
+      },
+    },
+  },
   argTypes: {
     size: { control: "select", options: ["md", "lg"] },
     withPulse: { control: "boolean" },

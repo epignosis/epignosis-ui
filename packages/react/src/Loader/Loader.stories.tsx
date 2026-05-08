@@ -4,6 +4,15 @@ import Loader, { type LoaderProps } from "./Loader";
 const meta = {
   title: "Components/Loader",
   component: Loader,
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Spinner for loading states, available in two animations (`pulse` for inline / button contexts, `clip` for larger areas) and two sizes. Defaults to the primary brand color via `theme.loader.color`; pass `color` to override (Button uses `currentColor` so the spinner tracks its text color). Set `fullScreen` to fill the viewport for whole-page loading.",
+      },
+    },
+  },
   argTypes: {
     type: { control: "select", options: ["pulse", "clip"] },
     size: { control: "select", options: ["md", "lg"] },

@@ -11,7 +11,7 @@ export default defineConfig({
       fileName: (format) => (format === "es" ? "index.js" : "index.cjs"),
     },
     rollupOptions: {
-      external: ["vue"],
+      external: ["vue", /^@epignosis_llc\/ui-tokens(\/.*)?$/],
       output: {
         assetFileNames: (assetInfo) => {
           const name = assetInfo.name ?? "";

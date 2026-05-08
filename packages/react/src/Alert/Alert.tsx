@@ -1,9 +1,15 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import type { Theme } from "@emotion/react";
+import {
+  CloseCircledSVG,
+  DangerSVG,
+  InfoSVG,
+  SuccessSVG,
+  WarningSVG,
+} from "@epignosis_llc/ui-icons";
 import clsx from "clsx";
 import type { IconType } from "../Button/constants";
 import { container } from "./styles";
-import { CloseIcon, DangerIcon, InfoIcon, SuccessIcon, WarningIcon } from "./icons";
 
 export type AlertType = "info" | "danger" | "success" | "warning";
 
@@ -17,10 +23,10 @@ export type AlertProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 const DEFAULT_ICONS: Record<AlertType, IconType> = {
-  info: InfoIcon,
-  danger: DangerIcon,
-  success: SuccessIcon,
-  warning: WarningIcon,
+  info: InfoSVG,
+  danger: DangerSVG,
+  success: SuccessSVG,
+  warning: WarningSVG,
 };
 
 const BLOCK = "eg-alert";
@@ -50,7 +56,7 @@ export default function Alert({
           onClick={onClose}
           className={`${BLOCK}__close`}
         >
-          <CloseIcon height={32} />
+          <CloseCircledSVG height={32} />
         </button>
       )}
     </div>

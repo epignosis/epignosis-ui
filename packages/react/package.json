@@ -50,6 +50,7 @@
     "react-dom": ">=19.0.0"
   },
   "dependencies": {
+    "@epignosis_llc/ui-icons": "workspace:*",
     "@epignosis_llc/ui-tokens": "workspace:*",
     "clsx": "^2.1.1"
   },

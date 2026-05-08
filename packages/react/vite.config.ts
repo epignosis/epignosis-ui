@@ -18,6 +18,7 @@ export default defineConfig({
         "@emotion/react",
         "@emotion/react/jsx-runtime",
         /^@epignosis_llc\/ui-tokens(\/.*)?$/,
+        /^@epignosis_llc\/ui-icons(\/.*)?$/,
       ],
     },
     sourcemap: true,

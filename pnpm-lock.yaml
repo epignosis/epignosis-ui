@@ -53,6 +53,9 @@ importers:
 
   packages/react:
     dependencies:
+      '@epignosis_llc/ui-icons':
+        specifier: workspace:*
+        version: link:../icons
       '@epignosis_llc/ui-tokens':
         specifier: workspace:*
         version: link:../tokens

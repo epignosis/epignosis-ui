@@ -1,5 +1,4 @@
 // This index exports all icons of gnosis.
-// These are the legacy icons that are still used in the application.
 export * from "./actions";
 export * from "./arrows";
 export * from "./carets";

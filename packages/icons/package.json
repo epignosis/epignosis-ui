@@ -39,7 +39,7 @@
     "react"
   ],
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json",
+    "build": "vite build && node scripts/postbuild.mjs",
     "dev": "vite build --watch",
     "storybook": "storybook dev -p 6008",
     "build-storybook": "storybook build"

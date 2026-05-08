@@ -1,5 +1,5 @@
 {
-  "name": "@epignosis-ui/react",
+  "name": "@epignosis_llc/ui-react",
   "version": "0.1.0",
   "type": "module",
   "description": "Epignosis React component library.",
@@ -17,11 +17,23 @@
     "dist"
   ],
   "sideEffects": false,
+  "license": "MIT",
+  "author": "Epignosis LLC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epignosis/epignosis-ui.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://github.com/epignosis/epignosis-ui#readme",
+  "bugs": { "url": "https://github.com/epignosis/epignosis-ui/issues" },
+  "publishConfig": { "access": "public" },
+  "keywords": ["epignosis", "design-system", "react", "ui", "components"],
   "scripts": {
     "build": "vite build && tsc -p tsconfig.build.json",
     "dev": "vite build --watch",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
     "@emotion/react": "^11.11.0",
@@ -29,7 +41,7 @@
     "react-dom": ">=19.0.0"
   },
   "dependencies": {
-    "@epignosis-ui/tokens": "workspace:*",
+    "@epignosis_llc/ui-tokens": "workspace:*",
     "clsx": "^2.1.1"
   },
   "devDependencies": {

@@ -1,34 +1,53 @@
 {
-  "name": "@epignosis-ui/tokens",
+  "name": "@epignosis_llc/ui-tokens",
   "version": "0.1.0",
   "type": "module",
   "description": "Epignosis design tokens — framework-agnostic. Ships raw TS + CSS variables.",
-  "main": "src/index.ts",
-  "module": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "import": "./src/index.ts",
-      "require": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./tokens": {
-      "types": "./src/theme/tokens.ts",
-      "import": "./src/theme/tokens.ts",
-      "require": "./src/theme/tokens.ts"
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.js",
+      "require": "./dist/tokens.cjs"
     },
-    "./tokens.css": "./src/theme/tokens.css"
+    "./tokens.css": "./dist/tokens.css"
   },
-  "files": ["src"],
-  "sideEffects": ["**/*.css"],
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "license": "MIT",
+  "author": "Epignosis LLC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epignosis/epignosis-ui.git",
+    "directory": "packages/tokens"
+  },
+  "homepage": "https://github.com/epignosis/epignosis-ui#readme",
+  "bugs": { "url": "https://github.com/epignosis/epignosis-ui/issues" },
+  "publishConfig": { "access": "public" },
+  "keywords": ["epignosis", "design-system", "tokens", "css-variables", "design-tokens"],
   "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
     "storybook": "storybook dev -p 6007",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "@storybook/html-vite": "^10.2.0",
     "@types/node": "^20.0.0",
     "storybook": "^10.2.0",
+    "tsup": "^8.5.1",
     "typescript": "^6.0.0",
     "vite": "^8.0.0"
   }

@@ -25,11 +25,23 @@
   "sideEffects": [
     "**/*.css"
   ],
+  "license": "MIT",
+  "author": "Epignosis LLC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epignosis/epignosis-ui.git",
+    "directory": "packages/tokens"
+  },
+  "homepage": "https://github.com/epignosis/epignosis-ui#readme",
+  "bugs": { "url": "https://github.com/epignosis/epignosis-ui/issues" },
+  "publishConfig": { "access": "public" },
+  "keywords": ["epignosis", "design-system", "tokens", "css-variables", "design-tokens"],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "storybook": "storybook dev -p 6007",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "@storybook/html-vite": "^10.2.0",

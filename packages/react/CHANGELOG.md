@@ -1,5 +1,11 @@
 # @epignosis_llc/ui-react
 
+## 1.7.0
+
+### Minor Changes
+
+- [`2fd4ced`](https://github.com/epignosis/epignosis-ui/commit/2fd4cedca1c7c68c57d9e925227a92fc99212698) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - add docs
+
 ## 1.6.0
 
 ### Minor Changes

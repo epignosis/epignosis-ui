@@ -1,5 +1,11 @@
 # @epignosis_llc/ui-icons
 
+## 0.1.3
+
+### Patch Changes
+
+- Merge pull request [#8](https://github.com/epignosis/epignosis-ui/issues/8) from epignosis/changeset-release/main
+
 ## 0.1.2
 
 ### Patch Changes

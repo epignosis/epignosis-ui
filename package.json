@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "description": "Epignosis shared UI workspace — tokens, React components, Vue components.",
+  "packageManager": "pnpm@10.28.1",
   "engines": {
     "node": ">=20",
     "pnpm": ">=9"

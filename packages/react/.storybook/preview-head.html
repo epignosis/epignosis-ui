@@ -4,3 +4,13 @@
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800&display=swap"
 />
+<style>
+  /* Apply the Mulish-based body font globally so every component renders
+     with the design system font, matching gnosis. Only Button currently
+     sets font-family explicitly; the rest inherit from this. */
+  body,
+  .sb-show-main,
+  #storybook-root {
+    font-family: "Mulish", Arial, sans-serif;
+  }
+</style>

@@ -1,6 +1,6 @@
 {
   "name": "@epignosis_llc/ui-tokens",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "description": "Epignosis design tokens — framework-agnostic. Ships raw TS + CSS variables.",
   "main": "./dist/index.cjs",

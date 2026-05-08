@@ -64,9 +64,9 @@ epignosis-ui/
 
 ```ts
 import { Button } from "@epignosis_llc/ui-react";
-import "@epignosis_llc/ui-tokens/tokens.css";
-import "@epignosis_llc/ui-react/styles.css";
 ```
+
+Components are styled from JS tokens; no CSS import is required. Optionally `import "@epignosis_llc/ui-tokens/tokens.css"` if your own stylesheets reference the CSS variables (e.g. `var(--color-primary-base)`).
 
 ### Vue
 

@@ -51,28 +51,46 @@ Icons render with `currentColor`, so set `color` on a parent (or via inline styl
 
 The package declares `"sideEffects": false` and exports each icon as a named ESM export, so bundlers ship only the icons you actually import. Importing `CalendarSVG` does not pull in the other 630 icons.
 
-## Categories
+All icons are exported from the package root regardless of internal category.
 
-Icons are grouped into the following categories:
+## Browsing the icons (Storybook)
 
-| Category | Approx. count |
-|---|---|
-| `actions` | 6 |
-| `arrows` | 17 |
-| `carets` | 6 |
-| `chevrons` | 12 |
-| `client` | 377 |
-| `currencies` | 22 |
-| `feature` | 38 |
-| `legacy` | 116 |
-| `logos` | 29 |
-| `social` | 8 |
+A bundled Storybook lets you search the full set, preview at any size, and click any icon to copy its named import statement to your clipboard.
 
-All icons are exported from the package root. To browse them visually with search and click-to-copy, run the bundled Storybook from the monorepo root:
+### From the monorepo root
 
 ```bash
+pnpm install        # first time only
 pnpm storybook:icons
 ```
+
+Opens at <http://localhost:6008>.
+
+### From inside this package
+
+```bash
+pnpm --filter @epignosis_llc/ui-icons storybook
+```
+
+Same dev server on the same port.
+
+### Run it alongside the other Storybooks
+
+```bash
+pnpm storybook:all
+```
+
+Starts the tokens, icons, react, and vue Storybooks in parallel on ports 6006–6008. Useful when designing a component that uses an icon — you can flip between catalogs without restarting.
+
+### Build a static site
+
+```bash
+pnpm --filter @epignosis_llc/ui-icons build-storybook
+```
+
+Outputs a deployable static bundle to `packages/icons/storybook-static/`.
+
+The default story shows every icon in one searchable grid; additional stories scope down to single categories. Each story exposes a `defaultSize` arg in the Controls panel and an inline size input for live re-testing.
 
 ## Naming
 

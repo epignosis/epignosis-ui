@@ -22,5 +22,8 @@ export type { BreadcrumbsProps, BreadcrumbItem } from "./Breadcrumbs/Breadcrumbs
 export { default as Loader } from "./Loader/Loader";
 export type { LoaderProps, LoaderSize, LoaderType } from "./Loader/Loader";
 
+export { default as Chip } from "./Chip/Chip";
+export type { ChipProps, ChipSize } from "./Chip/Chip";
+
 export { ThemeProvider, epignosisTheme } from "./theme";
 export type { EpignosisTheme, ThemeProviderProps } from "./theme";

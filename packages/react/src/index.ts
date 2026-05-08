@@ -10,5 +10,8 @@ export type {
 export { default as Avatar } from "./Avatar/Avatar";
 export type { AvatarProps, AvatarSize } from "./Avatar/Avatar";
 
+export { default as Alert } from "./Alert/Alert";
+export type { AlertProps, AlertType } from "./Alert/Alert";
+
 export { ThemeProvider, epignosisTheme } from "./theme";
 export type { EpignosisTheme, ThemeProviderProps } from "./theme";

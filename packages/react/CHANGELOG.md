@@ -1,5 +1,16 @@
 # @epignosis_llc/ui-react
 
+## 1.2.0
+
+### Minor Changes
+
+- [`5979cd0`](https://github.com/epignosis/epignosis-ui/commit/5979cd071cf16a98b72198dfe002c9d16fe85dd2) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - minor
+
+### Patch Changes
+
+- Updated dependencies [[`5979cd0`](https://github.com/epignosis/epignosis-ui/commit/5979cd071cf16a98b72198dfe002c9d16fe85dd2)]:
+  - @epignosis_llc/ui-tokens@1.1.0
+
 ## 1.1.0
 
 ### Minor Changes

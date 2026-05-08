@@ -1,5 +1,15 @@
 # @epignosis_llc/ui-icons
 
+## 0.1.6
+
+### Patch Changes
+
+- [`855f3de`](https://github.com/epignosis/epignosis-ui/commit/855f3de3aa92f1f607ccc14c961574bed349f08a) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - Source Alert default icons from `@epignosis_llc/ui-icons` instead of inline SVG paths. The icons now match gnosis (`InfoSVG`, `DangerSVG`, `SuccessSVG`, `WarningSVG`, `CloseCircledSVG`).
+
+  `@epignosis_llc/ui-icons` is now a runtime dependency of `@epignosis_llc/ui-react`. Tree-shaking still ships only the icons actually used.
+
+  The icons package now generates a flat `dist/index.d.ts` with explicit `SVGComponent` typings for every export, replacing the previous re-export chain that resolved to `string` in consumer projects.
+
 ## 0.1.5
 
 ### Patch Changes

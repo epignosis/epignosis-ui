@@ -14,7 +14,7 @@ importers:
 
   packages/react:
     dependencies:
-      '@epignosis-ui/tokens':
+      '@epignosis_llc/ui-tokens':
         specifier: workspace:*
         version: link:../tokens
       clsx:
@@ -75,7 +75,7 @@ importers:
 
   packages/vue:
     dependencies:
-      '@epignosis-ui/tokens':
+      '@epignosis_llc/ui-tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:

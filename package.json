@@ -9,12 +9,12 @@
     "pnpm": ">=9"
   },
   "scripts": {
-    "build": "pnpm -r --filter @epignosis-ui/react --filter @epignosis-ui/vue run build",
-    "storybook:react": "pnpm --filter @epignosis-ui/react storybook",
-    "storybook:vue": "pnpm --filter @epignosis-ui/vue storybook",
-    "storybook:tokens": "pnpm --filter @epignosis-ui/tokens storybook",
-    "storybook:all": "pnpm -r --parallel --filter @epignosis-ui/react --filter @epignosis-ui/vue --filter @epignosis-ui/tokens run storybook",
-    "build-storybook": "pnpm -r --filter @epignosis-ui/react --filter @epignosis-ui/vue --filter @epignosis-ui/tokens run build-storybook"
+    "build": "pnpm -r --filter @epignosis_llc/ui-tokens --filter @epignosis_llc/ui-react --filter @epignosis_llc/ui-vue run build",
+    "storybook:react": "pnpm --filter @epignosis_llc/ui-react storybook",
+    "storybook:vue": "pnpm --filter @epignosis_llc/ui-vue storybook",
+    "storybook:tokens": "pnpm --filter @epignosis_llc/ui-tokens storybook",
+    "storybook:all": "pnpm -r --parallel --filter @epignosis_llc/ui-react --filter @epignosis_llc/ui-vue --filter @epignosis_llc/ui-tokens run storybook",
+    "build-storybook": "pnpm -r --filter @epignosis_llc/ui-react --filter @epignosis_llc/ui-vue --filter @epignosis_llc/ui-tokens run build-storybook"
   },
   "devDependencies": {
     "typescript": "^6.0.0"

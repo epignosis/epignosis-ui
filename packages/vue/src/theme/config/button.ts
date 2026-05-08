@@ -1,7 +1,7 @@
 /*
  * Button theme config — port of @epignosis_llc/gnosis's src/theme/default/config/button.ts.
  *
- * Each color/state value is sourced from @epignosis-ui/tokens (the JS objects),
+ * Each color/state value is sourced from @epignosis_llc/ui-tokens (the JS objects),
  * NOT CSS custom properties. This keeps the theme self-contained — no dependency
  * on tokens.css being loaded at runtime.
  *
@@ -11,7 +11,7 @@
  *   - Color(primary.darker).alpha(0.15) → rgba(0, 42, 103, 0.15)
  *   - Color(white).alpha(0.7)           → rgba(255, 255, 255, 0.7)
  */
-import { colors, borderRadius } from "@epignosis-ui/tokens";
+import { colors, borderRadius } from "@epignosis_llc/ui-tokens";
 
 const button = {
   disabled: {

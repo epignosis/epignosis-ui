@@ -1,6 +1,6 @@
 import type { Preview } from "@storybook/react-vite";
 import { ThemeProvider } from "../src/theme/ThemeProvider";
-import "@epignosis-ui/tokens/tokens.css";
+import "@epignosis_llc/ui-tokens/tokens.css";
 
 const preview: Preview = {
   decorators: [

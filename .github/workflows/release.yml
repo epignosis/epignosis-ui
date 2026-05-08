@@ -27,6 +27,9 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
+      - name: Upgrade npm for Trusted Publishing OIDC support
+        run: npm install -g npm@latest
+
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm build

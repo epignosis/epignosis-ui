@@ -1,27 +1,9 @@
-import type { CSSProperties, SVGProps } from "react";
+import type { CSSProperties } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { CalendarSVG } from "@epignosis_llc/ui-icons";
 import Button, { type ButtonProps } from "./Button";
 
 type StoryArgs = ButtonProps<"button"> & { style?: CSSProperties };
-
-// Sample SVG mirroring @epignosis_llc/gnosis's calendar icon (legacy/calendar.svg).
-// 32×32 viewBox with the visible shape inset roughly 9–24 — without that inset
-// the rendered icon looks too big inside our buttons. Path lifted verbatim from
-// gnosis so visual weight matches when consumers use that icon set.
-const CalendarIcon = ({ height = 30, ...props }: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    height={height}
-    viewBox="0 0 32 32"
-    aria-hidden="true"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M13.75,10h4.5v-1.25c0-.41,.33-.75,.75-.75s.75,.34,.75,.75v1.25h1.25c1.1,0,2,.9,2,2v10c0,1.1-.9,2-2,2H11c-1.1,0-2-.9-2-2V12c0-1.1,.9-2,2-2h1.25v-1.25c0-.41,.33-.75,.75-.75s.75,.34,.75,.75v1.25Zm-3.25,5.75h2.5v-1.75h-2.5v1.75Zm0,1.5v2h2.5v-2h-2.5Zm4,0v2h3v-2h-3Zm4.5,0v2h2.5v-2h-2.5Zm2.5-3.25h-2.5v1.75h2.5v-1.75Zm0,6.75h-2.5v1.75h2c.27,0,.5-.23,.5-.5v-1.25Zm-4,0h-3v1.75h3v-1.75Zm-4.5,0h-2.5v1.25c0,.27,.22,.5,.5,.5h2v-1.75Zm4.5-6.75h-3v1.75h3v-1.75Z"
-    />
-  </svg>
-);
 
 const meta = {
   title: "Components/Button",
@@ -205,7 +187,7 @@ export const WithIconBefore: Story = {
   args: {
     color: "primary",
     children: "Icon prefix",
-    iconBefore: CalendarIcon,
+    iconBefore: CalendarSVG,
   },
 };
 
@@ -214,6 +196,6 @@ export const WithIconAfter: Story = {
   args: {
     color: "primary",
     children: "Icon suffix",
-    iconAfter: CalendarIcon,
+    iconAfter: CalendarSVG,
   },
 };

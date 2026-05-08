@@ -99,10 +99,6 @@ This monorepo uses [Changesets](https://github.com/changesets/changesets) and a 
 5. After merging to `main`, the release workflow opens (or updates) a "chore: version packages" PR that consumes pending changesets and bumps versions.
 6. Merging that PR triggers `pnpm release`, which publishes to npm.
 
-### Auto-changeset
-
-If you push to `main` without a changeset, the release workflow auto-generates a **patch** changeset for any changed `packages/*` directories using the commit subject as the summary. Manually run `pnpm changeset` only when you want a `minor` or `major` bump.
-
 ### Authentication (OIDC Trusted Publishing)
 
 CI publishes via GitHub OIDC — no `NPM_TOKEN` secret is used. Each publishable package has a Trusted Publisher entry on npmjs.com pointing at this repo's `release.yml`. The workflow needs `id-token: write` permission (already set) and npm CLI ≥ 11.5.1 (the workflow upgrades npm before publishing).

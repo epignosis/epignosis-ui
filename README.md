@@ -69,3 +69,22 @@ import { Button } from "@epignosis_llc/ui-vue";
 import "@epignosis_llc/ui-tokens/tokens.css";
 import "@epignosis_llc/ui-vue/styles.css";
 ```
+
+## Releases
+
+This monorepo uses [Changesets](https://github.com/changesets/changesets) and a GitHub Actions workflow to publish `@epignosis_llc/ui-tokens`, `@epignosis_llc/ui-react`, and `@epignosis_llc/ui-vue` to npm.
+
+### Author workflow
+
+1. Make code changes.
+2. Run `pnpm changeset` and follow the prompts (which packages, bump type, summary).
+3. Commit the generated `.changeset/*.md` alongside your code change.
+4. Open a PR. CI runs install + build.
+5. After merging to `main`, the release workflow opens (or updates) a "chore: version packages" PR that consumes pending changesets and bumps versions.
+6. Merging that PR triggers `pnpm release`, which publishes to npm.
+
+### One-time prerequisites (already done if you see versions on npm)
+
+- The `@epignosis_llc` org exists on npm and has publish access for the maintainer team.
+- A granular npm access token scoped to `@epignosis_llc` with publish permissions exists.
+- The token is stored as the `NPM_TOKEN` repository secret in GitHub.

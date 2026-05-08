@@ -1,5 +1,11 @@
 # @epignosis_llc/ui-react
 
+## 1.3.0
+
+### Minor Changes
+
+- [`eb2f336`](https://github.com/epignosis/epignosis-ui/commit/eb2f336eec7ccc635cbf89e88d643ba666218c29) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - Add Avatar component (image, icon, or text fallback).
+
 ## 1.2.0
 
 ### Minor Changes

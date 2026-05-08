@@ -20,15 +20,27 @@ importers:
 
   packages/icons:
     devDependencies:
+      '@storybook/react-vite':
+        specifier: ^10.2.0
+        version: 10.3.5(esbuild@0.27.7)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rollup@4.60.2)(storybook@10.3.5(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@6.0.3)(vite@8.0.10(@types/node@20.19.39)(esbuild@0.27.7))
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
       '@vitejs/plugin-react':
         specifier: ^6.0.0
         version: 6.0.1(vite@8.0.10(@types/node@20.19.39)(esbuild@0.27.7))
       react:
         specifier: ^19.0.0
         version: 19.2.5
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.5(react@19.2.5)
+      storybook:
+        specifier: ^10.2.0
+        version: 10.3.5(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       typescript:
         specifier: ^6.0.0
         version: 6.0.3

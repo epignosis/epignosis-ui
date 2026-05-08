@@ -1,4 +1,4 @@
-import { css, keyframes, type SerializedStyles, type Theme } from "@emotion/react";
+import { css, type SerializedStyles, type Theme } from "@emotion/react";
 import { borderRadius, transitions, typography } from "@epignosis_llc/ui-tokens";
 import type { ButtonColor, ButtonSize, ButtonVariant } from "./Button";
 import { roundDimensions } from "./constants";
@@ -174,12 +174,6 @@ const underlinedButton = (): SerializedStyles => css`
   }
 `;
 
-const pulse = keyframes`
-  0%   { transform: scale(1);   opacity: 1; }
-  45%  { transform: scale(0.1); opacity: 0.7; }
-  80%  { transform: scale(1);   opacity: 1; }
-`;
-
 const loadingButton = (): SerializedStyles => css`
   .eg-button__spinner {
     display: inline-flex;
@@ -187,24 +181,9 @@ const loadingButton = (): SerializedStyles => css`
     margin-inline-end: 0.5rem;
     flex-shrink: 0;
 
-    > span {
-      width: 0.375rem;
-      height: 0.375rem;
-      margin: 0 0.0625rem;
-      border-radius: 50%;
-      background-color: currentColor;
-      display: inline-block;
-      animation: ${pulse} 0.75s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-      animation-fill-mode: both;
-    }
-    > span:nth-of-type(1) {
-      animation-delay: 0.12s;
-    }
-    > span:nth-of-type(2) {
-      animation-delay: 0.24s;
-    }
-    > span:nth-of-type(3) {
-      animation-delay: 0.36s;
+    /* Loader's full-width container would otherwise stretch the button. */
+    .eg-loader {
+      width: auto;
     }
   }
 `;

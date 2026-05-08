@@ -17,6 +17,7 @@ export default defineConfig({
         "react/jsx-runtime",
         "@emotion/react",
         "@emotion/react/jsx-runtime",
+        "react-spinners",
         /^@epignosis_llc\/ui-tokens(\/.*)?$/,
         /^@epignosis_llc\/ui-icons(\/.*)?$/,
       ],

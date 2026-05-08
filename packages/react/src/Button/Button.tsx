@@ -1,6 +1,7 @@
 import type { ElementType, ReactNode, SVGProps } from "react";
 import type { Theme } from "@emotion/react";
 import clsx from "clsx";
+import Loader from "../Loader/Loader";
 import type { PolymorphicComponentProps } from "../types/polymorphic";
 import { btnContainer } from "./styles";
 import { iconSizes, type IconType } from "./constants";
@@ -115,9 +116,7 @@ export default function Button<C extends ElementType = "button">({
     >
       {isLoading && (
         <span className={`${BLOCK}__spinner`} aria-hidden="true">
-          <span />
-          <span />
-          <span />
+          <Loader type="pulse" size="md" color="currentColor" />
         </span>
       )}
       {PrefixIcon && (

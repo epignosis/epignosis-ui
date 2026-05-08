@@ -52,7 +52,8 @@
   "dependencies": {
     "@epignosis_llc/ui-icons": "workspace:*",
     "@epignosis_llc/ui-tokens": "workspace:*",
-    "clsx": "^2.1.1"
+    "clsx": "^2.1.1",
+    "react-spinners": "^0.14.0"
   },
   "devDependencies": {
     "@emotion/react": "^11.11.0",

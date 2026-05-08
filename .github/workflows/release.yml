@@ -34,6 +34,44 @@ jobs:
 
       - run: pnpm build
 
+      - name: Auto-generate patch changeset if missing
+        run: |
+          set -e
+
+          last_msg=$(git log -1 --format=%s)
+          if [ "$last_msg" = "chore: version packages" ]; then
+            echo "Version bump commit, skipping auto-gen"
+            exit 0
+          fi
+
+          existing=$(find .changeset -maxdepth 1 -name '*.md' ! -name 'README.md' 2>/dev/null | wc -l | tr -d ' ')
+          if [ "$existing" -gt 0 ]; then
+            echo "$existing existing changeset(s), skipping auto-gen"
+            exit 0
+          fi
+
+          changed_dirs=$(git diff --name-only HEAD~1 HEAD | grep -oE '^packages/[^/]+' | sort -u || true)
+          if [ -z "$changed_dirs" ]; then
+            echo "No package changes detected, skipping auto-gen"
+            exit 0
+          fi
+
+          {
+            echo "---"
+            for pkg_dir in $changed_dirs; do
+              if [ -f "$pkg_dir/package.json" ]; then
+                pkg_name=$(node -p "require('./$pkg_dir/package.json').name")
+                echo "\"$pkg_name\": patch"
+              fi
+            done
+            echo "---"
+            echo ""
+            echo "$last_msg"
+          } > ".changeset/auto-${GITHUB_SHA:0:7}.md"
+
+          echo "Generated changeset:"
+          cat ".changeset/auto-${GITHUB_SHA:0:7}.md"
+
       - name: Create Release PR or Publish
         uses: changesets/action@v1
         with:

@@ -1,5 +1,11 @@
 # @epignosis_llc/ui-react
 
+## 1.4.0
+
+### Minor Changes
+
+- [`18c57db`](https://github.com/epignosis/epignosis-ui/commit/18c57db3c54ca421ced30bdf5f9703d2e1e22e42) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - Add Alert component (info/danger/success/warning, optional close button, default icons per type).
+
 ## 1.3.1
 
 ### Patch Changes

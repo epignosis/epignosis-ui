@@ -1,5 +1,14 @@
 # @epignosis_llc/ui-react
 
+## 1.5.3
+
+### Patch Changes
+
+- [`dcfce35`](https://github.com/epignosis/epignosis-ui/commit/dcfce35f70e8b6553b0e75c22913809800f8aca0) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - changes
+
+- Updated dependencies [[`dcfce35`](https://github.com/epignosis/epignosis-ui/commit/dcfce35f70e8b6553b0e75c22913809800f8aca0)]:
+  - @epignosis_llc/ui-icons@0.1.9
+
 ## 1.5.2
 
 ### Patch Changes

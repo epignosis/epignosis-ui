@@ -18,12 +18,13 @@ export const breadcrumbs = ({ breadcrumbs }: Theme): SerializedStyles => css`
   .eg-breadcrumbs__link {
     text-decoration: none;
     color: ${breadcrumbs.link};
+  }
 
-    &.eg-breadcrumbs__link--current,
-    &.eg-breadcrumbs__link--empty:not(.eg-breadcrumbs__link--current) {
-      color: ${breadcrumbs.black};
-      pointer-events: none;
-    }
+  /* Modifier rules placed after the base so source order makes them win. */
+  .eg-breadcrumbs__link--current,
+  .eg-breadcrumbs__link--empty:not(.eg-breadcrumbs__link--current) {
+    color: ${breadcrumbs.black};
+    pointer-events: none;
   }
 
   .eg-breadcrumbs__separator {

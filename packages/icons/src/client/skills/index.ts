@@ -1,0 +1,7 @@
+export { default as BrainSVG } from "./brain.svg";
+export { default as BrainCircuitSVG } from "./brain-circuit-icon.svg";
+export { default as DeactivateSVG } from "./deactivate.svg";
+export { default as AiChipSVG } from "./ai_chip.svg";
+export { default as ExitAssessmentSVG } from "./exit_assessment.svg";
+export { default as UserCheckSVG } from "./user_check.svg";
+export { default as StarRegularWhiteSVG } from "./star-regular-white.svg";

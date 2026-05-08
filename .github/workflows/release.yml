@@ -31,6 +31,17 @@ jobs:
 
       - run: pnpm build
 
+      - name: DEBUG NPM_TOKEN presence
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NPM_TOKEN" ]; then
+            echo "NPM_TOKEN is EMPTY — secret not set or empty value"
+            exit 1
+          fi
+          echo "NPM_TOKEN length: ${#NPM_TOKEN}"
+          echo "NPM_TOKEN first 4 chars: ${NPM_TOKEN:0:4}"
+
       - name: Create Release PR or Publish
         uses: changesets/action@v1
         with:

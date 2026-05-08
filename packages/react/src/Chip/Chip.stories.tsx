@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { CalendarSVG } from "@epignosis_llc/ui-icons";
+import { BranchesFilterSVG } from "@epignosis_llc/ui-icons";
 import Chip, { type ChipProps } from "./Chip";
 
 const meta = {
@@ -41,8 +41,10 @@ export const Removable: Story = {
 export const FilterChip: Story = {
   args: {
     size: "md",
-    children: "Created today",
-    icon: CalendarSVG,
+    children: "Filter",
+    icon: BranchesFilterSVG,
+    maxWidth: 100,
+    closeButtonAriaLabel: "Remove filter",
     onClose: () => {},
   },
 };

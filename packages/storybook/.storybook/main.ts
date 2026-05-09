@@ -6,7 +6,7 @@ const url = (port: number, path: string) =>
   isStatic ? path : `http://localhost:${port}`;
 
 const config: StorybookConfig = {
-  stories: [],
+  stories: ["../src/**/*.stories.@(ts|tsx)"],
   framework: {
     name: "@storybook/html-vite",
     options: {},

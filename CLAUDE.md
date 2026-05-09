@@ -75,13 +75,13 @@ Open the hub at <http://localhost:6010>. Each package's stories appear in the le
 ### Dev (hub only, sub-Storybooks already running)
 
 ```bash
-pnpm storybook:docs
+pnpm storybook:hub
 ```
 
 ### Static build for deployment
 
 ```bash
-STORYBOOK_STATIC=true pnpm build-storybook:docs
+STORYBOOK_STATIC=true pnpm build-storybook:hub
 ```
 
 Outputs a self-contained directory at `packages/storybook/storybook-static/` with each package's static bundle assembled into subdirectories (`react/`, `vue/`, `icons/`, `tokens/`). Serve the directory from any static host.

@@ -1,6 +1,6 @@
 # @epignosis_llc/ui-icons
 
-The Epignosis icon set as React components. 631 icons across 10 categories, ported from gnosis. Ships compiled ESM + CJS + `.d.ts`.
+The Epignosis icon set, ported from gnosis. 631 icons across 10 categories. Ships React components (ESM + CJS + `.d.ts`) and raw `.svg` files for non-React consumers.
 
 For the full design system see the [main repository](https://github.com/epignosis/epignosis-ui).
 
@@ -46,6 +46,24 @@ Icons render with `currentColor`, so set `color` on a parent (or via inline styl
   <CalendarSVG height={20} />
 </span>
 ```
+
+## Raw SVG URLs (non-React consumers)
+
+For Vue, Svelte, or vanilla projects, import any icon as a URL via the `svg/` subpath:
+
+```ts
+import calendarUrl from "@epignosis_llc/ui-icons/svg/CalendarSVG.svg";
+import closeUrl from "@epignosis_llc/ui-icons/svg/CloseCircledSVG.svg";
+```
+
+```html
+<img src={calendarUrl} alt="" />
+<!-- or, to keep currentColor recoloring, inline the file via your bundler -->
+```
+
+Filenames match the React component names exactly — `CalendarSVG.svg`, `CloseCircledSVG.svg`, `AddContentSVG.svg`. The same `currentColor` rewrite applied to the React build is applied to these files, so a CSS `color` on a parent recolors an inlined SVG identically across both entry points.
+
+Your bundler needs to resolve `.svg` imports as URLs (Vite, webpack 5, Rollup with appropriate plugins all handle this out of the box).
 
 ## Tree-shaking
 

@@ -162,11 +162,11 @@ If an icon legitimately needs **two** distinct colors (e.g. a two-tone logo), us
 
 The source filename uses kebab-case; the export name is the same words in PascalCase with an `SVG` suffix:
 
-| Source file | Export name |
-| --- | --- |
-| `src/actions/add-content.svg` | `AddContentSVG` |
-| `src/feature/ai/brain-ai.svg` | `BrainAiSVG` |
-| `src/logos/google-drive.svg` | `GoogleDriveSVG` |
+| Source file                   | Export name      |
+| ----------------------------- | ---------------- |
+| `src/actions/add-content.svg` | `AddContentSVG`  |
+| `src/feature/ai/brain-ai.svg` | `BrainAiSVG`     |
+| `src/logos/google-drive.svg`  | `GoogleDriveSVG` |
 
 The export name is also the raw-SVG dist filename — `dist/svg/AddContentSVG.svg` — and the URL consumers import: `@epignosis_llc/ui-icons/svg/AddContentSVG.svg`. The source name and the public name must match; don't use different words in each.
 

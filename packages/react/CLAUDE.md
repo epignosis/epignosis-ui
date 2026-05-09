@@ -134,8 +134,8 @@ Mirror gnosis's test suite for the same component and only deviate where our imp
 Use `eg-` prefixed BEM names, not gnosis names:
 
 ```tsx
-container.querySelector(".eg-button__spinner")  // correct
-container.querySelector(".egt-button__spinner") // wrong — gnosis prefix
+container.querySelector(".eg-button__spinner"); // correct
+container.querySelector(".egt-button__spinner"); // wrong — gnosis prefix
 ```
 
 ### Running tests

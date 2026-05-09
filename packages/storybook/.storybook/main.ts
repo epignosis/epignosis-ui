@@ -2,8 +2,7 @@ import type { StorybookConfig } from "@storybook/html-vite";
 
 const isStatic = process.env.STORYBOOK_STATIC === "true";
 
-const url = (port: number, path: string) =>
-  isStatic ? path : `http://localhost:${port}`;
+const url = (port: number, path: string) => (isStatic ? path : `http://localhost:${port}`);
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(ts|tsx)"],

@@ -44,6 +44,7 @@ export default [
     },
     rules: {
       "import/no-unresolved": "off",
+      "import/no-named-as-default-member": "off",
       "no-console": "off",
     },
   },
@@ -92,7 +93,7 @@ export default [
   {
     files: ["**/*.stories.{ts,tsx}"],
     rules: {
-      "import/no-unresolved": ["error", { ignore: ["^@storybook/"] }],
+      "import/no-unresolved": ["error", { ignore: ["^@storybook/", "^@epignosis_llc/"] }],
     },
   },
   {

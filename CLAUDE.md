@@ -62,7 +62,7 @@ Cover at minimum: the default render, each meaningful variant/mode, edge cases (
 
 ## Storybook
 
-Each package has its own Storybook. A composition hub at `packages/storybook` surfaces them all under one UI.
+Each package has its own Storybook. A composition hub at `packages/hub` surfaces them all under one UI.
 
 ### Dev (all at once)
 
@@ -84,7 +84,7 @@ pnpm storybook:hub
 STORYBOOK_STATIC=true pnpm build-storybook:hub
 ```
 
-Outputs a self-contained directory at `packages/storybook/storybook-static/` with each package's static bundle assembled into subdirectories (`react/`, `vue/`, `icons/`, `tokens/`). Serve the directory from any static host.
+Outputs a self-contained directory at `packages/hub/storybook-static/` with each package's static bundle assembled into subdirectories (`react/`, `vue/`, `icons/`, `tokens/`). Serve the directory from any static host.
 
 ## Releases & changesets
 

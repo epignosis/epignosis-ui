@@ -32,6 +32,9 @@ jobs:
       - name: Format check
         run: pnpm format
 
+      - name: Build dependency packages
+        run: pnpm --filter @epignosis_llc/ui-tokens --filter @epignosis_llc/ui-icons build
+
       - name: Unit tests
         run: pnpm --filter @epignosis_llc/ui-react test:run
 

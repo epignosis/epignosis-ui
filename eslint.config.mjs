@@ -49,20 +49,37 @@ export default [
   },
   {
     files: ["packages/*/src/**/*.{js,jsx,ts,tsx}", "packages/*/test-utils/**/*.{ts,tsx}"],
+    languageOptions: {
+      globals: { ...globals.browser, ...globals.node },
+    },
+    settings: {
+      "import/resolver": {
+        typescript: { project: ["packages/*/tsconfig.json"] },
+        node: { extensions: [".js", ".jsx", ".ts", ".tsx"] },
+      },
+    },
+    rules: {
+      "no-console": "error",
+      "import/order": ["error", { "newlines-between": "never" }],
+      "import/named": "off",
+      "import/no-unresolved": ["error", { ignore: ["^@epignosis_llc/"] }],
+      "@typescript-eslint/no-unused-expressions": [
+        "error",
+        { allowShortCircuit: true, allowTernary: true },
+      ],
+    },
+  },
+  {
+    files: ["packages/react/src/**/*.{js,jsx,ts,tsx}", "packages/react/test-utils/**/*.{ts,tsx}"],
     plugins: {
       react,
       "react-hooks": reactHooks,
     },
     languageOptions: {
-      globals: { ...globals.browser, ...globals.node },
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
     settings: {
       react: { version: "detect" },
-      "import/resolver": {
-        typescript: { project: ["packages/*/tsconfig.json"] },
-        node: { extensions: [".js", ".jsx", ".ts", ".tsx"] },
-      },
     },
     rules: {
       ...react.configs.recommended.rules,
@@ -70,13 +87,6 @@ export default [
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
       "react/no-unknown-property": ["error", { ignore: ["css"] }],
-      "no-console": "error",
-      "import/order": ["error", { "newlines-between": "never" }],
-      "import/named": "off",
-      "@typescript-eslint/no-unused-expressions": [
-        "error",
-        { allowShortCircuit: true, allowTernary: true },
-      ],
     },
   },
   {

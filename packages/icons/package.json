@@ -1,6 +1,6 @@
 {
   "name": "@epignosis_llc/ui-icons",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "type": "module",
   "description": "Epignosis icon set as React components.",
   "main": "./dist/index.cjs",

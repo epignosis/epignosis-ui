@@ -1,5 +1,11 @@
 # @epignosis_llc/ui-icons
 
+## 0.2.2
+
+### Patch Changes
+
+- [`14f0ec7`](https://github.com/epignosis/epignosis-ui/commit/14f0ec7855a5a73c1261a834ce8958c16bd694d1) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - add claude.md
+
 ## 0.2.1
 
 ### Patch Changes

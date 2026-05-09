@@ -158,9 +158,33 @@ If an icon legitimately needs **two** distinct colors (e.g. a two-tone logo), us
 
 ### 3. After cleanup
 
-- Drop the file in the right category directory: `packages/icons/src/<category>/<icon-name>.svg`
-- Add the export to that category's `index.ts`:
-  ```ts
-  export { default as MyNewIconSVG } from "./my-new-icon.svg";
-  ```
-- Run `pnpm --filter @epignosis_llc/ui-icons build` and `pnpm storybook:icons` to verify it renders, sizes, and recolors as expected.
+**Name the file and export consistently.**
+
+The source filename uses kebab-case; the export name is the same words in PascalCase with an `SVG` suffix:
+
+| Source file | Export name |
+| --- | --- |
+| `src/actions/add-content.svg` | `AddContentSVG` |
+| `src/feature/ai/brain-ai.svg` | `BrainAiSVG` |
+| `src/logos/google-drive.svg` | `GoogleDriveSVG` |
+
+The export name is also the raw-SVG dist filename — `dist/svg/AddContentSVG.svg` — and the URL consumers import: `@epignosis_llc/ui-icons/svg/AddContentSVG.svg`. The source name and the public name must match; don't use different words in each.
+
+**Export names must be globally unique across all categories.** If the same kebab-case filename already exists in another category (e.g. both `client/grid.svg` and `legacy/grid.svg`), append `_duplicate` to the later export: `GridSVG_duplicate`. Don't rename the source file. Check before adding:
+
+```bash
+grep -rE 'as MyNewIconSVG' packages/icons/src/
+```
+
+**Steps:**
+
+1. Drop the cleaned SVG at `src/<category>/<kebab-name>.svg`.
+2. Add the export to that category's `index.ts`:
+   ```ts
+   export { default as MyNewIconSVG } from "./my-new-icon.svg";
+   ```
+   Don't edit `src/index.ts` — it does `export * from "./<category>"` and picks up new exports automatically.
+3. Run `pnpm --filter @epignosis_llc/ui-icons build`. Confirm:
+   - `dist/index.{js,cjs,d.ts}` updated with the new export.
+   - `dist/svg/MyNewIconSVG.svg` exists and contains `currentColor`.
+4. Run `pnpm storybook:icons` and verify it renders, sizes, and recolors as expected.

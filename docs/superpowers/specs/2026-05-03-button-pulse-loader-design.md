@@ -32,17 +32,23 @@ Gnosis uses it inside Button at `size="md"` → `0.375rem` dots, `0.0625rem` mar
 Current (line ~109):
 
 ```tsx
-{isLoading && <span className={`${BLOCK}__spinner`} aria-hidden="true" />}
+{
+  isLoading && <span className={`${BLOCK}__spinner`} aria-hidden="true" />;
+}
 ```
 
 New:
 
 ```tsx
-{isLoading && (
-  <span className={`${BLOCK}__spinner`} aria-hidden="true">
-    <span /><span /><span />
-  </span>
-)}
+{
+  isLoading && (
+    <span className={`${BLOCK}__spinner`} aria-hidden="true">
+      <span />
+      <span />
+      <span />
+    </span>
+  );
+}
 ```
 
 The wrapper keeps the existing `${BLOCK}__spinner` class so the layout slot (margin, flex behaviour) stays intact. Three child spans become the dots.
@@ -75,21 +81,27 @@ const loadingButton = (): SerializedStyles => css`
       animation: ${pulse} 0.75s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
       animation-fill-mode: both;
     }
-    > span:nth-of-type(1) { animation-delay: 0.12s; }
-    > span:nth-of-type(2) { animation-delay: 0.24s; }
-    > span:nth-of-type(3) { animation-delay: 0.36s; }
+    > span:nth-of-type(1) {
+      animation-delay: 0.12s;
+    }
+    > span:nth-of-type(2) {
+      animation-delay: 0.24s;
+    }
+    > span:nth-of-type(3) {
+      animation-delay: 0.36s;
+    }
   }
 `;
 ```
 
 ## Decisions
 
-| Property | Gnosis | This design | Reason |
-|---|---|---|---|
-| Color | `theme.loader.color` (primary blue, fixed) | `currentColor` | Matches existing epignosis spinner; works on every variant (white on solid primary, blue on ghost, etc.) |
-| Sizing unit | `rem` (fixed across button sizes) | `em` | Matches existing epignosis spinner (`1em` ring); scales with button size sm/md/lg |
-| Dot diameter | `0.375rem` (md) | `0.375em` | Same proportion at 16px root; scales naturally |
-| Animation | identical | identical | The actual "behaviour" the user asked to replicate |
+| Property     | Gnosis                                     | This design    | Reason                                                                                                   |
+| ------------ | ------------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------------- |
+| Color        | `theme.loader.color` (primary blue, fixed) | `currentColor` | Matches existing epignosis spinner; works on every variant (white on solid primary, blue on ghost, etc.) |
+| Sizing unit  | `rem` (fixed across button sizes)          | `em`           | Matches existing epignosis spinner (`1em` ring); scales with button size sm/md/lg                        |
+| Dot diameter | `0.375rem` (md)                            | `0.375em`      | Same proportion at 16px root; scales naturally                                                           |
+| Animation    | identical                                  | identical      | The actual "behaviour" the user asked to replicate                                                       |
 
 ## Risks
 

@@ -31,56 +31,66 @@ Add a standalone Storybook to the `@epignosis-ui/tokens` package that visually s
 
 11 new files, 1 modified.
 
-| File | Purpose |
-|---|---|
-| `packages/tokens/.storybook/main.ts` | Storybook config (html-vite framework, story glob `../src/**/*.stories.ts`) |
-| `packages/tokens/.storybook/preview.ts` | Imports `../src/theme/tokens.css` |
-| `packages/tokens/.storybook/preview-head.html` | `<link>` to Google Fonts Mulish |
-| `packages/tokens/src/stories/Colors.stories.ts` | Per-palette swatch grids |
-| `packages/tokens/src/stories/Typography.stories.ts` | Font family / scale / weight specimens |
-| `packages/tokens/src/stories/Spacing.stories.ts` | Labeled scale bars |
-| `packages/tokens/src/stories/BorderRadius.stories.ts` | Labeled boxes |
-| `packages/tokens/src/stories/Shadows.stories.ts` | Labeled shadow boxes |
-| `packages/tokens/src/stories/Transitions.stories.ts` | Hover-to-demo boxes |
-| `packages/tokens/src/stories/Breakpoints.stories.ts` | Reference table (breakpoints + mediaQueries) |
-| `packages/tokens/src/stories/ZIndex.stories.ts` | Reference table |
-| `packages/tokens/package.json` *(modified)* | Add `storybook` / `build-storybook` scripts + devDeps |
+| File                                                  | Purpose                                                                     |
+| ----------------------------------------------------- | --------------------------------------------------------------------------- |
+| `packages/tokens/.storybook/main.ts`                  | Storybook config (html-vite framework, story glob `../src/**/*.stories.ts`) |
+| `packages/tokens/.storybook/preview.ts`               | Imports `../src/theme/tokens.css`                                           |
+| `packages/tokens/.storybook/preview-head.html`        | `<link>` to Google Fonts Mulish                                             |
+| `packages/tokens/src/stories/Colors.stories.ts`       | Per-palette swatch grids                                                    |
+| `packages/tokens/src/stories/Typography.stories.ts`   | Font family / scale / weight specimens                                      |
+| `packages/tokens/src/stories/Spacing.stories.ts`      | Labeled scale bars                                                          |
+| `packages/tokens/src/stories/BorderRadius.stories.ts` | Labeled boxes                                                               |
+| `packages/tokens/src/stories/Shadows.stories.ts`      | Labeled shadow boxes                                                        |
+| `packages/tokens/src/stories/Transitions.stories.ts`  | Hover-to-demo boxes                                                         |
+| `packages/tokens/src/stories/Breakpoints.stories.ts`  | Reference table (breakpoints + mediaQueries)                                |
+| `packages/tokens/src/stories/ZIndex.stories.ts`       | Reference table                                                             |
+| `packages/tokens/package.json` _(modified)_           | Add `storybook` / `build-storybook` scripts + devDeps                       |
 
 ## Per-story rendering
 
 Each story file exports a `Meta` (default) plus one or more named `StoryObj` exports. `meta.title` uses the prefix `Tokens/<Category>` so they collapse under a single sidebar group. Render functions return HTML strings.
 
 ### Colors.stories.ts
+
 - Iterates `Object.entries(colors)` to generate one named story per palette family (`Primary`, `Secondary`, `Green`, `Orange`, `Red`, `Black`, `White`, `Blue`).
 - Each story renders a row of swatches — one per shade key in that palette (`lightest25`, `lightest50`, `lightest`, `lighter`, `light`, `base`, `dark`, `darker50`, `darker`, `darkest`).
 - Each swatch: a 96×96 colored box, shade name beneath, hex/rgba value below that.
 - Plus a top-level `Base` story rendering the 8 `colorBase` values as flat swatches.
 
 ### Typography.stories.ts
+
 Three named stories.
+
 - `FontFamily`: a paragraph rendered in `typography.fontFamily.body`, plus the resolved string label.
 - `Scale`: one row per `fontSize` key. Sample sentence at that size; label shows `key + rem + computed px`.
 - `Weights`: one row per `fontWeight` key. Sample sentence at that weight; label shows `key + numeric value`.
 
 ### Spacing.stories.ts
+
 One story `Scale`. Iterates `Object.entries(spacing)`. Each row: a horizontal bar with `width: <value>; height: 16px; background: colors.primary.light`. Label shows `key + rem + computed px`.
 
 ### BorderRadius.stories.ts
+
 One story `Scale`. Iterates `Object.entries(borderRadius)`. Grid of 96×96 boxes (filled with `colors.primary.light`), each with one of the radius values applied. Label below shows `key + value`.
 
 ### Shadows.stories.ts
+
 One story `All`. Iterates `Object.entries(shadows)`. Grid of 120×80 white boxes with the shadow applied. Label shows `key + the shadow value`.
 
 ### Transitions.stories.ts
+
 One story `All`. Iterates `Object.entries(transitions)`. Grid of boxes, each demonstrating one transition value. Boxes start at `transform: translateX(0)` and on `:hover` translate to `translateX(40px)` using `transition: transform <value>`. Label shows `key + value`. Header text: "Hover any box to demo."
 
 ### Breakpoints.stories.ts
+
 One story `Reference`. HTML `<table>` with three columns: `key | px | media query string`. Iterates `breakpoints` and joins each row with the matching value from `mediaQueries`.
 
 ### ZIndex.stories.ts
+
 One story `Reference`. HTML `<table>` with two columns: `key | numeric value`. Iterates `Object.entries(zIndex)`. No visual stacking demo — the table is sufficient.
 
 ### `remToPx` utility
+
 Several stories show "rem → computed px" (e.g., `1rem (16px)`). Inline a 3-line `remToPx(value)` function at the top of each file that needs it. Don't extract until 3+ files duplicate it.
 
 ## Tooling additions

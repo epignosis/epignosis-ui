@@ -17,8 +17,7 @@ export default function IconsList({ icons, defaultSize = 32 }: Props) {
   const [copied, setCopied] = useState<string | null>(null);
 
   const entries = useMemo(
-    () =>
-      Object.entries(icons).filter(([name, value]) => name !== "default" && isComponent(value)),
+    () => Object.entries(icons).filter(([name, value]) => name !== "default" && isComponent(value)),
     [icons],
   );
 

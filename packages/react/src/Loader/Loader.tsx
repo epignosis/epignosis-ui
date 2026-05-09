@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "react";
 import { useTheme, type Theme } from "@emotion/react";
 import { ClipLoader, PulseLoader } from "react-spinners";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import { container } from "./styles";
 
 export type LoaderSize = "md" | "lg";

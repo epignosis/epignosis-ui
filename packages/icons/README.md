@@ -30,12 +30,12 @@ export function Example() {
 
 Each icon is a React component that accepts the standard `SVGProps<SVGSVGElement>`. The most common props:
 
-| Prop | Effect |
-|---|---|
-| `height` / `width` | Size in px (numbers) or any CSS length string |
-| `style` / `className` | Standard React styling hooks |
-| `aria-hidden`, `aria-label`, `role` | Accessibility |
-| `onClick` etc. | Event handlers |
+| Prop                                | Effect                                        |
+| ----------------------------------- | --------------------------------------------- |
+| `height` / `width`                  | Size in px (numbers) or any CSS length string |
+| `style` / `className`               | Standard React styling hooks                  |
+| `aria-hidden`, `aria-label`, `role` | Accessibility                                 |
+| `onClick` etc.                      | Event handlers                                |
 
 ## Coloring
 
@@ -57,7 +57,7 @@ import closeUrl from "@epignosis_llc/ui-icons/svg/CloseCircledSVG.svg";
 ```
 
 ```html
-<img src={calendarUrl} alt="" />
+<img src="{calendarUrl}" alt="" />
 <!-- or, to keep currentColor recoloring, inline the file via your bundler -->
 ```
 

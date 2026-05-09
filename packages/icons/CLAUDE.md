@@ -56,11 +56,11 @@ If an icon legitimately needs two distinct colors (e.g. a two-tone logo), use `c
 
 `pnpm --filter @epignosis_llc/ui-icons build` runs `vite build && node scripts/postbuild.mjs`.
 
-| Output | Produced by | Purpose |
-|---|---|---|
-| `dist/index.{js,cjs}` | vite + vite-plugin-svgr | React component bundle (ESM + CJS) |
-| `dist/index.d.ts` | postbuild | Flat declaration of every named export. tsc isn't used because the chain of `*.svg` ambient declarations doesn't survive re-exports cleanly. |
-| `dist/svg/<Name>.svg` | postbuild | Raw SVG for non-React consumers, with `#000`/`#000000` → `currentColor` applied so behavior matches the React build. |
+| Output                | Produced by             | Purpose                                                                                                                                      |
+| --------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `dist/index.{js,cjs}` | vite + vite-plugin-svgr | React component bundle (ESM + CJS)                                                                                                           |
+| `dist/index.d.ts`     | postbuild               | Flat declaration of every named export. tsc isn't used because the chain of `*.svg` ambient declarations doesn't survive re-exports cleanly. |
+| `dist/svg/<Name>.svg` | postbuild               | Raw SVG for non-React consumers, with `#000`/`#000000` → `currentColor` applied so behavior matches the React build.                         |
 
 The `currentColor` rewrite lives in **two** places that must stay in sync:
 

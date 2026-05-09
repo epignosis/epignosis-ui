@@ -3,6 +3,7 @@
 **Date:** 2026-04-28
 **Status:** Approved (pending user review of this written spec)
 **Related:**
+
 - [`2026-04-27-button-port-from-gnosis-design.md`](./2026-04-27-button-port-from-gnosis-design.md) — the trimmed Button port this builds on
 - [`2026-04-27-react-vue-packages-design.md`](./2026-04-27-react-vue-packages-design.md) — the monorepo architecture
 
@@ -47,9 +48,11 @@ packages/react/src/
 ```
 
 **Deletions:**
+
 - `packages/react/src/Button/Button.css` — removed.
 
 **Modifications:**
+
 - `packages/react/package.json` — add `@emotion/react` peer dep + dev dep; remove `./styles.css` from `exports`; remove `sideEffects` (no CSS files in dist anymore).
 - `packages/react/vite.config.ts` — `react({ jsxImportSource: "@emotion/react" })`.
 - `packages/react/.storybook/preview.ts` → renamed `preview.tsx` (decorator embeds JSX).
@@ -62,13 +65,13 @@ packages/react/src/
 
 Mirror of gnosis's `src/theme/default/config/button.ts`. Values are **CSS-variable strings** (not raw hex), so consumer overrides at `:root` still flow through. The three alpha-modulated values gnosis computes via the `color` library stay hardcoded as `rgba(...)` strings (same as current Button.css):
 
-| gnosis expression | Spec value |
-| --- | --- |
+| gnosis expression                | Spec value                          |
+| -------------------------------- | ----------------------------------- |
 | `colors.primary.lightest @ 0.25` | `"var(--color-primary-lightest25)"` |
-| `colors.primary.lightest @ 0.5` | `"var(--color-primary-lightest50)"` |
-| `colors.primary.darker @ 0.9` | `"rgba(0, 42, 103, 0.9)"` |
-| `colors.primary.darker @ 0.15` | `"rgba(0, 42, 103, 0.15)"` |
-| `colors.white @ 0.7` | `"rgba(255, 255, 255, 0.7)"` |
+| `colors.primary.lightest @ 0.5`  | `"var(--color-primary-lightest50)"` |
+| `colors.primary.darker @ 0.9`    | `"rgba(0, 42, 103, 0.9)"`           |
+| `colors.primary.darker @ 0.15`   | `"rgba(0, 42, 103, 0.15)"`          |
+| `colors.white @ 0.7`             | `"rgba(255, 255, 255, 0.7)"`        |
 
 Theme shape (excerpt — full theme has all 8 colors):
 
@@ -77,21 +80,33 @@ export const epignosisTheme = {
   button: {
     disabled: {
       background: "var(--color-secondary-lighter)",
-      color:      "var(--color-secondary-base)",
-      borderColor:"var(--color-secondary-base)",
+      color: "var(--color-secondary-base)",
+      borderColor: "var(--color-secondary-base)",
     },
     primary: {
       default: {
-        background:   "var(--color-primary-base)",
-        borderColor:  "var(--color-primary-base)",
-        color:        "var(--color-base-white)",
+        background: "var(--color-primary-base)",
+        borderColor: "var(--color-primary-base)",
+        color: "var(--color-base-white)",
         borderRadius: "var(--border-radius-sm)",
       },
-      hover:   { background: "var(--color-primary-light)", borderColor: "var(--color-primary-light)", color: "var(--color-base-white)" },
-      active:  { background: "var(--color-primary-base)",  borderColor: "var(--color-primary-base)",  color: "var(--color-base-white)" },
-      ghost:   { color: "var(--color-primary-base)", background: "var(--color-primary-lightest25)", hoverColor: "var(--color-primary-base)" },
+      hover: {
+        background: "var(--color-primary-light)",
+        borderColor: "var(--color-primary-light)",
+        color: "var(--color-base-white)",
+      },
+      active: {
+        background: "var(--color-primary-base)",
+        borderColor: "var(--color-primary-base)",
+        color: "var(--color-base-white)",
+      },
+      ghost: {
+        color: "var(--color-primary-base)",
+        background: "var(--color-primary-lightest25)",
+        hoverColor: "var(--color-primary-base)",
+      },
       outline: { color: "var(--color-primary-base)", borderColor: "var(--color-primary-base)" },
-      link:    { color: "var(--color-primary-base)", hoverColor: "var(--color-primary-light)" },
+      link: { color: "var(--color-primary-base)", hoverColor: "var(--color-primary-light)" },
     },
     /* secondary, danger, success, primaryLight, primaryDarker, white, orange — same shape */
   },
@@ -154,10 +169,14 @@ Pattern lifted near-verbatim from gnosis's `Button/styles.ts`. Per-concern helpe
 import { css, type SerializedStyles, type Theme } from "@emotion/react";
 import type { ButtonColor, ButtonSize, ButtonVariant } from "./Button";
 
-const fontSizes = { sm: "var(--font-size-sm)", md: "var(--font-size-sm)", lg: "var(--font-size-lg)" };
-const heights   = { sm: "2rem",   md: "2.5rem", lg: "3rem"   };
-const minWidths = { sm: "2rem",   md: "2.5rem", lg: "3rem"   };
-const paddings  = { sm: "0 1rem", md: "0 1.75rem", lg: "0 3rem" };
+const fontSizes = {
+  sm: "var(--font-size-sm)",
+  md: "var(--font-size-sm)",
+  lg: "var(--font-size-lg)",
+};
+const heights = { sm: "2rem", md: "2.5rem", lg: "3rem" };
+const minWidths = { sm: "2rem", md: "2.5rem", lg: "3rem" };
+const paddings = { sm: "0 1rem", md: "0 1.75rem", lg: "0 3rem" };
 
 const baseButton = (size: ButtonSize): SerializedStyles => css`
   position: relative;
@@ -247,10 +266,14 @@ const variantStyles = (
   color: ButtonColor,
 ): SerializedStyles => {
   switch (variant) {
-    case "solid":   return solidButton(button, color);
-    case "outline": return outlineButton(button, color);
-    case "ghost":   return ghostButton(button, color);
-    case "link":    return linkButton(button, color);
+    case "solid":
+      return solidButton(button, color);
+    case "outline":
+      return outlineButton(button, color);
+    case "ghost":
+      return ghostButton(button, color);
+    case "link":
+      return linkButton(button, color);
   }
 };
 
@@ -272,8 +295,14 @@ import type { PolymorphicComponentProps } from "../types/polymorphic";
 import { btnContainer } from "./styles";
 
 export type ButtonColor =
-  | "primary" | "secondary" | "danger" | "success"
-  | "primaryLight" | "primaryDarker" | "white" | "orange";
+  | "primary"
+  | "secondary"
+  | "danger"
+  | "success"
+  | "primaryLight"
+  | "primaryDarker"
+  | "white"
+  | "orange";
 export type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 export type ButtonSize = "sm" | "md" | "lg";
 
@@ -315,6 +344,7 @@ export default function Button<C extends ElementType = "button">({
 ```
 
 Notes:
+
 - `css={(theme) => …}` runs inside `<ThemeProvider>` so `theme.button` is populated and typed.
 - `className` keeps the `is-disabled` hook for non-`<button>` elements (anchors don't have `disabled`), plus any consumer-supplied class. The old `eg-button--*` classnames are gone — emotion generates its own.
 - The previous `cn(...)` helper is gone (only one use site, inline `[…].filter(Boolean).join(" ")` reads fine).
@@ -356,12 +386,7 @@ The existing `Button.stories.tsx` (linter-edited form) needs **no changes** — 
 ```ts
 // packages/react/src/index.ts
 export { default as Button } from "./Button/Button";
-export type {
-  ButtonProps,
-  ButtonColor,
-  ButtonVariant,
-  ButtonSize,
-} from "./Button/Button";
+export type { ButtonProps, ButtonColor, ButtonVariant, ButtonSize } from "./Button/Button";
 
 export { ThemeProvider, epignosisTheme } from "./theme";
 export type { EpignosisTheme } from "./theme";
@@ -377,26 +402,28 @@ import "@epignosis-ui/tokens/tokens.css";
 createRoot(el).render(
   <ThemeProvider>
     <App />
-  </ThemeProvider>
+  </ThemeProvider>,
 );
 
 // any component
 import { Button } from "@epignosis-ui/react";
 
-<Button color="primary" variant="solid" size="md">Click me</Button>;
+<Button color="primary" variant="solid" size="md">
+  Click me
+</Button>;
 ```
 
 Consumer also runs `pnpm add @emotion/react` (peer dep). No more `import "@epignosis-ui/react/styles.css"` line — emotion injects styles at runtime.
 
 ## Breaking changes
 
-| Before | After |
-| --- | --- |
-| `import "@epignosis-ui/react/styles.css"` is required | no CSS import; `<ThemeProvider>` is required |
-| Consumer adds nothing extra | Consumer adds `@emotion/react` peer dep |
-| `dist/styles.css` exists | **`dist/styles.css` deleted** |
-| `package.json` declares `./styles.css` export and `sideEffects` | both removed |
-| Stable `eg-button--{variant}` selectors for overrides | generated emotion classes (e.g. `css-1abc23`); overrides via `className` only |
+| Before                                                          | After                                                                         |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `import "@epignosis-ui/react/styles.css"` is required           | no CSS import; `<ThemeProvider>` is required                                  |
+| Consumer adds nothing extra                                     | Consumer adds `@emotion/react` peer dep                                       |
+| `dist/styles.css` exists                                        | **`dist/styles.css` deleted**                                                 |
+| `package.json` declares `./styles.css` export and `sideEffects` | both removed                                                                  |
+| Stable `eg-button--{variant}` selectors for overrides           | generated emotion classes (e.g. `css-1abc23`); overrides via `className` only |
 
 `@epignosis-ui/react` is at `0.1.0` so this is acceptable.
 

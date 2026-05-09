@@ -7,9 +7,6 @@ export type ThemeProviderProps = {
   children: ReactNode;
 };
 
-export function ThemeProvider({
-  theme = epignosisTheme as Theme,
-  children,
-}: ThemeProviderProps) {
+export function ThemeProvider({ theme = epignosisTheme as Theme, children }: ThemeProviderProps) {
   return <EmotionThemeProvider theme={theme}>{children}</EmotionThemeProvider>;
 }

@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { colors } from "@epignosis_llc/ui-tokens";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import { avatar } from "./styles";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";

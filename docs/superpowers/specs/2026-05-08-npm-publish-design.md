@@ -20,17 +20,17 @@ None are published. A sibling client app cannot import them because the `@epigno
 
 ## Decisions
 
-| Decision | Choice |
-|---|---|
-| Scope of work | All three packages (react, vue, tokens) |
-| npm scope | `@epignosis_llc` (existing) |
-| Package names | `@epignosis_llc/ui-react`, `@epignosis_llc/ui-vue`, `@epignosis_llc/ui-tokens` |
-| License | MIT |
-| Release tooling | Changesets |
-| Publish runner | GitHub Actions (no local publish) |
-| Tokens builder | tsup |
-| Repository | https://github.com/epignosis/epignosis-ui |
-| Initial version | `0.1.0` for all three (pre-stable per semver) |
+| Decision        | Choice                                                                         |
+| --------------- | ------------------------------------------------------------------------------ |
+| Scope of work   | All three packages (react, vue, tokens)                                        |
+| npm scope       | `@epignosis_llc` (existing)                                                    |
+| Package names   | `@epignosis_llc/ui-react`, `@epignosis_llc/ui-vue`, `@epignosis_llc/ui-tokens` |
+| License         | MIT                                                                            |
+| Release tooling | Changesets                                                                     |
+| Publish runner  | GitHub Actions (no local publish)                                              |
+| Tokens builder  | tsup                                                                           |
+| Repository      | https://github.com/epignosis/epignosis-ui                                      |
+| Initial version | `0.1.0` for all three (pre-stable per semver)                                  |
 
 ## Design
 

@@ -14,20 +14,20 @@
 
 ## File Structure
 
-| File | Created by | Purpose |
-|---|---|---|
-| `packages/tokens/package.json` | Task 1 (modify) | Add `storybook` / `build-storybook` scripts + Storybook devDeps |
-| `packages/tokens/.storybook/main.ts` | Task 1 | Storybook config (html-vite framework, story glob) |
-| `packages/tokens/.storybook/preview.ts` | Task 1 | Imports `tokens.css` so CSS vars resolve |
-| `packages/tokens/.storybook/preview-head.html` | Task 1 | Mulish font link (Google Fonts) |
-| `packages/tokens/src/stories/Colors.stories.ts` | Task 1 | Base + 5 palette swatch grids |
-| `packages/tokens/src/stories/Typography.stories.ts` | Task 2 | Font family / scale / weights specimens |
-| `packages/tokens/src/stories/Spacing.stories.ts` | Task 2 | Labeled scale bars |
-| `packages/tokens/src/stories/BorderRadius.stories.ts` | Task 2 | Labeled radius boxes |
-| `packages/tokens/src/stories/Shadows.stories.ts` | Task 2 | Labeled shadow boxes |
-| `packages/tokens/src/stories/Transitions.stories.ts` | Task 2 | Hover-to-demo transition boxes |
-| `packages/tokens/src/stories/Breakpoints.stories.ts` | Task 3 | Reference table |
-| `packages/tokens/src/stories/ZIndex.stories.ts` | Task 3 | Reference table |
+| File                                                  | Created by      | Purpose                                                         |
+| ----------------------------------------------------- | --------------- | --------------------------------------------------------------- |
+| `packages/tokens/package.json`                        | Task 1 (modify) | Add `storybook` / `build-storybook` scripts + Storybook devDeps |
+| `packages/tokens/.storybook/main.ts`                  | Task 1          | Storybook config (html-vite framework, story glob)              |
+| `packages/tokens/.storybook/preview.ts`               | Task 1          | Imports `tokens.css` so CSS vars resolve                        |
+| `packages/tokens/.storybook/preview-head.html`        | Task 1          | Mulish font link (Google Fonts)                                 |
+| `packages/tokens/src/stories/Colors.stories.ts`       | Task 1          | Base + 5 palette swatch grids                                   |
+| `packages/tokens/src/stories/Typography.stories.ts`   | Task 2          | Font family / scale / weights specimens                         |
+| `packages/tokens/src/stories/Spacing.stories.ts`      | Task 2          | Labeled scale bars                                              |
+| `packages/tokens/src/stories/BorderRadius.stories.ts` | Task 2          | Labeled radius boxes                                            |
+| `packages/tokens/src/stories/Shadows.stories.ts`      | Task 2          | Labeled shadow boxes                                            |
+| `packages/tokens/src/stories/Transitions.stories.ts`  | Task 2          | Hover-to-demo transition boxes                                  |
+| `packages/tokens/src/stories/Breakpoints.stories.ts`  | Task 3          | Reference table                                                 |
+| `packages/tokens/src/stories/ZIndex.stories.ts`       | Task 3          | Reference table                                                 |
 
 The plan groups work into 3 tasks: **(1)** tooling + the canonical first story (Colors) to validate the whole pipeline, **(2)** the remaining visual stories, **(3)** the two reference-table stories.
 
@@ -36,6 +36,7 @@ The plan groups work into 3 tasks: **(1)** tooling + the canonical first story (
 ## Task 1: Tooling + Colors story
 
 **Files:**
+
 - Modify: `packages/tokens/package.json` (add scripts + devDeps)
 - Create: `packages/tokens/.storybook/main.ts`
 - Create: `packages/tokens/.storybook/preview.ts`
@@ -202,6 +203,7 @@ pnpm --filter @epignosis-ui/tokens build-storybook
 Expected: command exits 0. A `storybook-static/` directory is produced under `packages/tokens/`. No "no stories found" error (the Colors stories are present).
 
 If it fails:
+
 - Type errors in `Colors.stories.ts` → fix per the error message.
 - "Cannot find module '@storybook/html-vite'" → re-run `pnpm install`.
 - Port conflict during build → not applicable, `build-storybook` doesn't bind a port.
@@ -242,6 +244,7 @@ EOF
 ## Task 2: Visual stories (Typography, Spacing, BorderRadius, Shadows, Transitions)
 
 **Files:**
+
 - Create: `packages/tokens/src/stories/Typography.stories.ts`
 - Create: `packages/tokens/src/stories/Spacing.stories.ts`
 - Create: `packages/tokens/src/stories/BorderRadius.stories.ts`
@@ -528,6 +531,7 @@ EOF
 ## Task 3: Reference table stories (Breakpoints, ZIndex)
 
 **Files:**
+
 - Create: `packages/tokens/src/stories/Breakpoints.stories.ts`
 - Create: `packages/tokens/src/stories/ZIndex.stories.ts`
 
@@ -627,7 +631,7 @@ Run:
 pnpm --filter @epignosis-ui/tokens build-storybook
 ```
 
-Expected: exits 0. All eight Tokens/* stories present in the build output (Colors + Typography + Spacing + BorderRadius + Shadows + Transitions + Breakpoints + ZIndex).
+Expected: exits 0. All eight Tokens/\* stories present in the build output (Colors + Typography + Spacing + BorderRadius + Shadows + Transitions + Breakpoints + ZIndex).
 
 - [ ] **Step 4: Commit**
 

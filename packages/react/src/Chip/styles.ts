@@ -16,11 +16,7 @@ const fontSizes: Record<ChipSize, string> = {
 
 export const chip = (
   { chip }: Theme,
-  {
-    size,
-    isFilterOn,
-    maxWidth,
-  }: { size: ChipSize; isFilterOn: boolean; maxWidth: string },
+  { size, isFilterOn, maxWidth }: { size: ChipSize; isFilterOn: boolean; maxWidth: string },
 ): SerializedStyles => css`
   display: inline-flex;
   align-items: center;

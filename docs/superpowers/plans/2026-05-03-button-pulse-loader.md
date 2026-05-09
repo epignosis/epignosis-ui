@@ -14,10 +14,10 @@
 
 ## File Structure
 
-| File | Change | Responsibility |
-|---|---|---|
-| `packages/react/src/Button/Button.tsx` | Modify line 109 | Render the spinner wrapper with three child dot spans when `isLoading` |
-| `packages/react/src/Button/styles.ts` | Replace lines 175–190 | Define `pulse` keyframes and the 3-dot `.eg-button__spinner > span` styles |
+| File                                   | Change                | Responsibility                                                             |
+| -------------------------------------- | --------------------- | -------------------------------------------------------------------------- |
+| `packages/react/src/Button/Button.tsx` | Modify line 109       | Render the spinner wrapper with three child dot spans when `isLoading`     |
+| `packages/react/src/Button/styles.ts`  | Replace lines 175–190 | Define `pulse` keyframes and the 3-dot `.eg-button__spinner > span` styles |
 
 No tests exist for Button (`packages/react/src/Button/` contains no `*.test.*`); none added by this plan. Verification is via TypeScript build + Storybook visual check.
 
@@ -26,6 +26,7 @@ No tests exist for Button (`packages/react/src/Button/` contains no `*.test.*`);
 ## Task 1: Replace ring spinner with 3-dot pulse animation
 
 **Files:**
+
 - Modify: `packages/react/src/Button/Button.tsx:109`
 - Modify: `packages/react/src/Button/styles.ts:175-190`
 
@@ -36,19 +37,23 @@ These two edits land together. Splitting them would leave one commit with stale 
 In `packages/react/src/Button/Button.tsx`, find this line (currently line 109):
 
 ```tsx
-{isLoading && <span className={`${BLOCK}__spinner`} aria-hidden="true" />}
+{
+  isLoading && <span className={`${BLOCK}__spinner`} aria-hidden="true" />;
+}
 ```
 
 Replace with:
 
 ```tsx
-{isLoading && (
-  <span className={`${BLOCK}__spinner`} aria-hidden="true">
-    <span />
-    <span />
-    <span />
-  </span>
-)}
+{
+  isLoading && (
+    <span className={`${BLOCK}__spinner`} aria-hidden="true">
+      <span />
+      <span />
+      <span />
+    </span>
+  );
+}
 ```
 
 The wrapper span keeps the same `${BLOCK}__spinner` class so the layout slot (margin-inline-end, flex-shrink) stays intact. The three child spans become the dots.
@@ -116,6 +121,7 @@ const loadingButton = (): SerializedStyles => css`
 ```
 
 Notes:
+
 - The local binding renames from `spin` to `pulse`. `spin` had no other references in this file (verified: only used inside `loadingButton`). No other occurrence to update.
 - The `keyframes` import on line 1 is already present and reused: `import { css, keyframes, type SerializedStyles, type Theme } from "@emotion/react";`. Do not change it.
 - The `loadingButton()` function signature is unchanged, so its caller in `btnContainer` (line 245: `${isLoading ? loadingButton() : ""};`) needs no edit.

@@ -1,7 +1,7 @@
 import type { HTMLAttributes, MouseEvent, ReactNode } from "react";
 import type { Theme } from "@emotion/react";
 import { CloseSVG } from "@epignosis_llc/ui-icons";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import type { IconType } from "../Button/constants";
 import { chip as chipStyles } from "./styles";
 
@@ -42,9 +42,7 @@ export default function Chip({
 
   return (
     <div
-      css={(theme: Theme) =>
-        chipStyles(theme, { size, isFilterOn, maxWidth: maxWidthValue })
-      }
+      css={(theme: Theme) => chipStyles(theme, { size, isFilterOn, maxWidth: maxWidthValue })}
       style={style}
       className={clsx(BLOCK, `${BLOCK}--${size}`, isFilterOn && `${BLOCK}--filter`, className)}
       {...rest}

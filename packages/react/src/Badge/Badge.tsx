@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import type { Theme } from "@emotion/react";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import { container } from "./styles";
 
 export type BadgeSize = "md" | "lg";

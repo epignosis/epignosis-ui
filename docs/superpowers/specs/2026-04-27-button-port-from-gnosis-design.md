@@ -24,24 +24,29 @@ import type { ReactNode, ElementType } from "react";
 import type { PolymorphicComponentProps } from "../types/polymorphic";
 
 export type ButtonColor =
-  | "primary" | "secondary" | "danger" | "success"
-  | "primaryLight" | "primaryDarker" | "white" | "orange";
+  | "primary"
+  | "secondary"
+  | "danger"
+  | "success"
+  | "primaryLight"
+  | "primaryDarker"
+  | "white"
+  | "orange";
 
 export type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 
 export type ButtonSize = "sm" | "md" | "lg";
 
 type Props = {
-  color?: ButtonColor;       // default "primary"
-  variant?: ButtonVariant;   // default "solid"
-  size?: ButtonSize;         // default "md"
+  color?: ButtonColor; // default "primary"
+  variant?: ButtonVariant; // default "solid"
+  size?: ButtonSize; // default "md"
   disabled?: boolean;
   className?: string;
   children: ReactNode;
 };
 
-export type ButtonProps<C extends ElementType = "button"> =
-  PolymorphicComponentProps<C, Props>;
+export type ButtonProps<C extends ElementType = "button"> = PolymorphicComponentProps<C, Props>;
 
 export default function Button<C extends ElementType = "button">(
   props: ButtonProps<C>,
@@ -55,12 +60,7 @@ This is a **breaking change** versus the placeholder Button (which had `variant:
 ```ts
 // packages/react/src/index.ts
 export { default as Button } from "./Button/Button";
-export type {
-  ButtonProps,
-  ButtonColor,
-  ButtonVariant,
-  ButtonSize,
-} from "./Button/Button";
+export type { ButtonProps, ButtonColor, ButtonVariant, ButtonSize } from "./Button/Button";
 ```
 
 ## File layout
@@ -87,10 +87,9 @@ type AsProp<C extends ElementType> = { as?: C };
 
 type PropsToOmit<C extends ElementType, P> = keyof (AsProp<C> & P);
 
-export type PolymorphicComponentProps<
-  C extends ElementType,
-  Props = object,
-> = Props & AsProp<C> & Omit<ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>;
+export type PolymorphicComponentProps<C extends ElementType, Props = object> = Props &
+  AsProp<C> &
+  Omit<ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>;
 ```
 
 Lets consumers do:
@@ -109,8 +108,14 @@ import type { PolymorphicComponentProps } from "../types/polymorphic";
 import "./Button.css";
 
 export type ButtonColor =
-  | "primary" | "secondary" | "danger" | "success"
-  | "primaryLight" | "primaryDarker" | "white" | "orange";
+  | "primary"
+  | "secondary"
+  | "danger"
+  | "success"
+  | "primaryLight"
+  | "primaryDarker"
+  | "white"
+  | "orange";
 export type ButtonVariant = "solid" | "outline" | "ghost" | "link";
 export type ButtonSize = "sm" | "md" | "lg";
 
@@ -123,8 +128,7 @@ type Props = {
   children: ReactNode;
 };
 
-export type ButtonProps<C extends ElementType = "button"> =
-  PolymorphicComponentProps<C, Props>;
+export type ButtonProps<C extends ElementType = "button"> = PolymorphicComponentProps<C, Props>;
 
 function cn(...parts: Array<string | false | undefined>): string {
   return parts.filter(Boolean).join(" ");
@@ -163,6 +167,7 @@ export default function Button<C extends ElementType = "button">({
 ```
 
 Notes:
+
 - Renders the requested element via `as`. Native `<button>` gets `type="button"` by default (overridable via the consumer's `type` in `...rest`) and the `disabled` attribute. Non-button elements (e.g. `<a>`) only get the `is-disabled` class — anchors have no native `disabled` attribute.
 - `disabled` is destructured before `...rest`, so the spread can't accidentally re-add it for non-button elements.
 - `cn` is a 1-line inline helper. No `classnames` dep.
@@ -192,9 +197,24 @@ Component renders e.g. `class="eg-button eg-button--solid eg-button--primary eg-
     border-color var(--transition-fast) ease-in;
 }
 
-.eg-button--sm { font-size: var(--font-size-sm); height: 2rem;   min-width: 2rem;   padding: 0 1rem; }
-.eg-button--md { font-size: var(--font-size-sm); height: 2.5rem; min-width: 2.5rem; padding: 0 1.75rem; }
-.eg-button--lg { font-size: var(--font-size-lg); height: 3rem;   min-width: 3rem;   padding: 0 3rem; }
+.eg-button--sm {
+  font-size: var(--font-size-sm);
+  height: 2rem;
+  min-width: 2rem;
+  padding: 0 1rem;
+}
+.eg-button--md {
+  font-size: var(--font-size-sm);
+  height: 2.5rem;
+  min-width: 2.5rem;
+  padding: 0 1.75rem;
+}
+.eg-button--lg {
+  font-size: var(--font-size-lg);
+  height: 3rem;
+  min-width: 3rem;
+  padding: 0 3rem;
+}
 
 .eg-button:disabled,
 .eg-button.is-disabled {
@@ -263,14 +283,14 @@ The remaining 7 colors follow the same structure with values from gnosis's `butt
 
 The existing `tokens.css` covers everything gnosis's `button.ts` needs **except** these alpha-modulated shades that gnosis computes at runtime via the `color` library:
 
-| gnosis expression | Where it lives in our build |
-| --- | --- |
-| `colors.primary.lightest @ 0.25` | Already in tokens: `var(--color-primary-lightest25)` |
-| `colors.primary.lightest @ 0.5` | Already in tokens: `var(--color-primary-lightest50)` |
-| `colors.primary.darker @ 0.5` | Already in tokens: `var(--color-primary-darker50)` |
-| `colors.primary.darker @ 0.9` | **Hardcoded in Button.css:** `rgba(0, 42, 103, 0.9)` |
-| `colors.primary.darker @ 0.15` | **Hardcoded in Button.css:** `rgba(0, 42, 103, 0.15)` |
-| `colors.white @ 0.7` | **Hardcoded in Button.css:** `rgba(255, 255, 255, 0.7)` |
+| gnosis expression                | Where it lives in our build                             |
+| -------------------------------- | ------------------------------------------------------- |
+| `colors.primary.lightest @ 0.25` | Already in tokens: `var(--color-primary-lightest25)`    |
+| `colors.primary.lightest @ 0.5`  | Already in tokens: `var(--color-primary-lightest50)`    |
+| `colors.primary.darker @ 0.5`    | Already in tokens: `var(--color-primary-darker50)`      |
+| `colors.primary.darker @ 0.9`    | **Hardcoded in Button.css:** `rgba(0, 42, 103, 0.9)`    |
+| `colors.primary.darker @ 0.15`   | **Hardcoded in Button.css:** `rgba(0, 42, 103, 0.15)`   |
+| `colors.white @ 0.7`             | **Hardcoded in Button.css:** `rgba(255, 255, 255, 0.7)` |
 
 Three hardcoded rgba values, each used by exactly one of `primaryLight`, `primaryDarker`, `white`. If a future component needs them, we'll promote to `tokens.css` then.
 
@@ -301,7 +321,7 @@ argTypes: {
 },
 ```
 
-The `Playground` story exposes all four. The "All*" stories override `parameters.controls.disable: true` for fields they're sweeping (so the panel doesn't suggest you're controlling things you aren't).
+The `Playground` story exposes all four. The "All\*" stories override `parameters.controls.disable: true` for fields they're sweeping (so the panel doesn't suggest you're controlling things you aren't).
 
 ## Verification
 

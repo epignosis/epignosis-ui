@@ -84,8 +84,8 @@ packages/tokens/
   "module": "src/index.ts",
   "types": "src/index.ts",
   "exports": {
-    ".":            { "types": "./src/index.ts", "import": "./src/index.ts" },
-    "./tokens":     { "types": "./src/theme/tokens.ts", "import": "./src/theme/tokens.ts" },
+    ".": { "types": "./src/index.ts", "import": "./src/index.ts" },
+    "./tokens": { "types": "./src/theme/tokens.ts", "import": "./src/theme/tokens.ts" },
     "./tokens.css": "./src/theme/tokens.css"
   },
   "files": ["src"],
@@ -190,10 +190,10 @@ packages/react/
 import "./Button.css";
 
 export type ButtonProps = {
-  variant?: "primary" | "secondary";    // default: "primary"
-  size?: "sm" | "md";                    // default: "md"
+  variant?: "primary" | "secondary"; // default: "primary"
+  size?: "sm" | "md"; // default: "md"
   disabled?: boolean;
-  type?: "button" | "submit" | "reset";  // default: "button"
+  type?: "button" | "submit" | "reset"; // default: "button"
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children: React.ReactNode;
 };
@@ -226,19 +226,42 @@ export function Button({
   border: none;
   border-radius: var(--border-radius-sm);
   cursor: pointer;
-  transition: background-color var(--transition-fast), opacity var(--transition-fast);
+  transition:
+    background-color var(--transition-fast),
+    opacity var(--transition-fast);
 }
-.eg-button:disabled { opacity: 0.5; cursor: not-allowed; }
+.eg-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
-.eg-button--sm { font-size: var(--font-size-sm); padding: var(--spacing-xxs) var(--spacing-sm); }
-.eg-button--md { font-size: var(--font-size-md); padding: var(--spacing-xs)  var(--spacing-md); }
+.eg-button--sm {
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-xxs) var(--spacing-sm);
+}
+.eg-button--md {
+  font-size: var(--font-size-md);
+  padding: var(--spacing-xs) var(--spacing-md);
+}
 
-.eg-button--primary           { background-color: var(--color-primary-base);   color: var(--color-base-white); }
-.eg-button--primary:hover     { background-color: var(--color-primary-dark); }
-.eg-button--primary:disabled  { background-color: var(--color-primary-base); }
+.eg-button--primary {
+  background-color: var(--color-primary-base);
+  color: var(--color-base-white);
+}
+.eg-button--primary:hover {
+  background-color: var(--color-primary-dark);
+}
+.eg-button--primary:disabled {
+  background-color: var(--color-primary-base);
+}
 
-.eg-button--secondary          { background-color: var(--color-secondary-lighter); color: var(--color-secondary-darkest); }
-.eg-button--secondary:hover    { background-color: var(--color-secondary-light); }
+.eg-button--secondary {
+  background-color: var(--color-secondary-lighter);
+  color: var(--color-secondary-darkest);
+}
+.eg-button--secondary:hover {
+  background-color: var(--color-secondary-light);
+}
 ```
 
 ### Storybook stories
@@ -252,8 +275,8 @@ const meta = {
   title: "Components/Button",
   component: Button,
   argTypes: {
-    variant:  { control: "inline-radio", options: ["primary", "secondary"] },
-    size:     { control: "inline-radio", options: ["sm", "md"] },
+    variant: { control: "inline-radio", options: ["primary", "secondary"] },
+    size: { control: "inline-radio", options: ["sm", "md"] },
     disabled: { control: "boolean" },
   },
   args: { children: "Click me", variant: "primary", size: "md" },
@@ -408,8 +431,8 @@ const meta = {
   title: "Components/Button",
   component: Button,
   argTypes: {
-    variant:  { control: "inline-radio", options: ["primary", "secondary"] },
-    size:     { control: "inline-radio", options: ["sm", "md"] },
+    variant: { control: "inline-radio", options: ["primary", "secondary"] },
+    size: { control: "inline-radio", options: ["sm", "md"] },
     disabled: { control: "boolean" },
   },
   args: { variant: "primary", size: "md" },
@@ -450,18 +473,18 @@ import "@epignosis-ui/vue/styles.css";
 
 Each package owns its own Storybook. No shared shell, no cross-framework navigation. Each Storybook is independently deployable.
 
-| Decision | Choice | Why |
-| --- | --- | --- |
-| Storybook major | v10 | Current stable; Vite 5/6 native; CSF 3. |
-| React adapter | `@storybook/react-vite` | Matches the Vite library build. |
-| Vue adapter | `@storybook/vue3-vite` with `docgen: 'vue-component-meta'` | Best TS prop inference for autodocs. |
-| Stories format | CSF 3 (not CSF Next) | Stable, well-documented. |
-| Story location | Colocated next to component source | Standard practice. |
-| Tokens in preview | Each `.storybook/preview.ts` imports `@epignosis-ui/tokens/tokens.css` | Stories render with real CSS variables. |
+| Decision             | Choice                                                                                | Why                                                                                                                                                                                                                      |
+| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Storybook major      | v10                                                                                   | Current stable; Vite 5/6 native; CSF 3.                                                                                                                                                                                  |
+| React adapter        | `@storybook/react-vite`                                                               | Matches the Vite library build.                                                                                                                                                                                          |
+| Vue adapter          | `@storybook/vue3-vite` with `docgen: 'vue-component-meta'`                            | Best TS prop inference for autodocs.                                                                                                                                                                                     |
+| Stories format       | CSF 3 (not CSF Next)                                                                  | Stable, well-documented.                                                                                                                                                                                                 |
+| Story location       | Colocated next to component source                                                    | Standard practice.                                                                                                                                                                                                       |
+| Tokens in preview    | Each `.storybook/preview.ts` imports `@epignosis-ui/tokens/tokens.css`                | Stories render with real CSS variables.                                                                                                                                                                                  |
 | Web fonts in preview | Each package has a `.storybook/preview-head.html` that loads Mulish from Google Fonts | The tokens declare `font-family: "Mulish", Arial, sans-serif` but don't ship the font file. Without this, Storybook silently falls back to Arial. (Gnosis has the same gap — its consuming apps load Mulish themselves.) |
-| Default ports | React 6006, Vue 6007 | Both can run simultaneously. |
-| Build output | Each package's own `storybook-static/` | Independent deploys. |
-| Addons | None beyond what ships in SB 10 core | Avoid addon drift. |
+| Default ports        | React 6006, Vue 6007                                                                  | Both can run simultaneously.                                                                                                                                                                                             |
+| Build output         | Each package's own `storybook-static/`                                                | Independent deploys.                                                                                                                                                                                                     |
+| Addons               | None beyond what ships in SB 10 core                                                  | Avoid addon drift.                                                                                                                                                                                                       |
 
 ### Root scripts
 

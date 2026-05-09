@@ -24,6 +24,7 @@ pnpm --version # ≥ 9
 ```
 
 The gnosis Button source we're porting from:
+
 - `/Users/alexboi/projects/Epignosis/gnosis/src/components/Button/Button.tsx`
 - `/Users/alexboi/projects/Epignosis/gnosis/src/components/Button/styles.ts`
 - `/Users/alexboi/projects/Epignosis/gnosis/src/theme/default/config/button.ts`
@@ -35,14 +36,17 @@ These stay read-only.
 ## File Map
 
 **Create:**
+
 - `packages/react/src/types/polymorphic.ts` — `PolymorphicComponentProps` helper
 
 **Replace (file already exists from earlier work, will be overwritten):**
+
 - `packages/react/src/Button/Button.tsx`
 - `packages/react/src/Button/Button.css`
 - `packages/react/src/Button/Button.stories.tsx`
 
 **Modify:**
+
 - `packages/react/src/index.ts` — export the new types
 
 ---
@@ -50,6 +54,7 @@ These stay read-only.
 ## Task 1: Add the polymorphic-types helper
 
 **Files:**
+
 - Create: `packages/react/src/types/polymorphic.ts`
 
 - [ ] **Step 1: Create `packages/react/src/types/polymorphic.ts`**
@@ -61,10 +66,9 @@ type AsProp<C extends ElementType> = { as?: C };
 
 type PropsToOmit<C extends ElementType, P> = keyof (AsProp<C> & P);
 
-export type PolymorphicComponentProps<
-  C extends ElementType,
-  Props = object,
-> = Props & AsProp<C> & Omit<ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>;
+export type PolymorphicComponentProps<C extends ElementType, Props = object> = Props &
+  AsProp<C> &
+  Omit<ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>;
 ```
 
 - [ ] **Step 2: Verify no type errors with the existing build**
@@ -77,6 +81,7 @@ Expected: succeeds. `dist/` includes `types/polymorphic.d.ts`. Stories and compo
 ## Task 2: Replace `Button.tsx`
 
 **Files:**
+
 - Replace: `packages/react/src/Button/Button.tsx`
 
 - [ ] **Step 1: Overwrite `packages/react/src/Button/Button.tsx`**
@@ -161,6 +166,7 @@ Expected: succeeds, no errors.
 ## Task 3: Replace `Button.css` with the full color × variant × state matrix
 
 **Files:**
+
 - Replace: `packages/react/src/Button/Button.css`
 
 - [ ] **Step 1: Overwrite `packages/react/src/Button/Button.css`**
@@ -587,6 +593,7 @@ Verify: `wc -l packages/react/src/Button/Button.css` should show ~250–300 line
 ## Task 4: Replace `Button.stories.tsx` with the 7 representative stories
 
 **Files:**
+
 - Replace: `packages/react/src/Button/Button.stories.tsx`
 
 - [ ] **Step 1: Overwrite `packages/react/src/Button/Button.stories.tsx`**
@@ -727,6 +734,7 @@ curl -s http://localhost:6006/index.json | python3 -c "import sys, json; print(s
 Expected: 7 entries — `components-button--default`, `components-button--all-colors-solid`, `components-button--all-variants-primary`, `components-button--all-sizes`, `components-button--disabled`, `components-button--as-anchor`, `components-button--playground`.
 
 Open http://localhost:6006 in a browser and visually verify:
+
 - **Default** — solid blue button, label "Click me".
 - **AllColorsSolid** — 8 buttons on a dark navy backdrop. Primary blue (`#0046AB`), secondary off-white, red danger, green success, the two primaryLight/primaryDarker semi-transparent ones, white, orange.
 - **AllVariantsPrimary** — solid (filled blue), outline (transparent w/ blue border), ghost (transparent text-only that tints on hover), link (text-only).
@@ -742,6 +750,7 @@ Stop the server (Ctrl-C) before continuing.
 ## Task 5: Update `src/index.ts` to export the new types
 
 **Files:**
+
 - Modify: `packages/react/src/index.ts`
 
 - [ ] **Step 1: Overwrite `packages/react/src/index.ts`**
@@ -802,6 +811,7 @@ curl -s http://localhost:6007/index.json | python3 -c "import sys,json; d=json.l
 ```
 
 Expected:
+
 - `react=200`, 7 stories.
 - `vue=200`, 5 stories (the placeholder Vue Button is untouched).
 
@@ -820,6 +830,7 @@ Stop the server when done.
 - Working tree has the changes uncommitted, per the user's standing instruction.
 
 Out-of-scope follow-ups (from the spec):
+
 - Active state (`aria-pressed` or restored prop) when consumers need it.
 - `isLoading` + Loader port when consumers need it.
 - Icon slots when consumers need them.

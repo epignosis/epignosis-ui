@@ -143,7 +143,9 @@ const classes = computed(() => [
 
 <style scoped>
 @keyframes eg-button-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .eg-button {
@@ -178,9 +180,24 @@ const classes = computed(() => [
 }
 
 /* Sizes */
-.eg-button--sm { font-size: var(--font-size-sm); height: 2rem;   min-width: 2rem;   padding: 0 1rem; }
-.eg-button--md { font-size: var(--font-size-sm); height: 2.5rem; min-width: 2.5rem; padding: 0 1.75rem; }
-.eg-button--lg { font-size: var(--font-size-lg); height: 3rem;   min-width: 3rem;   padding: 0 3rem; }
+.eg-button--sm {
+  font-size: var(--font-size-sm);
+  height: 2rem;
+  min-width: 2rem;
+  padding: 0 1rem;
+}
+.eg-button--md {
+  font-size: var(--font-size-sm);
+  height: 2.5rem;
+  min-width: 2.5rem;
+  padding: 0 1.75rem;
+}
+.eg-button--lg {
+  font-size: var(--font-size-lg);
+  height: 3rem;
+  min-width: 3rem;
+  padding: 0 3rem;
+}
 
 /* Variant: solid */
 .eg-button--solid {
@@ -261,31 +278,55 @@ const classes = computed(() => [
 }
 
 /* Icon spacing — sm keeps base padding; md/lg shrink icon-side. */
-.eg-button--icon-before { padding-block: 0; }
-.eg-button--icon-before.eg-button--md { padding-inline: 1.25rem 1.75rem; }
-.eg-button--icon-before.eg-button--lg { padding-inline: 1.875rem 3rem; }
-.eg-button--icon-before .eg-button__icon { margin-inline-end: 0.5rem; }
+.eg-button--icon-before {
+  padding-block: 0;
+}
+.eg-button--icon-before.eg-button--md {
+  padding-inline: 1.25rem 1.75rem;
+}
+.eg-button--icon-before.eg-button--lg {
+  padding-inline: 1.875rem 3rem;
+}
+.eg-button--icon-before .eg-button__icon {
+  margin-inline-end: 0.5rem;
+}
 
-.eg-button--icon-after { padding-block: 0; }
-.eg-button--icon-after.eg-button--md { padding-inline: 1.75rem 1.25rem; }
-.eg-button--icon-after.eg-button--lg { padding-inline: 3rem 1.875rem; }
-.eg-button--icon-after .eg-button__icon { margin-inline-start: 0.5rem; }
+.eg-button--icon-after {
+  padding-block: 0;
+}
+.eg-button--icon-after.eg-button--md {
+  padding-inline: 1.75rem 1.25rem;
+}
+.eg-button--icon-after.eg-button--lg {
+  padding-inline: 3rem 1.875rem;
+}
+.eg-button--icon-after .eg-button__icon {
+  margin-inline-start: 0.5rem;
+}
 
 /* block — full width */
-.eg-button--block { width: 100%; }
+.eg-button--block {
+  width: 100%;
+}
 
 /* noGutters — tighter padding (overrides standard size padding) */
-.eg-button--no-gutters:not(.eg-button--rounded):not(.eg-button--icon-before):not(.eg-button--icon-after) {
+.eg-button--no-gutters:not(.eg-button--rounded):not(.eg-button--icon-before):not(
+    .eg-button--icon-after
+  ) {
   padding: 0 0.25rem;
 }
 .eg-button--no-gutters.eg-button--icon-before {
   padding-inline: 0.25rem 0.75rem;
 }
-.eg-button--no-gutters.eg-button--icon-before .eg-button__icon { margin-inline-end: 0.25rem; }
+.eg-button--no-gutters.eg-button--icon-before .eg-button__icon {
+  margin-inline-end: 0.25rem;
+}
 .eg-button--no-gutters.eg-button--icon-after {
   padding-inline: 0.75rem 0.25rem;
 }
-.eg-button--no-gutters.eg-button--icon-after .eg-button__icon { margin-inline-start: 0.25rem; }
+.eg-button--no-gutters.eg-button--icon-after .eg-button__icon {
+  margin-inline-start: 0.25rem;
+}
 
 /* rounded — circle, square dimensions per size */
 .eg-button--rounded {

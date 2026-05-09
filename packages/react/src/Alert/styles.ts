@@ -2,10 +2,7 @@ import { css, type SerializedStyles, type Theme } from "@emotion/react";
 import { borderRadius, mediaQueries } from "@epignosis_llc/ui-tokens";
 import type { AlertType } from "./Alert";
 
-export const container = (
-  { alert }: Theme,
-  { type }: { type: AlertType },
-): SerializedStyles => css`
+export const container = ({ alert }: Theme, { type }: { type: AlertType }): SerializedStyles => css`
   width: 100%;
   position: relative;
   display: flex;

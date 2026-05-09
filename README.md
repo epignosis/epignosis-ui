@@ -2,12 +2,12 @@
 
 Monorepo hosting the shared Epignosis UI:
 
-| Package | What it is |
-| --- | --- |
+| Package                                         | What it is                                             |
+| ----------------------------------------------- | ------------------------------------------------------ |
 | [`@epignosis_llc/ui-tokens`](./packages/tokens) | Framework-agnostic design tokens (TS + CSS variables). |
-| [`@epignosis_llc/ui-icons`](./packages/icons) | 631 SVG icons as tree-shakable React components. |
-| [`@epignosis_llc/ui-react`](./packages/react) | React 19 component library + Storybook. |
-| [`@epignosis_llc/ui-vue`](./packages/vue) | Vue 3 component library + Storybook. |
+| [`@epignosis_llc/ui-icons`](./packages/icons)   | 631 SVG icons as tree-shakable React components.       |
+| [`@epignosis_llc/ui-react`](./packages/react)   | React 19 component library + Storybook.                |
+| [`@epignosis_llc/ui-vue`](./packages/vue)       | Vue 3 component library + Storybook.                   |
 
 See [`DESIGN_TOKENS.md`](./DESIGN_TOKENS.md) for the full token reference.
 
@@ -103,4 +103,4 @@ This monorepo uses [Changesets](https://github.com/changesets/changesets) and a 
 
 CI publishes via GitHub OIDC — no `NPM_TOKEN` secret is used. Each publishable package has a Trusted Publisher entry on npmjs.com pointing at this repo's `release.yml`. The workflow needs `id-token: write` permission (already set) and npm CLI ≥ 11.5.1 (the workflow upgrades npm before publishing).
 
-When adding a new package, the *first* publish has to happen locally (Trusted Publisher can only be configured for an existing package). After the first version is on npm, register the Trusted Publisher and let CI handle subsequent releases.
+When adding a new package, the _first_ publish has to happen locally (Trusted Publisher can only be configured for an existing package). After the first version is on npm, register the Trusted Publisher and let CI handle subsequent releases.

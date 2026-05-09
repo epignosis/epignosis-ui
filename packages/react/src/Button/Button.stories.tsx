@@ -96,7 +96,7 @@ export const Primary: Story = {
     color: "primary",
     children: "Primary",
     disabled: false,
-    variant: "solid"
+    variant: "solid",
   },
 };
 

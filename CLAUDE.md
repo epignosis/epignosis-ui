@@ -25,6 +25,7 @@ The vite configs (`packages/react/vite.config.ts`, `packages/vue/vite.config.ts`
 Pattern: `eg-<component>` block, `eg-<component>--<modifier>` for variants/states, `eg-<component>__<element>` for parts.
 
 Examples:
+
 - Button: `eg-button`, `eg-button--solid`, `eg-button--disabled`, `eg-button__text`, `eg-button__icon`
 - Avatar: `eg-avatar`, `eg-avatar--sm`, `eg-avatar__image`, `eg-avatar__fallback`
 

@@ -1,6 +1,6 @@
 import type { ElementType, ReactNode, SVGProps } from "react";
 import type { Theme } from "@emotion/react";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import Loader from "../Loader/Loader";
 import type { PolymorphicComponentProps } from "../types/polymorphic";
 import { btnContainer } from "./styles";

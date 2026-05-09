@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Theme } from "@emotion/react";
 import { ArrowLeftChevronSVG, ArrowRightChevronSVG } from "@epignosis_llc/ui-icons";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import { breadcrumbs as breadcrumbsStyles } from "./styles";
 
 export type BreadcrumbItem = {
@@ -30,6 +30,7 @@ export default function Breadcrumbs({
   // we render with the LTR chevron, then reconcile on the client if needed.
   const [isRtl, setIsRtl] = useState(false);
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- SSR-safe direction probe; client-only `document` access.
     setIsRtl(document.dir === "rtl");
   }, []);
 

@@ -21,6 +21,33 @@ export default [
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
   {
+    settings: {
+      "import/resolver": {
+        typescript: { project: ["packages/*/tsconfig.json"] },
+        node: { extensions: [".js", ".jsx", ".ts", ".tsx"] },
+      },
+    },
+  },
+  {
+    // Build and tooling configs sit outside src/ and pull from devDependencies the
+    // workspace resolver doesn't reliably introspect; TypeScript handles their
+    // module resolution on its own.
+    files: [
+      "**/vite.config.{ts,js,mjs}",
+      "**/vitest.config.{ts,js,mjs}",
+      "**/.storybook/**/*.{ts,tsx,js,jsx}",
+      "**/scripts/**/*.{js,mjs,ts}",
+      "eslint.config.{ts,js,mjs}",
+    ],
+    languageOptions: {
+      globals: { ...globals.node },
+    },
+    rules: {
+      "import/no-unresolved": "off",
+      "no-console": "off",
+    },
+  },
+  {
     files: ["packages/*/src/**/*.{js,jsx,ts,tsx}", "packages/*/test-utils/**/*.{ts,tsx}"],
     plugins: {
       react,

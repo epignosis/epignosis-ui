@@ -35,6 +35,7 @@ If pnpm is missing: `corepack enable && corepack prepare pnpm@latest --activate`
 Files this plan creates or modifies:
 
 **Workspace root (modify):**
+
 - `package.json` — convert from single-package to workspace root
 - `.gitignore` — add `storybook-static`
 - `README.md` — rewrite for monorepo
@@ -42,10 +43,12 @@ Files this plan creates or modifies:
 - Delete: root `tsconfig.json` (replaced by `tsconfig.base.json` that packages extend)
 
 **Workspace root (create):**
+
 - `pnpm-workspace.yaml`
 - `tsconfig.base.json`
 
 **`packages/tokens/` (create):**
+
 - `package.json`
 - `README.md`
 - `src/index.ts` (moved from root)
@@ -53,6 +56,7 @@ Files this plan creates or modifies:
 - `src/theme/tokens.css` (new — CSS-variables mirror of `tokens.ts`)
 
 **`packages/react/` (create):**
+
 - `package.json`
 - `tsconfig.json`
 - `tsconfig.build.json` (used by `tsc` for `.d.ts` emission with explicit `rootDir`)
@@ -66,6 +70,7 @@ Files this plan creates or modifies:
 - `src/Button/Button.stories.tsx`
 
 **`packages/vue/` (create):**
+
 - `package.json`
 - `tsconfig.json`
 - `tsconfig.build.json`
@@ -84,6 +89,7 @@ Files this plan creates or modifies:
 ## Task 1: Convert repo to pnpm workspace root
 
 **Files:**
+
 - Create: `pnpm-workspace.yaml`
 - Create: `tsconfig.base.json`
 - Modify: `package.json`
@@ -184,6 +190,7 @@ git commit -m "Convert repo to pnpm workspace root"
 ## Task 2: Move existing tokens code into `packages/tokens/`
 
 **Files:**
+
 - Create: `packages/tokens/package.json`
 - Create: `packages/tokens/tsconfig.json`
 - Create: `packages/tokens/README.md`
@@ -257,70 +264,70 @@ Verify with `ls packages/tokens/src/theme/` — should show `tokens.ts`.
  */
 :root {
   /* ─────────────────────────────────────── Colors — base */
-  --color-base-primary: #0046AB;
-  --color-base-secondary: #9EA5A9;
-  --color-base-green: #1B7855;
-  --color-base-orange: #FF9C28;
-  --color-base-red: #D12525;
+  --color-base-primary: #0046ab;
+  --color-base-secondary: #9ea5a9;
+  --color-base-green: #1b7855;
+  --color-base-orange: #ff9c28;
+  --color-base-red: #d12525;
   --color-base-black: #000000;
-  --color-base-white: #FFFFFF;
-  --color-base-blue: #0046AB;
+  --color-base-white: #ffffff;
+  --color-base-blue: #0046ab;
 
   /* Colors — primary palette */
   --color-primary-lightest-25: rgba(36, 125, 255, 0.25);
   --color-primary-lightest-50: rgba(36, 125, 255, 0.5);
-  --color-primary-lightest: #247DFF;
-  --color-primary-lighter: #0169FF;
-  --color-primary-light: #0054CD;
-  --color-primary-base: #0046AB;
+  --color-primary-lightest: #247dff;
+  --color-primary-lighter: #0169ff;
+  --color-primary-light: #0054cd;
+  --color-primary-base: #0046ab;
   --color-primary-dark: #003889;
   --color-primary-darker-50: rgba(0, 42, 103, 0.5);
-  --color-primary-darker: #002A67;
-  --color-primary-darkest: #001C44;
+  --color-primary-darker: #002a67;
+  --color-primary-darkest: #001c44;
 
   /* Colors — secondary palette */
-  --color-secondary-lightest: #FFFFFF;
-  --color-secondary-lighter: #F5F5F6;
-  --color-secondary-light: #C1C5C8;
-  --color-secondary-base: #9EA5A9;
-  --color-secondary-dark: #7B858A;
-  --color-secondary-darker: #5C6468;
-  --color-secondary-darkest: #3D4245;
+  --color-secondary-lightest: #ffffff;
+  --color-secondary-lighter: #f5f5f6;
+  --color-secondary-light: #c1c5c8;
+  --color-secondary-base: #9ea5a9;
+  --color-secondary-dark: #7b858a;
+  --color-secondary-darker: #5c6468;
+  --color-secondary-darkest: #3d4245;
 
   /* Colors — green palette */
-  --color-green-lightest: #2ECC90;
-  --color-green-lighter: #29B47F;
+  --color-green-lightest: #2ecc90;
+  --color-green-lighter: #29b47f;
   --color-green-light-50: rgba(32, 144, 102, 0.5);
   --color-green-light: #209066;
-  --color-green-base: #1B7855;
+  --color-green-base: #1b7855;
   --color-green-dark: #166044;
   --color-green-darker: #104833;
-  --color-green-darkest: #0B3022;
+  --color-green-darkest: #0b3022;
 
   /* Colors — orange palette */
-  --color-orange-lightest: #FFFBF6;
-  --color-orange-lighter: #FFE0BB;
-  --color-orange-light: #FFB763;
+  --color-orange-lightest: #fffbf6;
+  --color-orange-lighter: #ffe0bb;
+  --color-orange-light: #ffb763;
   --color-orange-base-50: rgba(255, 156, 40, 0.5);
-  --color-orange-base: #FF9C28;
-  --color-orange-dark: #EC7F00;
-  --color-orange-darker: #B15F00;
+  --color-orange-base: #ff9c28;
+  --color-orange-dark: #ec7f00;
+  --color-orange-darker: #b15f00;
   --color-orange-darkest: #764000;
 
   /* Colors — red palette */
-  --color-red-lightest: #F1B1B1;
-  --color-red-lighter: #EA8787;
+  --color-red-lightest: #f1b1b1;
+  --color-red-lighter: #ea8787;
   --color-red-light-50: rgba(223, 73, 73, 0.5);
-  --color-red-light: #DF4949;
-  --color-red-base: #D12525;
-  --color-red-dark: #A71E1E;
-  --color-red-darker: #7D1616;
-  --color-red-darkest: #540F0F;
+  --color-red-light: #df4949;
+  --color-red-base: #d12525;
+  --color-red-dark: #a71e1e;
+  --color-red-darker: #7d1616;
+  --color-red-darkest: #540f0f;
 
   /* Colors — convenience aliases */
   --color-black: #000000;
-  --color-white: #FFFFFF;
-  --color-blue: #0046AB;
+  --color-white: #ffffff;
+  --color-blue: #0046ab;
 
   /* ─────────────────────────────────────── Typography */
   --font-family-body: "Mulish", Arial, sans-serif;
@@ -354,7 +361,7 @@ Verify with `ls packages/tokens/src/theme/` — should show `tokens.ts`.
   --border-radius-full: 50%;
 
   /* ─────────────────────────────────────── Shadows */
-  --shadow-sm: 0 3px 6px #C1C5C8;
+  --shadow-sm: 0 3px 6px #c1c5c8;
   --shadow-checkbox: 0px 0px 0px 9px rgba(36, 125, 255, 0.25);
 
   /* ─────────────────────────────────────── Breakpoints */
@@ -386,7 +393,7 @@ Verify with `ls packages/tokens/src/theme/` — should show `tokens.ts`.
 
 - [ ] **Step 5: Create `packages/tokens/README.md`**
 
-```markdown
+````markdown
 # @epignosis-ui/tokens
 
 Framework-agnostic design tokens for the Epignosis design system. Ships raw TypeScript and a CSS variables stylesheet — your bundler compiles them.
@@ -399,7 +406,9 @@ See the root [`DESIGN_TOKENS.md`](../../DESIGN_TOKENS.md) for the full token ref
 import { colors, spacing } from "@epignosis-ui/tokens";
 import "@epignosis-ui/tokens/tokens.css";
 ```
-```
+````
+
+````
 
 - [ ] **Step 6: Run install and verify the package resolves**
 
@@ -410,7 +419,7 @@ Verify with:
 
 ```bash
 pnpm list --filter @epignosis-ui/tokens --depth 0
-```
+````
 
 Expected output includes a line like `@epignosis-ui/tokens@0.1.0 /Users/alexboi/projects/Epignosis/epignosis-ui/packages/tokens`.
 
@@ -434,6 +443,7 @@ git commit -m "Move design tokens into @epignosis-ui/tokens package, add tokens.
 ## Task 3: Scaffold `@epignosis-ui/react` (no component yet)
 
 **Files:**
+
 - Create: `packages/react/package.json`
 - Create: `packages/react/tsconfig.json`
 - Create: `packages/react/vite.config.ts`
@@ -589,6 +599,7 @@ git commit -m "Scaffold @epignosis-ui/react with Vite library build"
 ## Task 4: Add the React Button component
 
 **Files:**
+
 - Create: `packages/react/src/Button/Button.tsx`
 - Create: `packages/react/src/Button/Button.css`
 - Modify: `packages/react/src/index.ts`
@@ -713,6 +724,7 @@ git commit -m "Add React Button component consuming design tokens"
 ## Task 5: Set up React Storybook with Button stories
 
 **Files:**
+
 - Create: `packages/react/.storybook/main.ts`
 - Create: `packages/react/.storybook/preview.ts`
 - Create: `packages/react/src/Button/Button.stories.tsx`
@@ -801,6 +813,7 @@ Run: `pnpm --filter @epignosis-ui/react storybook` (in a terminal you can leave 
 Expected: Storybook starts on http://localhost:6006. Console prints something like `Storybook 10.x.x for react-vite started`.
 
 In a browser, open http://localhost:6006. Navigate to `Components/Button`. Verify:
+
 - All 5 stories appear in the sidebar.
 - "Primary" shows a blue button (`#0046AB`).
 - "Secondary" shows a light-grey button.
@@ -828,6 +841,7 @@ git commit -m "Add React Storybook with Button stories"
 ## Task 6: Scaffold `@epignosis-ui/vue` (no component yet)
 
 **Files:**
+
 - Create: `packages/vue/package.json`
 - Create: `packages/vue/tsconfig.json`
 - Create: `packages/vue/tsconfig.build.json`
@@ -994,6 +1008,7 @@ git commit -m "Scaffold @epignosis-ui/vue with Vite library build"
 ## Task 7: Add the Vue Button component
 
 **Files:**
+
 - Create: `packages/vue/src/Button/Button.vue`
 - Create: `packages/vue/src/Button/Button.css`
 - Modify: `packages/vue/src/index.ts`
@@ -1124,6 +1139,7 @@ git commit -m "Add Vue Button component consuming design tokens"
 ## Task 8: Set up Vue Storybook with Button stories
 
 **Files:**
+
 - Create: `packages/vue/.storybook/main.ts`
 - Create: `packages/vue/.storybook/preview.ts`
 - Create: `packages/vue/src/Button/Button.stories.ts`
@@ -1216,6 +1232,7 @@ Run: `pnpm --filter @epignosis-ui/vue storybook`
 Expected: starts on http://localhost:6007.
 
 In a browser, open http://localhost:6007. Navigate to `Components/Button`. Verify:
+
 - All 5 stories appear in the sidebar.
 - "Primary" shows the same blue button (`#0046AB`) as the React Storybook.
 - All variants/sizes/disabled states render identically to the React side.
@@ -1241,6 +1258,7 @@ git commit -m "Add Vue Storybook with Button stories"
 ## Task 9: Update root README and final smoke test
 
 **Files:**
+
 - Modify: `README.md`
 
 - [ ] **Step 1: Rewrite `README.md`**
@@ -1252,11 +1270,11 @@ Replace the entire file with:
 
 Monorepo hosting the shared Epignosis UI:
 
-| Package | What it is |
-| --- | --- |
+| Package                                     | What it is                                             |
+| ------------------------------------------- | ------------------------------------------------------ |
 | [`@epignosis-ui/tokens`](./packages/tokens) | Framework-agnostic design tokens (TS + CSS variables). |
-| [`@epignosis-ui/react`](./packages/react) | React 18 component library + Storybook. |
-| [`@epignosis-ui/vue`](./packages/vue) | Vue 3 component library + Storybook. |
+| [`@epignosis-ui/react`](./packages/react)   | React 18 component library + Storybook.                |
+| [`@epignosis-ui/vue`](./packages/vue)       | Vue 3 component library + Storybook.                   |
 
 See [`DESIGN_TOKENS.md`](./DESIGN_TOKENS.md) for the full token reference.
 
@@ -1336,6 +1354,7 @@ Run: `pnpm storybook:all`
 Expected: both Storybooks boot. React on :6006, Vue on :6007. No port conflicts.
 
 Open both URLs in a browser, navigate to `Components/Button` in each, and visually confirm:
+
 - Primary buttons in both Storybooks render the same blue (`#0046AB`).
 - Secondary buttons in both render the same light-grey.
 - Sizes match.
@@ -1374,6 +1393,7 @@ Expected: see commits for each task on top of the spec commit and `initial commi
 ## Done
 
 The monorepo is now in place with:
+
 - `@epignosis-ui/tokens` — relocated, with new `tokens.css`
 - `@epignosis-ui/react` — sample Button + Storybook on :6006
 - `@epignosis-ui/vue` — sample Button + Storybook on :6007

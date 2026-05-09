@@ -7,7 +7,7 @@ import {
   SuccessSVG,
   WarningSVG,
 } from "@epignosis_llc/ui-icons";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import type { IconType } from "../Button/constants";
 import { container } from "./styles";
 
@@ -31,14 +31,7 @@ const DEFAULT_ICONS: Record<AlertType, IconType> = {
 
 const BLOCK = "eg-alert";
 
-export default function Alert({
-  type,
-  icon,
-  onClose,
-  children,
-  className,
-  ...rest
-}: AlertProps) {
+export default function Alert({ type, icon, onClose, children, className, ...rest }: AlertProps) {
   const Icon = icon ?? DEFAULT_ICONS[type];
 
   return (

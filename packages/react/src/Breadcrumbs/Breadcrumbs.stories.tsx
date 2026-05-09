@@ -19,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Accessible navigation trail rendered as a `<nav>` + `<ul>` with chevron separators. Each item has a `label` and optional `href`/`onClick`. Items without an `href` are auto-rendered black and non-clickable (no destination to navigate to). When `highlightActivePage` is set, the last item is also styled as the current page and gets `aria-current=\"page\"`. Chevron direction follows `document.dir` for RTL locales.",
+          'Accessible navigation trail rendered as a `<nav>` + `<ul>` with chevron separators. Each item has a `label` and optional `href`/`onClick`. Items without an `href` are auto-rendered black and non-clickable (no destination to navigate to). When `highlightActivePage` is set, the last item is also styled as the current page and gets `aria-current="page"`. Chevron direction follows `document.dir` for RTL locales.',
       },
     },
   },

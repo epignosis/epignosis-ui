@@ -60,6 +60,32 @@ Cover at minimum: the default render, each meaningful variant/mode, edge cases (
 - Confirm runtime export: `node -e "console.log(require('./packages/react/dist/index.cjs').<Name>)"`
 - Don't start Storybook in subagent contexts (it doesn't exit cleanly).
 
+## Storybook
+
+Each package has its own Storybook. A composition hub at `packages/storybook` surfaces them all under one UI.
+
+### Dev (all at once)
+
+```bash
+pnpm storybook:all   # starts react(6006) vue(6007) icons(6008) tokens(6009) hub(6010)
+```
+
+Open the hub at <http://localhost:6010>. Each package's stories appear in the left sidebar under its own section.
+
+### Dev (hub only, sub-Storybooks already running)
+
+```bash
+pnpm storybook:docs
+```
+
+### Static build for deployment
+
+```bash
+STORYBOOK_STATIC=true pnpm build-storybook:docs
+```
+
+Outputs a self-contained directory at `packages/storybook/storybook-static/` with each package's static bundle assembled into subdirectories (`react/`, `vue/`, `icons/`, `tokens/`). Serve the directory from any static host.
+
 ## Releases & changesets
 
 - **New component or new public API** → minor bump. Run `pnpm changeset`, select the package, pick `minor`. Commit the `.changeset/*.md` alongside the code.

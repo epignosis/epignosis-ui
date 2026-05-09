@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Tooltip /> > matches snapshot 1`] = `
+<body>
+  <div>
+    <div
+      aria-expanded="true"
+      role="tooltip"
+    >
+      <button>
+        Hover me
+      </button>
+    </div>
+  </div>
+  <div
+    data-tippy-root=""
+    id="tippy-3"
+    style="z-index: 9999; position: absolute; left: 0px; top: auto; margin: 0px; right: auto; bottom: 0px; transform: translate(0px, -10px);"
+  >
+    <div
+      class="eg-tooltip css-6ydety"
+      data-escaped=""
+      data-placement="top"
+      data-reference-hidden=""
+      role="alert"
+    >
+      Tip content
+      <div
+        class="eg-tooltip__arrow"
+        data-popper-arrow="true"
+        data-testid="tooltip-arrow"
+        style="position: absolute; left: 0px; transform: translate(0px, 0px);"
+      />
+    </div>
+  </div>
+</body>
+`;

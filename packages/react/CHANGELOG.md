@@ -1,5 +1,20 @@
 # @epignosis_llc/ui-react
 
+## 1.8.0
+
+### Minor Changes
+
+- [`6f60622`](https://github.com/epignosis/epignosis-ui/commit/6f60622b277667b282c035d991ee584dc6422bf4) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - Add Chip component (compact label with optional close button and filter mode).
+
+  Two sizes (`md`/`lg`). Pass `onClose` to render a leading dismiss button. Pass an `icon` to make it a filter chip — the icon shows by default and swaps to the close icon on hover. Use `maxWidth` to cap the label width with ellipsis truncation; truncated string children fall back to a native browser tooltip.
+
+  Backed by a new `theme.chip` config (background sourced from `colors.primary.lightest25`, the same alpha-modulated token used by `Button`'s `primaryLight` variant).
+
+### Patch Changes
+
+- Updated dependencies [[`8067759`](https://github.com/epignosis/epignosis-ui/commit/8067759b5764c717a666f3ebdf13587e9fd4fda3)]:
+  - @epignosis_llc/ui-icons@0.2.0
+
 ## 1.7.0
 
 ### Minor Changes

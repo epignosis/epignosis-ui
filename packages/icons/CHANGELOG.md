@@ -1,5 +1,17 @@
 # @epignosis_llc/ui-icons
 
+## 0.2.0
+
+### Minor Changes
+
+- [`8067759`](https://github.com/epignosis/epignosis-ui/commit/8067759b5764c717a666f3ebdf13587e9fd4fda3) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - Export raw SVG files for non-React consumers via `@epignosis_llc/ui-icons/svg/<ComponentName>.svg`.
+
+  Each icon is now also published as a raw `.svg` URL import alongside the existing React component export. Filenames mirror the React component names (`CertificateSVG.svg`, `UnitAnsweredSVG.svg`, etc.) so the mental model stays 1:1 across both entry points. The same `currentColor` rewrite applied by `vite-plugin-svgr` is applied to the raw files, so consumers can recolor via CSS `color`.
+
+  ```ts
+  import url from "@epignosis_llc/ui-icons/svg/CertificateSVG.svg";
+  ```
+
 ## 0.1.10
 
 ### Patch Changes

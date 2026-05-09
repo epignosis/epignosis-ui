@@ -1,6 +1,6 @@
 {
   "name": "@epignosis_llc/ui-react",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "type": "module",
   "description": "Epignosis React component library.",
   "main": "./dist/index.cjs",

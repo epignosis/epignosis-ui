@@ -1,5 +1,15 @@
 # @epignosis_llc/ui-react
 
+## 1.8.3
+
+### Patch Changes
+
+- [`862fc51`](https://github.com/epignosis/epignosis-ui/commit/862fc51ce39d3bbf33e2a891b176dfadb27bbecd) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - Apply Prettier formatting across the workspace and resolve ESLint issues so the new lint/format gates can pass cleanly. No public API change. Notable code-level fixes: switched `clsx` imports to the named form (`import { clsx } from "clsx"`) across all components, and wrapped the SSR-safe direction probe in `Breadcrumbs` with an `eslint-disable-next-line react-hooks/set-state-in-effect`.
+
+- [`4eb2cb1`](https://github.com/epignosis/epignosis-ui/commit/4eb2cb1d09fe35c3c70af4163e83d05ad5516ad1) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - Add Vitest test infrastructure and ESLint/Prettier setup.
+
+  `pnpm --filter @epignosis_llc/ui-react test:run` runs the full suite (38 tests across Alert, Avatar, Badge, Breadcrumbs, Button, Chip, Loader). Tests are co-located with each component as `<Component>.test.tsx` and modeled directly on the equivalent gnosis tests. ESLint flat config and Prettier live at the workspace root and apply to every package; rules mirror the gnosis convention (eslint-plugin-react, react-hooks, import/order, prettier integration). No public API change.
+
 ## 1.8.2
 
 ### Patch Changes
@@ -40,7 +50,6 @@
 ### Minor Changes
 
 - [`b67a0db`](https://github.com/epignosis/epignosis-ui/commit/b67a0db1e17a3d5631f3c3a21e4ab8cdec6ddd14) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - Add three components ported from gnosis: Badge, Breadcrumbs, and Loader.
-
   - **Badge** — dot or labeled indicator overlaid on a child element. Sizes `md`/`lg`, optional `withPulse` halo, configurable `offset`, `badgeContent` for counts/labels.
   - **Breadcrumbs** — accessible nav with chevron separators (RTL-aware via `document.dir` on the client). `highlightActivePage` styles the last item as the current page.
   - **Loader** — pulse and clip variants in two sizes, with `fullScreen` option for whole-page loading states. Defaults to `theme.loader.color`; accepts a `color` override.

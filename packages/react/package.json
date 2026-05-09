@@ -41,6 +41,12 @@
   "scripts": {
     "build": "vite build && tsc -p tsconfig.build.json",
     "dev": "vite build --watch",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "eslint src test-utils",
+    "lint:fix": "eslint src test-utils --fix",
+    "format": "prettier -c src test-utils",
+    "format:write": "prettier --write src test-utils",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -57,15 +63,21 @@
   },
   "devDependencies": {
     "@emotion/react": "^11.11.0",
+    "@faker-js/faker": "^10.4.0",
     "@storybook/addon-docs": "^10.3.6",
     "@storybook/react-vite": "^10.2.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^6.0.0",
+    "jsdom": "^29.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "storybook": "^10.2.0",
     "typescript": "^6.0.0",
-    "vite": "^8.0.0"
+    "vite": "^8.0.0",
+    "vitest": "^4.1.5"
   }
 }

@@ -1,0 +1,31 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Avatar /> > matches children avatar snapshot 1`] = `
+<div>
+  <figure
+    class="eg-avatar eg-avatar--lg my-avatar css-1d84q3e"
+    id="my-id"
+  >
+    <span
+      class="eg-avatar__fallback"
+      data-testid="avatar-children-container"
+    >
+      AB
+    </span>
+  </figure>
+</div>
+`;
+
+exports[`<Avatar /> > matches image avatar snapshot 1`] = `
+<div>
+  <figure
+    class="eg-avatar eg-avatar--md my-image-avatar css-11akstq"
+  >
+    <img
+      alt="My avatar"
+      class="eg-avatar__image"
+      src="path/to/image.png"
+    />
+  </figure>
+</div>
+`;

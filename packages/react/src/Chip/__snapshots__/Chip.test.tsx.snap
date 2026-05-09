@@ -1,0 +1,45 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Chip /> > matches snapshot 1`] = `
+<div>
+  <div
+    class="eg-chip eg-chip--md my-class css-is6fgg"
+    id="my-id"
+    style="background-color: purple; color: white;"
+  >
+    <button
+      aria-label="Close filter"
+      class="eg-chip__button"
+      data-testid="close-filter"
+      type="button"
+    >
+      <span
+        class="eg-chip__close"
+      >
+        <svg
+          height="16"
+          viewBox="0 0 16 16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            fill="none"
+            height="16"
+            width="16"
+          />
+          <path
+            d="M6.488-7.375l3.366-3.366a.5.5,0,0,0,0-.706l-.782-.782a.5.5,0,0,0-.706,0L5-8.862,1.634-12.229a.5.5,0,0,0-.706,0l-.782.782a.5.5,0,0,0,0,.706L3.513-7.375.146-4.009a.5.5,0,0,0,0,.706l.782.782a.5.5,0,0,0,.706,0L5-5.887,8.366-2.521a.5.5,0,0,0,.706,0L9.854-3.3a.5.5,0,0,0,0-.706Z"
+            fill="currentColor"
+            transform="translate(3 15.375)"
+          />
+        </svg>
+      </span>
+    </button>
+    <div
+      class="eg-chip__label"
+      title="This is a chip"
+    >
+      This is a chip
+    </div>
+  </div>
+</div>
+`;

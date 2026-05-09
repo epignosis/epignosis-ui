@@ -1,0 +1,32 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Button /> > matches snapshot 1`] = `
+<div>
+  <button
+    class="eg-button eg-button--solid eg-button--primary eg-button--md css-1l60gew"
+    type="button"
+  >
+    <span
+      class="eg-button__text"
+    >
+      Test button
+    </span>
+  </button>
+</div>
+`;
+
+exports[`<Button /> > matches snapshot with all props 1`] = `
+<div>
+  <button
+    class="eg-button eg-button--solid eg-button--primary eg-button--lg eg-button--block eg-button--no-gutters eg-button--rounded eg-button--active my-class css-1pt2n3b"
+    id="my-button"
+    type="button"
+  >
+    <span
+      class="eg-button__text"
+    >
+      Test button
+    </span>
+  </button>
+</div>
+`;

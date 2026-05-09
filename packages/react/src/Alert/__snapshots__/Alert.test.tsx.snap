@@ -1,0 +1,104 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Alert> > matches snapshot 1`] = `
+<div>
+  <div
+    class="eg-alert eg-alert--info my-class css-zfk9hh"
+    id="alert"
+  >
+    <svg
+      class="eg-alert__icon"
+      data-testid="icon"
+      height="56"
+      viewBox="0 0 32 32"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        id="ic_info"
+        transform="translate(-1529 -630)"
+      >
+        <rect
+          data-name="Rectangle 1744"
+          fill="none"
+          height="32"
+          id="Rectangle_1744"
+          transform="translate(1529 630)"
+          width="32"
+        />
+        <path
+          d="M15.447-3.013c-.679-.73-1.95-1.828-1.95-5.424A5.552,5.552,0,0,0,9-13.892v-.733A1.125,1.125,0,0,0,7.875-15.75a1.125,1.125,0,0,0-1.124,1.125v.733a5.552,5.552,0,0,0-4.5,5.455c0,3.6-1.271,4.694-1.95,5.424A1.1,1.1,0,0,0,0-2.25,1.126,1.126,0,0,0,1.129-1.125H14.621A1.126,1.126,0,0,0,15.75-2.25,1.1,1.1,0,0,0,15.447-3.013Zm-13.073.2a8.8,8.8,0,0,0,1.565-5.6c0-.007,0-.013,0-.02a3.937,3.937,0,0,1,3.938-3.937,3.937,3.937,0,0,1,3.938,3.938c0,.007,0,.013,0,.02a8.8,8.8,0,0,0,1.565,5.6Zm5.5,5.063A2.25,2.25,0,0,0,10.124,0h-4.5A2.25,2.25,0,0,0,7.875,2.25Z"
+          data-name="Path 2646"
+          fill="currentColor"
+          id="Path_2646"
+          transform="translate(1537 653)"
+        />
+      </g>
+    </svg>
+    <article
+      class="eg-alert__body"
+    >
+      <h3>
+        Welcome
+      </h3>
+      <p>
+        My content!
+      </p>
+    </article>
+  </div>
+</div>
+`;
+
+exports[`<Alert> > matches snapshot with custom icon 1`] = `
+<div>
+  <div
+    class="eg-alert eg-alert--info css-zfk9hh"
+  >
+    <svg
+      class="eg-alert__icon"
+      data-name="Layer 2"
+      data-testid="icon"
+      height="56"
+      id="Layer_2"
+      viewBox="0 0 32 32"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <style>
+          
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: currentcolor;
+      }
+    
+        </style>
+      </defs>
+      <g
+        data-name="Layer 1"
+        id="Layer_1-2"
+      >
+        <g>
+          <rect
+            class="cls-1"
+            height="32"
+            width="32"
+          />
+          <path
+            class="cls-2"
+            d="M13.75,10h4.5v-1.25c0-.41,.33-.75,.75-.75s.75,.34,.75,.75v1.25h1.25c1.1,0,2,.9,2,2v10c0,1.1-.9,2-2,2H11c-1.1,0-2-.9-2-2V12c0-1.1,.9-2,2-2h1.25v-1.25c0-.41,.33-.75,.75-.75s.75,.34,.75,.75v1.25Zm-3.25,5.75h2.5v-1.75h-2.5v1.75Zm0,1.5v2h2.5v-2h-2.5Zm4,0v2h3v-2h-3Zm4.5,0v2h2.5v-2h-2.5Zm2.5-3.25h-2.5v1.75h2.5v-1.75Zm0,6.75h-2.5v1.75h2c.27,0,.5-.23,.5-.5v-1.25Zm-4,0h-3v1.75h3v-1.75Zm-4.5,0h-2.5v1.25c0,.27,.22,.5,.5,.5h2v-1.75Zm4.5-6.75h-3v1.75h3v-1.75Z"
+          />
+        </g>
+      </g>
+    </svg>
+    <article
+      class="eg-alert__body"
+    >
+      <p>
+        My content!
+      </p>
+    </article>
+  </div>
+</div>
+`;

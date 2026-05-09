@@ -1,0 +1,47 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Badge /> > matches snapshot with badge content 1`] = `
+<div>
+  <div
+    class="eg-badge eg-badge--md eg-badge--has-content css-7r7opu"
+  >
+    <span
+      class="eg-badge__indicator my-class"
+      id="my-id"
+    >
+      5
+    </span>
+    Messages
+  </div>
+</div>
+`;
+
+exports[`<Badge /> > matches snapshot with pulse animation 1`] = `
+<div>
+  <div
+    class="eg-badge eg-badge--md eg-badge--has-content css-7r7opu"
+  >
+    <span
+      class="eg-badge__indicator eg-badge__indicator--pulse my-class"
+      id="my-id"
+    >
+      5
+    </span>
+    Messages
+  </div>
+</div>
+`;
+
+exports[`<Badge /> > matches snapshot without badge content 1`] = `
+<div>
+  <div
+    class="eg-badge eg-badge--md css-7r7opu"
+  >
+    <span
+      class="eg-badge__indicator my-class"
+      id="my-id"
+    />
+    Messages
+  </div>
+</div>
+`;

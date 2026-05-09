@@ -1,0 +1,14 @@
+{
+  "name": "@epignosis_llc/ui-storybook",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "storybook": "storybook dev -p 6010",
+    "build-storybook": "storybook build --output-dir storybook-static",
+    "assemble": "node scripts/assemble.mjs"
+  },
+  "devDependencies": {
+    "@storybook/html-vite": "^10.2.0",
+    "storybook": "^10.2.0"
+  }
+}

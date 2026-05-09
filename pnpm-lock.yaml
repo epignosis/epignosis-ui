@@ -151,6 +151,15 @@ importers:
         specifier: ^4.1.5
         version: 4.1.5(@types/node@20.19.39)(jsdom@29.1.1)(vite@8.0.10(@types/node@20.19.39)(esbuild@0.27.7))
 
+  packages/storybook:
+    devDependencies:
+      '@storybook/html-vite':
+        specifier: ^10.2.0
+        version: 10.3.6(esbuild@0.27.7)(rollup@4.60.2)(storybook@10.3.5(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(vite@8.0.10(@types/node@20.19.39)(esbuild@0.27.7))
+      storybook:
+        specifier: ^10.2.0
+        version: 10.3.5(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+
   packages/tokens:
     devDependencies:
       '@storybook/html-vite':

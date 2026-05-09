@@ -1,5 +1,11 @@
 # @epignosis_llc/ui-icons
 
+## 0.2.1
+
+### Patch Changes
+
+- [`cc32acd`](https://github.com/epignosis/epignosis-ui/commit/cc32acddc3d8fb4602c6a6ba3220bb16d78647be) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - readme update
+
 ## 0.2.0
 
 ### Minor Changes

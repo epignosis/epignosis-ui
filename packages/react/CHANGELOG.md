@@ -1,5 +1,12 @@
 # @epignosis_llc/ui-react
 
+## 1.8.1
+
+### Patch Changes
+
+- Updated dependencies [[`cc32acd`](https://github.com/epignosis/epignosis-ui/commit/cc32acddc3d8fb4602c6a6ba3220bb16d78647be)]:
+  - @epignosis_llc/ui-icons@0.2.1
+
 ## 1.8.0
 
 ### Minor Changes

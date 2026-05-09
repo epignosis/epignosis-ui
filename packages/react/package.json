@@ -58,8 +58,10 @@
   "dependencies": {
     "@epignosis_llc/ui-icons": "workspace:*",
     "@epignosis_llc/ui-tokens": "workspace:*",
+    "@tippyjs/react": "^4.2.6",
     "clsx": "^2.1.1",
-    "react-spinners": "^0.14.0"
+    "react-spinners": "^0.14.0",
+    "tippy.js": "^6.3.7"
   },
   "devDependencies": {
     "@emotion/react": "^11.11.0",

@@ -1,5 +1,11 @@
 # @epignosis_llc/ui-tokens
 
+## 1.1.1
+
+### Patch Changes
+
+- [`d56a5c0`](https://github.com/epignosis/epignosis-ui/commit/d56a5c00e5c5bbba954449d4a0e81a8fd423d8a5) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - various
+
 ## 1.1.0
 
 ### Minor Changes

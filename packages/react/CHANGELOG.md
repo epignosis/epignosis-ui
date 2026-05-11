@@ -1,5 +1,11 @@
 # @epignosis_llc/ui-react
 
+## 1.8.5
+
+### Patch Changes
+
+- [`d35ba68`](https://github.com/epignosis/epignosis-ui/commit/d35ba68b0a7e4b7ac5233d898cefbaaa968917bc) Thanks [@xanderantoniadis](https://github.com/xanderantoniadis)! - Introduce tooltip icon in react and hub page.
+
 ## 1.8.4
 
 ### Patch Changes

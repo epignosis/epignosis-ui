@@ -35,14 +35,14 @@ src/Tooltip/
 
 `TooltipProps` extends `TippyProps` from `@tippyjs/react` and adds:
 
-| Prop | Type | Default | Notes |
-|---|---|---|---|
-| `content` | `TippyProps["content"]` | required | The tooltip panel content |
-| `as` | element tag union (see below) | `"div"` | Wrapper tag around children |
-| `parentProps` | `object` | `undefined` | Props spread onto the wrapper tag |
-| `maxWidth` | `number` | `350` | Max width of the tooltip panel in px |
-| `showArrow` | `boolean` | `true` | Whether to render the arrow |
-| `borderColor` | `string` | `undefined` | Overrides `theme.tooltip.border` |
+| Prop          | Type                          | Default     | Notes                                |
+| ------------- | ----------------------------- | ----------- | ------------------------------------ |
+| `content`     | `TippyProps["content"]`       | required    | The tooltip panel content            |
+| `as`          | element tag union (see below) | `"div"`     | Wrapper tag around children          |
+| `parentProps` | `object`                      | `undefined` | Props spread onto the wrapper tag    |
+| `maxWidth`    | `number`                      | `350`       | Max width of the tooltip panel in px |
+| `showArrow`   | `boolean`                     | `true`      | Whether to render the arrow          |
+| `borderColor` | `string`                      | `undefined` | Overrides `theme.tooltip.border`     |
 
 `as` accepts: `"div" | "span" | "li" | "section" | "article" | "header" | "footer" | "nav" | "aside" | "main" | "ul" | "ol" | "table" | "tbody" | "thead" | "tfoot" | "tr" | "td" | "th" | "figure" | "figcaption" | "form" | "fieldset"`.
 
@@ -137,12 +137,7 @@ export type DropdownItem = {
   divider?: boolean;
 };
 
-export type PlacementOptions =
-  | "bottom-start"
-  | "bottom-end"
-  | "top-start"
-  | "top-end"
-  | "end-top";
+export type PlacementOptions = "bottom-start" | "bottom-end" | "top-start" | "top-end" | "end-top";
 
 export type DropdownProps = HTMLAttributes<HTMLDivElement> & {
   list: DropdownItem[];
@@ -171,10 +166,7 @@ Replaces `ahooks` `useClickAway`. Attaches a `mousedown` listener on `document`;
 ```ts
 import { useEffect, type RefObject } from "react";
 
-export function useClickAway<T extends HTMLElement>(
-  ref: RefObject<T>,
-  handler: () => void,
-): void {
+export function useClickAway<T extends HTMLElement>(ref: RefObject<T>, handler: () => void): void {
   useEffect(() => {
     const listener = (e: MouseEvent) => {
       if (!ref.current || ref.current.contains(e.target as Node)) return;
@@ -189,6 +181,7 @@ export function useClickAway<T extends HTMLElement>(
 ### Helpers (`helpers.ts`)
 
 Direct port from gnosis — no changes:
+
 - `filterListByKeyword(list, keyword)` — recursive label/originalText filter
 - `getScrollableParent(node)` — walks up the DOM for an overflow-scrollable ancestor
 - `getInlinePaddingStart(level, isSearchable)` — computes inline padding for nested levels
@@ -209,17 +202,17 @@ All props match gnosis exactly. Key adaptations:
 
 ### BEM class names
 
-| Class | Element |
-|---|---|
-| `eg-dropdown` | root wrapper |
-| `eg-dropdown__button` | trigger wrapper (`is-active` modifier when open) |
-| `eg-dropdown__wrapper` | floating panel (placement modifier: `bottom-start` etc.) |
-| `eg-dropdown__list` | `<ul>` |
-| `eg-dropdown__list-item` | `<li>` leaf item |
-| `eg-dropdown__list-item-title` | `<li>` group heading |
-| `eg-dropdown__empty-state` | empty state `<li>` |
-| `eg-dropdown__divider` | divider `<div>` |
-| `eg-dropdown__search` | search `<input>` |
+| Class                          | Element                                                  |
+| ------------------------------ | -------------------------------------------------------- |
+| `eg-dropdown`                  | root wrapper                                             |
+| `eg-dropdown__button`          | trigger wrapper (`is-active` modifier when open)         |
+| `eg-dropdown__wrapper`         | floating panel (placement modifier: `bottom-start` etc.) |
+| `eg-dropdown__list`            | `<ul>`                                                   |
+| `eg-dropdown__list-item`       | `<li>` leaf item                                         |
+| `eg-dropdown__list-item-title` | `<li>` group heading                                     |
+| `eg-dropdown__empty-state`     | empty state `<li>`                                       |
+| `eg-dropdown__divider`         | divider `<div>`                                          |
+| `eg-dropdown__search`          | search `<input>`                                         |
 
 ### Theme slice
 
